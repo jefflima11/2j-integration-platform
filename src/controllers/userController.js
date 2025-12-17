@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { getConnection } from '../database/connection.js';
-import { allUsers as allUsersModel } from '../models/userModel.js';
+import { allUsers as allUsersModel, alterPassword as alterPasswordModel } from '../models/userModel.js';
 
 
 export async function newUser(req, res) {
@@ -50,6 +50,17 @@ export async function allUsers(req, res) {
         res.json(users);
     } catch (err) {
         res.json(err)
+    }
+};
+
+export async function alterPassword(req, res) {
+    const { username, newPassword } = req.body;
+
+    try {
+        const alteredPassword = await alterPasswordModel(username, newPassword);
+        res.json(alteredPassword);
+    } catch (err) {
+        res.json(err);
     }
 };
 

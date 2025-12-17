@@ -10,3 +10,15 @@ export const allUsers = `SELECT
     DECODE(ROLE, 'N', 'Normal', 'A', 'Administrador', 'L', 'Concierge') ROLE
     FROM DBAHUMS.USERS
 `;
+
+export const checkUserExistence = `SELECT CD_USUARIO
+    FROM DBAHUMS.USERS
+    WHERE CD_USUARIO = :username
+`;
+
+export const updatePasswordQuerie = `UPDATE DBAHUMS.USERS
+    SET 
+    PASSWORD = :hashedPassword,
+    UPDATED_AT = SYSDATE
+    WHERE CD_USUARIO = :username
+`;
