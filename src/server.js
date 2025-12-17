@@ -1,10 +1,12 @@
 import app from './app.js';
 import { initDB, closeDB } from './database/connection.js';
+import { verifica_tabelas } from './services/tableServices.js'
 
-const PORT = process.env.PORT || 4010;
+const PORT = process.env.PORT || 4020;
 
 app.listen(PORT, async () => {
     await initDB();
+    await verifica_tabelas();
     console.log(`Server is running on port ${PORT}`);
 });
 

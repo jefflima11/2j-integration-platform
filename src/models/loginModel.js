@@ -5,7 +5,7 @@ import { loginQuerie } from '../queries/loginQuerie.js';
 
 export async function login(username, password) {
     if (!username || !password) {
-        throw new Error('Username and password are required');
+        throw new Error('Usuário e senha são obrigatorios!');
     }
 
     const connection = await getConnection();
@@ -13,13 +13,13 @@ export async function login(username, password) {
     try {
         const user = await connection.execute(loginQuerie, { username })
 
-        if (user.rows.lenght === 0) {
+        if (user.rows.length === 0) {
             throw new Error({ message: 'Usuário não encontrado! '});
         }
 
-        const [cd_usuario, hashedPassword, role] = result.rows[0];
+        const [cd_usuario, hashedPassword, role] = user.rows[0];
 
-        const valid = await bcrypt.comparare(password, hashedPassword);
+        const valid = await bcrypt.compare(password, hashedPassword);
         if (!valid) {
             throw new Error({ message: 'Senha incorreta!' });
         }

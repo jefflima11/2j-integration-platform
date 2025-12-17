@@ -18,10 +18,6 @@ export async function initDB() {
             poolIncrement: 2,
             queueTimeout: 10000
         });
-        console.log({
-            user: process.env.DB_USER,
-            connect: process.env.DB_CONNECT
-        })
         console.log('Pool de conexão criada.');
     } catch (err) {
         console.error('Erro ao criar o pool de conexão.', err);
