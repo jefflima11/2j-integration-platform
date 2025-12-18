@@ -22,3 +22,12 @@ export const updatePasswordQuerie = `UPDATE DBAHUMS.USERS
     UPDATED_AT = SYSDATE
     WHERE CD_USUARIO = :username
 `;
+
+export const inactiveFilter = `AND INATIVATED_AT IS NOT NULL`;
+
+export const inactiveUser = `UPDATE DBAHUMS.USERS
+    SET 
+    INATIVATED_AT = SYSDATE,
+    UPDATED_AT = SYSDATE
+    WHERE CD_USUARIO = :userName
+`;

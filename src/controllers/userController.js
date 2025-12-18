@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { getConnection } from '../database/connection.js';
-import { allUsers as allUsersModel, alterPassword as alterPasswordModel } from '../models/userModel.js';
+import { allUsers as allUsersModel, alterPassword as alterPasswordModel, inactivateUser as inactivateUserModel } from '../models/userModel.js';
 
 
 export async function newUser(req, res) {
@@ -62,6 +62,17 @@ export async function alterPassword(req, res) {
     } catch (err) {
         res.json(err);
     }
+};
+
+export async function inactivateUser(req, res) {
+    const { username } = req.params;
+    
+    try {
+       const inactivatedUser = await inactivateUserModel(username);
+       res.status(200).json(inactivatedUser);
+    } catch (err) {
+        res.json(err);
+    };
 };
 
 export default { newUser };
