@@ -65,20 +65,6 @@ export const bodyQueryProducts = `
                 and p.sn_movimentacao = 'S'
 `;
 
-export const updateProducts = `
-    UPDATE 
-        DBAHUMS.PADRONIZA_PRODUTOS_HUMS
-    SET 
-        SN_BLOQUEIO_DE_COMPRA = :bloqueio,
-        SN_PADRONIZADO = :padronizado,
-        SN_CONTROLADO = :controlado,
-        DT_ALTERACAO = SYSDATE,
-        DS_OBSERVACAO = :observacao,
-        CD_USUARIO = USER
-    WHERE 
-        CD_PRODUTO = :produto
-`;
-
 export const orderByProducts = `
     ORDER BY 3,4
 `;
@@ -115,3 +101,13 @@ export const insertDumpQuery= `
                 CD_USUARIO
         )
 `;
+
+export const updateProducts = `
+          UPDATE DBAHUMS.PAD_PRO_HUMS
+          SET
+            ${campos.join(", ")},
+            DT_ALTERACAO = SYSDATE,
+            CD_USUARIO = USER
+          WHERE
+            CD_PRODUTO = :produto
+        `;

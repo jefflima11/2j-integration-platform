@@ -1,5 +1,5 @@
 import { getConnection} from "../database/connection.js";
-import { getAllProducts as getAllProductsQuery, dumpAllProducts as dumpAllProductsQuery, bodyQueryProducts, updateProducts as updateProductsQuery, allProductsDumped, insertDumpQuery } from "../queries/productSql.js";
+import { dumpAllProducts as dumpAllProductsQuery, bodyQueryProducts, updateProducts as updateProductsQuery, allProductsDumped, insertDumpQuery } from "../queries/productSql.js";
 import oracledb from 'oracledb';
 
 export async function getAllProducts() {
@@ -31,7 +31,7 @@ export async function dumpAllProducts() {
 };
 
 export async function updateProducts(products) {
-  const con = await getConnection();
+  const connection = await getConnection();
 
   try {
 
@@ -60,23 +60,14 @@ export async function updateProducts(products) {
           binds.observacao = p.observacao;
         }
 
-        const sql = `
-          UPDATE DBAHUMS.PAD_PRO_HUMS
-          SET
-            ${campos.join(", ")},
-            DT_ALTERACAO = SYSDATE,
-            CD_USUARIO = USER
-          WHERE
-            CD_PRODUTO = :produto
-        `;
+    
 
-        await con.execute(sql, binds);
+        await connection.execute(sql, binds, { autoCommit: true });
       }
-      await con.commit();
   
-    } catch (error) {
-      console.error("Erro ao atualizar produtos:", error.message);
-    }
+    } catch (err) {
+      return err;
+    };
 
     try {
       await con.execute(`INSERT INTO dbahums.HIST_PAD_PRO_HUMS (

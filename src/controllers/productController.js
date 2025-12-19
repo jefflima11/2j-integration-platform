@@ -19,8 +19,9 @@ export async function dumpAllProducts(req, res) {
 }
 
 export async function updateProducts(req, res) {
+    const products  = req.body;
+    
     try {
-        const products  = req.body;
         const updatedProducts = await updateProductsModel(products);
         res.status(200).json(updatedProducts);
     } catch (error) {
