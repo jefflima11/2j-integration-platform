@@ -103,11 +103,75 @@ export const insertDumpQuery= `
 `;
 
 export const updateProducts = `
-          UPDATE DBAHUMS.PAD_PRO_HUMS
-          SET
-            ${campos.join(", ")},
-            DT_ALTERACAO = SYSDATE,
-            CD_USUARIO = USER
-          WHERE
-            CD_PRODUTO = :produto
-        `;
+  UPDATE DBAHUMS.PAD_PRO_HUMS
+  SET
+    /*CAMPOS_DINAMICOS*/
+    , DT_ALTERACAO = SYSDATE
+    , CD_USUARIO = USER
+  WHERE
+    CD_PRODUTO = :produto
+`;
+
+export const insertHistoricalQuery = `
+  INSERT INTO dbahums.HIST_PAD_PRO_HUMS (
+    CD_HIS_PAD_PRO,
+    DT_HIST_PAD_PRO,
+    CD_USUARIO
+  )
+  VALUES (
+    dbahums.SEQ_HIS_PAD_PRO_HUMS.NEXTVAL,
+    SYSDATE,
+    USER
+  )`;
+
+export const historicalProductsQuery = `
+SELECT
+  HPD.CD_HIS_PAD_PRO AS CD_HISTORICO,
+  TO_CHAR(DT_HIST_PAD_PRO, 'DD/MM/YYYY HH24:MI:SS') AS DT_HISTORICO,
+  CD_USUARIO,
+  QTD
+FROM 
+  DBAHUMS.HIST_PAD_PRO_HUMS HPD
+  Inner Join (
+        Select
+        Count(*) QTD,
+        CD_HIS_PAD_PRO
+        From
+        DBAHUMS.ITHIST_PAD_PRO_HUMS
+        Group By CD_HIS_PAD_PRO
+  ) F On HPD.CD_HIS_PAD_PRO = F.CD_HIS_PAD_PRO
+ORDER BY HPD.CD_HIS_PAD_PRO DESC`;
+
+export const detailedHistoricalProductsQuery = `
+Select
+        IH.CD_HIS_PAD_PRO,
+        IH.CD_PRODUTO,
+        P.DS_PRODUTO,
+        Decode(IH.SN_PAD_ANTIGO, 'S', 'SIM', 'N', 'NAO', IH.SN_PAD_ANTIGO) PAD_ANTERIOR,
+        Decode(IH.SN_PAD_ATUAL, 'S', 'SIM', 'N', 'NAO', IH.SN_PAD_ATUAL) PAD_SUGERIDO
+From
+        DBAHUMS.ITHIST_PAD_PRO_HUMS IH
+        Inner Join DBAMV.PRODUTO P On IH.CD_PRODUTO = P.CD_PRODUTO
+Where
+        IH.CD_HIS_PAD_PRO = :id`;
+
+export const headerHistoricalProductsQuery = `
+SELECT
+  HPD.CD_HIS_PAD_PRO AS CD_HISTORICO,
+  TO_CHAR(DT_HIST_PAD_PRO, 'DD/MM/YYYY HH24:MI:SS') AS DT_HISTORICO,
+  CD_USUARIO,
+  QTD
+FROM 
+  DBAHUMS.HIST_PAD_PRO_HUMS HPD
+  Inner Join (
+        Select
+        Count(*) QTD,
+        CD_HIS_PAD_PRO
+        From
+        DBAHUMS.ITHIST_PAD_PRO_HUMS
+        Group By CD_HIS_PAD_PRO
+  ) F On HPD.CD_HIS_PAD_PRO = F.CD_HIS_PAD_PRO
+WHERE
+  HPD.CD_HIS_PAD_PRO = :id
+ORDER BY HPD.CD_HIS_PAD_PRO DESC
+`;        

@@ -1,23 +1,23 @@
 import { getConnection} from "../database/connection.js";
-import { dumpAllProducts as dumpAllProductsQuery, bodyQueryProducts, updateProducts as updateProductsQuery, allProductsDumped, insertDumpQuery } from "../queries/productSql.js";
+import { dumpAllProducts as dumpAllProductsQuery, bodyQueryProducts, updateProducts as updateProductsQuery, allProductsDumped, insertDumpQuery, insertHistoricalQuery, historicalProductsQuery, detailedHistoricalProductsQuery, headerHistoricalProductsQuery } from "../queries/productSql.js";
 import oracledb from 'oracledb';
 
 export async function getAllProducts() {
-    const conn = await getConnection();
+    const connection = await getConnection();
 
     try {
         const r = await conn.execute(allProductsDumped,{}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
         return r.rows;
     } finally {
-        await conn.close();
+        await connection.close();
     };
 };
 
 export async function dumpAllProducts() {
-    const con = await getConnection();
+    const connection = await getConnection();
 
     try {
-        await con.execute('DELETE FROM DBAHUMS.PAD_PRO_HUMS', {}, { autoCommit: true });
+        await connection.execute('DELETE FROM DBAHUMS.PAD_PRO_HUMS', {}, { autoCommit: true });
     } catch (error) {
         console.error("Erro ao tentar limpar tabela de dump:", error.message);
     }
@@ -34,105 +34,86 @@ export async function updateProducts(products) {
   const connection = await getConnection();
 
   try {
-
     try {
       for (const p of products) {
         const campos = [];
         const binds = { produto: p.produto };
-
+        
         if (p.bloqueio !== undefined) {
           campos.push("SN_BLO_COM = :bloqueio");
           binds.bloqueio = p.bloqueio;
         }
-
+        
         if (p.padronizado !== undefined) {
           campos.push("SN_PADRONIZADO = :padronizado");
           binds.padronizado = p.padronizado;
         }
-
+        
         if (p.controlado !== undefined) {
           campos.push("SN_CONTROLADO = :controlado");
           binds.controlado = p.controlado;
         }
-
+        
         if (p.observacao !== undefined) {
           campos.push("DS_OBSERVACAO = :observacao");
           binds.observacao = p.observacao;
         }
+        
+        if (campos.length === 0) {
+          continue;
+        }
+        
+        const sqlFinal = updateProductsQuery.replace(
+          "/*CAMPOS_DINAMICOS*/",
+          campos.join(", ")
+        );
 
-    
-
-        await connection.execute(sql, binds, { autoCommit: true });
-      }
+        await connection.execute(sqlFinal, binds, { autoCommit: true });
+      };
   
     } catch (err) {
       return err;
     };
 
     try {
-      await con.execute(`INSERT INTO dbahums.HIST_PAD_PRO_HUMS (
-                            CD_HIS_PAD_PRO,
-                            DT_HIST_PAD_PRO,
-                            CD_USUARIO
-                          )
-                          VALUES (
-                            dbahums.SEQ_HIS_PAD_PRO_HUMS.NEXTVAL,
-                            SYSDATE,
-                            USER
-                          )`, {}, { autoCommit: true });
+      await connection.execute(insertHistoricalQuery, {}, { autoCommit: true });
     } catch (error) {
       console.error("Erro ao commitar transação:", error.message);
     }
 
+    return ({ message: 'Produtos atualizados com sucesso!', productsUpdated: products.length });
+
   } finally {
-    await con.close();
+    await connection.close();
   };
 
 };
 
 export async function getHistoricalProducts() {
-    const conn = await getConnection();
+    const connection = await getConnection();
 
     try {
-        const query_complete = `SELECT
-                                    HPD.CD_HIS_PAD_PRO AS codigo_historico,
-                                    TO_CHAR(DT_HIST_PAD_PRO, 'DD/MM/YYYY HH24:MI:SS') AS data_historico,
-                                    CD_USUARIO AS usuario,
-                                    QTD
-                                FROM DBAHUMS.HIST_PAD_PRO_HUMS HPD
-                                    Inner Join (
-                                            Select
-                                                Count(*) QTD,
-                                                CD_HIS_PAD_PRO
-                                            From
-                                                DBAHUMS.ITHIST_PAD_PRO_HUMS
-                                            Group By CD_HIS_PAD_PRO
-                                    ) F On HPD.CD_HIS_PAD_PRO = F.CD_HIS_PAD_PRO
-                                ORDER BY HPD.CD_HIS_PAD_PRO DESC`;
-        const r = await conn.execute(query_complete,{}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
-        return r.rows;
+      const historicalProducts = await connection.execute(historicalProductsQuery,{}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+      return historicalProducts.rows;
     } finally {
-        await conn.close();
+      await connection.close();
     };
 }
 
 export async function getDetailedHistoricalProducts(id) {
-    const conn = await getConnection();
+    const connection = await getConnection();
     try {
-        const query_complete = `Select
-                                  IH.CD_HIS_PAD_PRO,
-                                  IH.CD_PRODUTO,
-                                  P.DS_PRODUTO,
-                                  Decode(IH.SN_PAD_ANTIGO, 'S', 'SIM', 'N', 'NAO', IH.SN_PAD_ANTIGO) PAD_ANTERIOR,
-                                  Decode(IH.SN_PAD_ATUAL, 'S', 'SIM', 'N', 'NAO', IH.SN_PAD_ATUAL) PAD_SUGERIDO
-                                From
-                                  DBAHUMS.ITHIST_PAD_PRO_HUMS IH
-                                  Inner Join DBAMV.PRODUTO P On IH.CD_PRODUTO = P.CD_PRODUTO
-                                Where
-                                  IH.CD_HIS_PAD_PRO = :id`;
-        const r = await conn.execute(query_complete,{'id': id}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
-        return r.rows;
+      const headerHistoricalProducts = await connection.execute(headerHistoricalProductsQuery,{id}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+      
+      const detailedHistoricalProducts = await connection.execute(detailedHistoricalProductsQuery,{id}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+
+      const teste = ({
+        header: headerHistoricalProducts.rows,
+        records: detailedHistoricalProducts.rows
+      });
+
+      return teste;
     } finally {
-        await conn.close();
+      await connection.close();
     };
 }
