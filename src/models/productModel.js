@@ -6,7 +6,7 @@ export async function getAllProducts() {
     const connection = await getConnection();
 
     try {
-        const r = await conn.execute(allProductsDumped,{}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        const r = await connection.execute(allProductsDumped,{}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
         return r.rows;
     } finally {
         await connection.close();

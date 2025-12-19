@@ -144,7 +144,6 @@ ORDER BY HPD.CD_HIS_PAD_PRO DESC`;
 
 export const detailedHistoricalProductsQuery = `
 Select
-        IH.CD_HIS_PAD_PRO,
         IH.CD_PRODUTO,
         P.DS_PRODUTO,
         Decode(IH.SN_PAD_ANTIGO, 'S', 'SIM', 'N', 'NAO', IH.SN_PAD_ANTIGO) PAD_ANTERIOR,

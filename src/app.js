@@ -4,9 +4,7 @@ import cors from 'cors';
 
 const app = express();
 
-app.use(cors({
-    origin: '192.168.10.36:5173'
-}));
+app.use(cors());
 
 app.use(express.json());
 
