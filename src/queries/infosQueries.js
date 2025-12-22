@@ -1,0 +1,1 @@
+export const infosQueries = `Select Substr(ds_multi_empresa,6) ds_empresa From dbamv.multi_empresas Where cd_multi_empresa = 1`;
