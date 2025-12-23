@@ -93,3 +93,76 @@ export const waitingConfirmationQuery = `Select
                     And dt_cancelamento Is Null
                     And dt_hr_ini_pos_higieniza Is not Null
 `;
+
+export const startCleaningQuery = `UPDATE dbamv.solic_limpeza
+                SET DT_INICIO_HIGIENIZA = sysdate,
+                    HR_INICIO_HIGIENIZA = sysdate,
+                    DT_HR_FIM_AG_HIGIENIZA = sysdate,
+                    DT_HR_INI_ROUPARIA = sysdate,
+                    DT_HR_FIM_ROUPARIA = sysdate
+                WHERE
+                    cd_solic_limpeza = :request
+`; 
+
+export const verifyRequestQuery = `Select 
+                dt_inicio_higieniza,
+                dt_hr_ini_rouparia,
+                dt_hr_ini_pos_higieniza
+            From
+                dbamv.solic_limpeza
+            where
+                cd_solic_limpeza = :request
+`;
+
+export const updateAfterCleaningQuery = `UPDATE 
+                    dbamv.solic_limpeza
+                SET DT_HR_FIM_HIGIENIZA = sysdate,
+                    DT_HR_INI_POS_HIGIENIZA = sysdate
+                WHERE
+                    cd_solic_limpeza = :request
+`;
+
+export const requestCompleteQuery = `SELECT 
+                    sn_realizado 
+                FROM 
+                    dbamv.solic_limpeza 
+                WHERE 
+                    cd_solic_limpeza = :request
+`;
+
+export const checkEmployeeQuery = `SELECT 
+                    1
+                FROM
+                    dbamv.funcionario f
+                    Inner join dbamv.func_espec fe on f.cd_func = fe.cd_func
+                WHERE
+                    f.cd_func = :employee
+                    and fe.cd_espec = 40
+`;
+
+export const confirmationRequestQuery = `UPDATE 
+                    dbamv.solic_limpeza
+                SET 
+                    DT_REALIZADO = sysdate,
+                    HR_REALIZADO = sysdate,
+                    DT_HR_FIM_POS_HIGIENIZA = sysdate,
+                    SN_REALIZADO = 'S',
+                    CD_FUNC = :employee,
+                    DS_OBSERVACAO = :observation
+                WHERE
+                    cd_solic_limpeza = :request
+`;
+
+export const refuseCleanRequestQuery = `UPDATE 
+                    dbamv.solic_limpeza
+                SET DT_INICIO_HIGIENIZA = null,
+                    HR_INICIO_HIGIENIZA = null,
+                    DT_HR_FIM_AG_HIGIENIZA = null,
+                    DT_HR_INI_ROUPARIA = null,
+                    DT_HR_FIM_ROUPARIA = null,
+                    DT_HR_FIM_HIGIENIZA = null,
+                    DT_HR_INI_POS_HIGIENIZA = NULL,
+                    DS_OBSERVACAO = null
+                WHERE
+                    cd_solic_limpeza = :request
+`;

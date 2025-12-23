@@ -16,6 +16,6 @@ router.use('/users', authMiddleware, users);
 
 router.use('/products',authMiddleware, product);
 
-router.use('/hospital-beds', hospitalBedsRoute);
+router.use('/hospital-beds', authMiddleware, hospitalBedsRoute);
 
 export default router;
