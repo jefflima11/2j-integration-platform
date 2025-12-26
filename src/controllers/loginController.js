@@ -1,6 +1,6 @@
-import { login as loginModel } from '../models/loginModel.js';
+import { loginModel } from '../models/loginModel.js';
 
-export async function login(req, res) {
+export async function loginController(req, res) {
     const { username, password } = req.body;
 
     try {
@@ -11,4 +11,4 @@ export async function login(req, res) {
     };
 };
 
-export default { login };
+export default { loginController };

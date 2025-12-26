@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt';
 import { getConnection } from '../database/connection.js';
 import { loginQuerie } from '../queries/loginQuerie.js';
 
-export async function login(username, password) {
+export async function loginModel(username, password) {
     if (!username || !password) {
-        throw new Error('Usuário e senha são obrigatorios!');
+        return 'Usuário e senha são obrigatorios!';
     }
 
     const connection = await getConnection();

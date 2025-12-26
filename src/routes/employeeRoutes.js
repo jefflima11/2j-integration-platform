@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { employeeController } from '../controllers/employeeController.js';
+import { authorize } from '../middlewares/authorize.js';
+import { employeesController } from '../controllers/employeesController.js';
 
 const router = Router();
 
-router.get('/employees', employeeController);
+router.get('/all', authorize(['A','L']), employeesController);
 
 export default router;

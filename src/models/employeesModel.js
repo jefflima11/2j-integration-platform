@@ -9,7 +9,7 @@ export async function employeesModel() {
         const {rows: rows} = await connection.execute(getAllEmployeesQuery, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
         return  rows;
     } catch (err) {
-        return [];
+        return err;
     } finally {
         await connection.close();
     };

@@ -75,4 +75,9 @@ export async function inactivateUser(req, res) {
     };
 };
 
-export default { newUser };
+export default { 
+    newUser,
+    allUsers,
+    alterPassword,
+    inactivateUser
+};

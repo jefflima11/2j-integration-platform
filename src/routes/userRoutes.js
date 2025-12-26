@@ -1,16 +1,15 @@
 import { Router } from 'express';
 import { authorize } from "../middlewares/authorize.js"
-import { newUser, allUsers, alterPassword, inactivateUser } from '../controllers/userController.js';
+import userController from '../controllers/userController.js';
 
 
 const router = Router();
 
-router.get('/all', allUsers, authorize(['A','L']))
+router.get('/all', authorize(['A','L']), userController.allUsers)
 
-router.post('/new', newUser, authorize(['A', 'L']));
+router.post('/new', authorize(['A', 'L']), userController.newUser);
 
-router.patch('/alter-password', alterPassword, authorize(['A']));
-
-router.patch('/inactivate/:username', inactivateUser, authorize(['A']));
+router.patch('/alter-password', authorize(['A']), userController.alterPassword);
+router.patch('/inactivate/:username', authorize(['A']), userController.inactivateUser);
 
 export default router;

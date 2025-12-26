@@ -98,7 +98,7 @@ export async function getHistoricalProducts() {
     } finally {
       await connection.close();
     };
-}
+};
 
 export async function getDetailedHistoricalProducts(id) {
     const connection = await getConnection();
@@ -116,4 +116,12 @@ export async function getDetailedHistoricalProducts(id) {
     } finally {
       await connection.close();
     };
-}
+};
+
+export default {
+    getAllProducts,
+    dumpAllProducts,
+    updateProducts,
+    getHistoricalProducts,
+    getDetailedHistoricalProducts
+};
