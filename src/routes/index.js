@@ -9,7 +9,7 @@ import employeesRoute from './employeeRoutes.js';
 
 const router = Router();
 
-router.use('/inf',authMiddleware, infos);
+router.use('/inf', infos);
 
 router.use('/login', loginRoute);
 
