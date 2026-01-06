@@ -6,7 +6,7 @@ import product from './productRoutes.js';
 import infos from './infosRoutes.js';
 import hospitalBedsRoute from './hospitalBedsRoutes.js';
 import employeesRoute from './employeeRoutes.js';
-
+import procedurePricingUpdaterRoutes from './procedurePricingUpdaterRoutes.js';
 const router = Router();
 
 router.use('/inf', infos);
@@ -20,5 +20,7 @@ router.use('/products',authMiddleware, product);
 router.use('/hospital-beds', authMiddleware, hospitalBedsRoute);
 
 router.use('/employees', authMiddleware, employeesRoute);
+
+router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes)
 
 export default router;
