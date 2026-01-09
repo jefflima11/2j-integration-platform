@@ -8,7 +8,7 @@ router.get('/status', hospitalBedsStatusController);
 router.get('/cleaning-request', cleaningRequestController);
 router.get('/request-waiting-confirmation', authorize(['A','L']),waitingConfirmationController);
 
-router.patch('/update-cleaning-request/:request', authorize(['A','L']), updateCleanRequestController);
+router.patch('/update-cleaning-request/:request', authorize(['N','A','L']), updateCleanRequestController);
 router.patch('/confirm-cleaning-request/:request', authorize(['A','L']), confirmCleanRequestController);
 router.patch('/refuse-cleaning-request/:request', authorize(['A','L']), refuseCleanRequestController);
 

@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { getConnection } from '../database/connection.js';
 import { allUsers as allUsersModel, alterPassword as alterPasswordModel, inactivateUser as inactivateUserModel } from '../models/userModel.js';
+import { userQuerie } from '../queries/userQuerie.js';
 
 
 export async function newUser(req, res) {

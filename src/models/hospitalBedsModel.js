@@ -32,7 +32,7 @@ export async function waitingConfirmationModel() {
     const connection = await getConnection();
 
     try {
-        const {rows: [waitingConfirmations]} = await connection.execute(waitingConfirmationQuery, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        const {rows: waitingConfirmations} = await connection.execute(waitingConfirmationQuery, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
         return waitingConfirmations;
     } catch(err) {
         return err;
