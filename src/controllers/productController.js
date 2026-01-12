@@ -23,7 +23,21 @@ export async function updateProducts(req, res) {
     
     try {
         const updatedProducts = await productModel.updateProducts(products);
-        res.status(200).json(updatedProducts);
+
+        if (updatedProducts.rowsAffected === 0) {
+            return res.status(400).json({ message: 'Dados invalidos ou mal formatados' });
+        } else if (updatedProducts.rowsAffected < products.length) {
+            return res.status(206).json({ 
+                message: 'A atualização foi parcial. Nem todos os produtos foram atualizados.', 
+                productsUpdated: updatedProducts.rowsAffected 
+            });
+        } else {
+            return res.status(200).json({
+                message: 'Atualização realizada.',
+                productUpdated: updatedProducts.rowsAffected
+            });
+        }
+
     } catch (error) {
         res.status(500).json({ errorMessage: error.message });
     }

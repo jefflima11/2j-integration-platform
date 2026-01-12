@@ -38,7 +38,12 @@ export async function updateCleanRequestController(req, res) {
 
     try {
         const updateCleaningRequest = await updateCleanRequestModel(request);
-        res.status(200).json({ updateCleaningRequest });
+
+        if (updateCleaningRequest === 'Solicitação não encontrada') {
+            return res.status(404).json({ message: updateCleaningRequest });
+        } else {
+            return res.status(200).json({ updateCleaningRequest });
+        }
     } catch (err) {
         res.status(500).json({ message: 'Internal Server Error' });
     };

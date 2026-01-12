@@ -24,7 +24,7 @@ export async function dumpAllProducts() {
 
     try {
         const query_complete = insertDumpQuery + dumpAllProductsQuery + bodyQueryProducts;
-        await con.execute(query_complete,{}, { autoCommit: true });
+        await connection.execute(query_complete,{}, { autoCommit: true });
     } catch(error) {
         console.error("Erro ao inserir dados na tabela de dump:", error.message);
     }
@@ -68,7 +68,8 @@ export async function updateProducts(products) {
           campos.join(", ")
         );
 
-        await connection.execute(sqlFinal, binds, { autoCommit: true });
+        const r = await connection.execute(sqlFinal, binds, { autoCommit: true });
+        return r;
       };
   
     } catch (err) {
