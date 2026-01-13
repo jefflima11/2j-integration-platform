@@ -1,79 +1,999 @@
 [
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": "DATA",
-    "__EMPTY": "BENEFICIÁRIO",
-    "__EMPTY_1": "ATENDIMENTO",
-    "__EMPTY_2": "NR GUIA",
-    "__EMPTY_3": "INCONCISTENCIA",
-    "__EMPTY_4": "UNIMED",
-    "__EMPTY_5": "ATENDENTE",
-    "__EMPTY_6": "NOVA GUIA",
-    "__EMPTY_7": "Obs:"
+    "Codigo": 127201,
+    "Ticket": "127200-1",
+    "Solicitante": 8211,
+    "Resumo": "Paciente com status de obito",
+    "Data Abertura": 45694.63611111111,
+    "Data Fechamento": 45706.68125,
+    "Categoria": "ASSISTENCIAL"
   },
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": 45729,
-    "__EMPTY": "DJAIR DA COSTA CONCEIÇÃO",
-    "__EMPTY_1": 1418139,
-    "__EMPTY_2": 60104946,
-    "__EMPTY_3": "Correção de campo 24 - regime de internação hospital-dia",
-    "__EMPTY_4": "UNIMED IMPERATRIZ",
-    "__EMPTY_5": "Leticia.HUI",
-    "__EMPTY_6": "?",
-    "__EMPTY_7": "E-MAIL"
+    "Codigo": 151518,
+    "Ticket": "151517-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao chamar paciente no modulo sacr",
+    "Data Abertura": 45731.21944444445,
+    "Data Fechamento": 45743.37291666667,
+    "Categoria": "ASSISTENCIAL"
   },
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": 45729,
-    "__EMPTY": "ANA SOFIA BARRETO",
-    "__EMPTY_1": 1418351,
-    "__EMPTY_2": 60104997,
-    "__EMPTY_3": "Correção de campo 23/24",
-    "__EMPTY_4": "UNIMED IMPERATRIZ",
-    "__EMPTY_5": "Carla.sede",
-    "__EMPTY_6": "?",
-    "__EMPTY_7": "E-MAIL"
+    "Codigo": 152930,
+    "Ticket": "152929-1",
+    "Solicitante": 8207,
+    "Resumo": "Ao tentar realizar agendamento cirúrgico,  o sistema informa o seguinte erro: ORA-00904 \"PRODUTO\".\"SN_ATIVO\";",
+    "Data Abertura": 45734.415972222225,
+    "Data Fechamento": 45751.37013888889,
+    "Categoria": "ASSISTENCIAL"
   },
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": 45729,
-    "__EMPTY": "  ALICE DAMASCENO ALVES",
-    "__EMPTY_1": 1417814,
-    "__EMPTY_2": 60104517,
-    "__EMPTY_3": "Correção de campo 23",
-    "__EMPTY_4": "UNIMED IMPERATRIZ",
-    "__EMPTY_5": "Leticia.HUI",
-    "__EMPTY_6": "?",
-    "__EMPTY_7": "E-MAIL"
+    "Codigo": 155038,
+    "Ticket": "155037-1",
+    "Solicitante": 15373,
+    "Resumo": "Relatório Censo Hospitalar",
+    "Data Abertura": 45736.41736111111,
+    "Data Fechamento": 45881.76111111111,
+    "Categoria": "ASSISTENCIAL"
   },
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": 45733,
-    "__EMPTY": "RN ERIDIANA A. DA SILVA",
-    "__EMPTY_1": 1418756,
-    "__EMPTY_2": 60106245,
-    "__EMPTY_3": "Correção de diária",
-    "__EMPTY_4": "UNIMED IMPERATRIZ",
-    "__EMPTY_5": "Cindy.HUI",
-    "__EMPTY_6": 1767054,
-    "__EMPTY_7": "Complemento de guia"
+    "Codigo": 161802,
+    "Ticket": "161801-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro PL/SQL na triagem",
+    "Data Abertura": 45744.74236111111,
+    "Data Fechamento": 45762.50347222222,
+    "Categoria": "ASSISTENCIAL"
   },
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": 45733,
-    "__EMPTY": "ITALO RYAN A. BEZERRA",
-    "__EMPTY_1": 1418818,
-    "__EMPTY_2": 60105212,
-    "__EMPTY_3": "Correçao de campo 24- Regime de internação e diária hospital-dia",
-    "__EMPTY_4": "UNIMED IMPERATRIZ",
-    "__EMPTY_5": "Leticia.HUI",
-    "__EMPTY_6": "?",
-    "__EMPTY_7": "E-MAIL"
+    "Codigo": 198940,
+    "Ticket": "198939-1",
+    "Solicitante": 8211,
+    "Resumo": "Paramentrização de tela de afericao e avaliação dentro da abordagem inicial - sacr",
+    "Data Abertura": 45800.459027777775,
+    "Data Fechamento": 45811.6875,
+    "Categoria": "ASSISTENCIAL"
   },
   {
-    "                                                                                                          RELATORIO  DE GUIAS REFEITAS / CORRIGIDAS 2025": 45733,
-    "__EMPTY": "BENICIP MARACAIPE GOMES",
-    "__EMPTY_1": 1418822,
-    "__EMPTY_2": 60105477,
-    "__EMPTY_3": "Correçao de campo 24- Regime de internação e diária hospital-dia",
-    "__EMPTY_4": "UNIMED IMPERATRIZ",
-    "__EMPTY_5": "Leticia.HUI",
-    "__EMPTY_6": "?",
-    "__EMPTY_7": "E-MAIL"
+    "Codigo": 293047,
+    "Ticket": "293046-1",
+    "Solicitante": 8211,
+    "Resumo": "Erro no cadastro de exame laboratorial",
+    "Data Abertura": 45926.69861111111,
+    "Data Fechamento": 45943.46666666667,
+    "Categoria": "ASSISTENCIAL"
+  },
+  {
+    "Codigo": 309337,
+    "Ticket": "309334-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao gerar agenda(Agenda gerando  somente um horário)",
+    "Data Abertura": 45946.63125,
+    "Data Fechamento": 45959.35277777778,
+    "Categoria": "ASSISTENCIAL"
+  },
+  {
+    "Codigo": 323331,
+    "Ticket": "323329-1",
+    "Solicitante": 8211,
+    "Resumo": "Dificuldade em criar layout de laudos de exames laboratorias.",
+    "Data Abertura": 45965.57986111111,
+    "Data Fechamento": 45967.39791666667,
+    "Categoria": "ASSISTENCIAL"
+  },
+  {
+    "Codigo": 331015,
+    "Ticket": "331014-1",
+    "Solicitante": 8211,
+    "Resumo": "Escala com problema no limitador de agendamentos",
+    "Data Abertura": 45974.66875,
+    "Data Fechamento": 45978.34375,
+    "Categoria": "ASSISTENCIAL"
+  },
+  {
+    "Codigo": 124904,
+    "Ticket": "124903-1",
+    "Solicitante": 8211,
+    "Resumo": "Travamento e lentidão na aplicação",
+    "Data Abertura": 45692.45625,
+    "Data Fechamento": 45699.37569444445,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 146652,
+    "Ticket": "146651-1",
+    "Solicitante": 8211,
+    "Resumo": "[ERROR] Cannot connect MV License Server",
+    "Data Abertura": 45726.43958333333,
+    "Data Fechamento": 45727.44097222222,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 160455,
+    "Ticket": "160454-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro em relatórios personalizados",
+    "Data Abertura": 45743.481944444444,
+    "Data Fechamento": 45755.75555555556,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 165625,
+    "Ticket": "165624-1",
+    "Solicitante": 8211,
+    "Resumo": "Apos atualização dia 15.03.2025 alguns relatorios estão apresentando erros que antes nao apresentava. Video em anexo com mais detalhes.",
+    "Data Abertura": 45750.71875,
+    "Data Fechamento": 45754.44305555556,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 211829,
+    "Ticket": "211828-1",
+    "Solicitante": 8211,
+    "Resumo": "Problemas ao tentar fazer download de versão no portal",
+    "Data Abertura": 45818.7125,
+    "Data Fechamento": 45821.802083333336,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 215011,
+    "Ticket": "215010-1",
+    "Solicitante": 8211,
+    "Resumo": "Problemas ao abrir telas do módulo Integração",
+    "Data Abertura": 45822.34930555556,
+    "Data Fechamento": 45833.34722222222,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 219050,
+    "Ticket": "219048-1",
+    "Solicitante": 8211,
+    "Resumo": "Problemas ao abrir telas do produto PAGU.",
+    "Data Abertura": 45831.38125,
+    "Data Fechamento": 45846.39027777778,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 295765,
+    "Ticket": "295764-1",
+    "Solicitante": 8211,
+    "Resumo": "Erro na impressão pelo GIW multiempresa",
+    "Data Abertura": 45931.35486111111,
+    "Data Fechamento": 45950.47361111111,
+    "Categoria": "TECNOLOGIA"
+  },
+  {
+    "Codigo": 104392,
+    "Ticket": "104391-1",
+    "Solicitante": 8211,
+    "Resumo": "Extrato bancario e permissões ",
+    "Data Abertura": 45659.67916666667,
+    "Data Fechamento": 45678.441666666666,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 144287,
+    "Ticket": "144286-1",
+    "Solicitante": 8211,
+    "Resumo": "Inconsistência em caixa",
+    "Data Abertura": 45721.62152777778,
+    "Data Fechamento": 45755.44861111111,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 151834,
+    "Ticket": "151833-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro ao tentar realizar fechamento de conta",
+    "Data Abertura": 45733.42291666667,
+    "Data Fechamento": 45747.436111111114,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 154004,
+    "Ticket": "154003-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro ao tentar gera desconto em em conta",
+    "Data Abertura": 45735.39722222222,
+    "Data Fechamento": 45755.67152777778,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 165243,
+    "Ticket": "165242-1",
+    "Solicitante": 8211,
+    "Resumo": "Abatimento de contrato de adiantamento",
+    "Data Abertura": 45750.56805555556,
+    "Data Fechamento": 45821.75347222222,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 167639,
+    "Ticket": "167638-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro no recebimento de contas",
+    "Data Abertura": 45754.65972222222,
+    "Data Fechamento": 45771.64097222222,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 188879,
+    "Ticket": "188878-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro no recebimento de conta",
+    "Data Abertura": 45786.53958333333,
+    "Data Fechamento": 45793.43958333333,
+    "Categoria": "ERP"
+  },
+  {
+    "Codigo": 108923,
+    "Ticket": "108922-1",
+    "Solicitante": 8207,
+    "Resumo": "Valores de pacote de faturamento caindo errado",
+    "Data Abertura": 45666.7375,
+    "Data Fechamento": 45681.540972222225,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 144233,
+    "Ticket": "144232-1",
+    "Solicitante": 8211,
+    "Resumo": "Geração de guias na M_GUIAS",
+    "Data Abertura": 45721.595138888886,
+    "Data Fechamento": 45737.63263888889,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 151520,
+    "Ticket": "151519-1",
+    "Solicitante": 8211,
+    "Resumo": "Apos atualização para versao 2022.66.1 estamos com problema ao finalizar atendimento. Conta atendimento nao criada.",
+    "Data Abertura": 45731.229166666664,
+    "Data Fechamento": 45743.53333333333,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 154146,
+    "Ticket": "154145-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro na geração do resumo de internação",
+    "Data Abertura": 45735.44375,
+    "Data Fechamento": 45749.450694444444,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 157168,
+    "Ticket": "157167-1",
+    "Solicitante": 8207,
+    "Resumo": "Sistema não sincroniza guia com a tela M_GUIAS",
+    "Data Abertura": 45740.42361111111,
+    "Data Fechamento": 45754.75555555556,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 158555,
+    "Ticket": "158554-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro conta hospitalar em loop",
+    "Data Abertura": 45741.535416666666,
+    "Data Fechamento": 45754.709027777775,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 161128,
+    "Ticket": "161127-1",
+    "Solicitante": 8207,
+    "Resumo": "Campo de guia não com erro informando que não tem lista de valores ",
+    "Data Abertura": 45744.368055555555,
+    "Data Fechamento": 45756.62222222222,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 167659,
+    "Ticket": "167658-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro no sequencial de SEQ_HISTORICO_OBS_GUIA",
+    "Data Abertura": 45754.67083333333,
+    "Data Fechamento": 45769.56041666667,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 168850,
+    "Ticket": "168849-1",
+    "Solicitante": 8207,
+    "Resumo": "procedimento de faturamento com erro",
+    "Data Abertura": 45755.71527777778,
+    "Data Fechamento": 45796.66388888889,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 170570,
+    "Ticket": "170569-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao tentar alterar convênio e plano de atendimento",
+    "Data Abertura": 45757.58611111111,
+    "Data Fechamento": 45771.73472222222,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 175447,
+    "Ticket": "175446-1",
+    "Solicitante": 8211,
+    "Resumo": "Campo tiss motivo de encerrado com valor divergente",
+    "Data Abertura": 45764.44097222222,
+    "Data Fechamento": 45782.37013888889,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 178769,
+    "Ticket": "178768-1",
+    "Solicitante": 8211,
+    "Resumo": "Procedimentos caindo na mesma guia tiss na tela M_GUIAS",
+    "Data Abertura": 45771.56597222222,
+    "Data Fechamento": 45789.649305555555,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 188148,
+    "Ticket": "188147-1",
+    "Solicitante": 8207,
+    "Resumo": "Sistema não esta gerando guia para envio do saw",
+    "Data Abertura": 45785.64097222222,
+    "Data Fechamento": 45799.45486111111,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 196810,
+    "Ticket": "196809-1",
+    "Solicitante": 8207,
+    "Resumo": "Sistema gerando sequencial errado",
+    "Data Abertura": 45798.41527777778,
+    "Data Fechamento": 45811.60486111111,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 198660,
+    "Ticket": "198659-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro em número de guia",
+    "Data Abertura": 45800.36388888889,
+    "Data Fechamento": 45813.561111111114,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 199683,
+    "Ticket": "199682-1",
+    "Solicitante": 15373,
+    "Resumo": "Erro na importação do brasíndice",
+    "Data Abertura": 45803.393055555556,
+    "Data Fechamento": 45804.629166666666,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 200877,
+    "Ticket": "200876-1",
+    "Solicitante": 8207,
+    "Resumo": "Dúvida - Proibição de procedimentos por convênio",
+    "Data Abertura": 45804.427777777775,
+    "Data Fechamento": 45814.65,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 211151,
+    "Ticket": "211150-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao vincular guia de diarias na conta do paciente",
+    "Data Abertura": 45818.43472222222,
+    "Data Fechamento": 45881.779861111114,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 233625,
+    "Ticket": "233624-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao finalizar saida de produtos para paciente",
+    "Data Abertura": 45849.68541666667,
+    "Data Fechamento": 45881.99444444444,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 234087,
+    "Ticket": "234086-1",
+    "Solicitante": 8211,
+    "Resumo": "Sistema gerando conta extra(particular).",
+    "Data Abertura": 45852.419444444444,
+    "Data Fechamento": 45882.00208333333,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 280326,
+    "Ticket": "280323-1",
+    "Solicitante": 15373,
+    "Resumo": "Lançamento de horários em resumo de internação",
+    "Data Abertura": 45911.44930555556,
+    "Data Fechamento": 45925.62013888889,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 284942,
+    "Ticket": "284941-1",
+    "Solicitante": 8211,
+    "Resumo": "Sistema não salva exclusão de item da conta do paciente",
+    "Data Abertura": 45917.42638888889,
+    "Data Fechamento": 45933.62986111111,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 285474,
+    "Ticket": "285471-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao fazer saida de produto do estoque para conta do paciente",
+    "Data Abertura": 45917.65138888889,
+    "Data Fechamento": 45933.62986111111,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 294850,
+    "Ticket": "294847-1",
+    "Solicitante": 17416,
+    "Resumo": "Habilitação de campos em tiss",
+    "Data Abertura": 45930.42569444444,
+    "Data Fechamento": 45945.43819444445,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 311767,
+    "Ticket": "311763-1",
+    "Solicitante": 17416,
+    "Resumo": "Erro ao tentar solicitar autorização de procedimento",
+    "Data Abertura": 45950.65625,
+    "Data Fechamento": 45965.33472222222,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 318520,
+    "Ticket": "318518-1",
+    "Solicitante": 8211,
+    "Resumo": " Problema na geração da guia tiss na autorização de procedimento",
+    "Data Abertura": 45959.356944444444,
+    "Data Fechamento": 45978.620833333334,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 340191,
+    "Ticket": "340187-1",
+    "Solicitante": 8211,
+    "Resumo": "Inconsistência encontrada no processo de autorização via web service",
+    "Data Abertura": 45988.46111111111,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 367880,
+    "Ticket": "367876-1",
+    "Solicitante": 17416,
+    "Resumo": "Número de declaração de nascido vivo vindo na guia errada",
+    "Data Abertura": 46010.4125,
+    "Data Fechamento": 46027.38402777778,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 106939,
+    "Ticket": "106938-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao inserir dados na tabela IMP_SIMPRO",
+    "Data Abertura": 45664.674305555556,
+    "Data Fechamento": 45677.40972222222,
+    "Categoria": "FATURAMENTO"
+  },
+  {
+    "Codigo": 105545,
+    "Ticket": "105544-1",
+    "Solicitante": 8211,
+    "Resumo": "Erro ao tentar criar prescrição médica",
+    "Data Abertura": 45663.46111111111,
+    "Data Fechamento": 45679.35486111111,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 118079,
+    "Ticket": "118078-1",
+    "Solicitante": 8211,
+    "Resumo": "Alta transferindo paciente para medico que está dando alta",
+    "Data Abertura": 45681.39236111111,
+    "Data Fechamento": 45692.40555555555,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 121774,
+    "Ticket": "121773-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao selecionar outras unidades de internação",
+    "Data Abertura": 45686.71875,
+    "Data Fechamento": 45699.37569444445,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 129733,
+    "Ticket": "129732-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao criar regra do tipo filtrar - MVEditor",
+    "Data Abertura": 45699.39166666667,
+    "Data Fechamento": 45714.53402777778,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 137001,
+    "Ticket": "137000-1",
+    "Solicitante": 8211,
+    "Resumo": "problema em campo de documento",
+    "Data Abertura": 45708.46111111111,
+    "Data Fechamento": 45726.402083333334,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 151516,
+    "Ticket": "151515-1",
+    "Solicitante": 8211,
+    "Resumo": "Problemas na prescrição de exames",
+    "Data Abertura": 45731.21319444444,
+    "Data Fechamento": 45743.33541666667,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 151540,
+    "Ticket": "151539-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao abrir laudo pelo mvpep apos atualização do sistema",
+    "Data Abertura": 45731.525,
+    "Data Fechamento": 45743.336805555555,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 152382,
+    "Ticket": "152381-1",
+    "Solicitante": 8207,
+    "Resumo": "MVPEP não esta logando",
+    "Data Abertura": 45733.64375,
+    "Data Fechamento": 45734.59305555555,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 158527,
+    "Ticket": "158526-1",
+    "Solicitante": 8207,
+    "Resumo": "Duplicidade em impressão de documento PEP",
+    "Data Abertura": 45741.510416666664,
+    "Data Fechamento": 45849.01458333333,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 176981,
+    "Ticket": "176980-1",
+    "Solicitante": 8207,
+    "Resumo": "Sugestões de itens de prescrição",
+    "Data Abertura": 45769.67013888889,
+    "Data Fechamento": 45782.71597222222,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 200783,
+    "Ticket": "200782-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema na regra filtrar",
+    "Data Abertura": 45804.4,
+    "Data Fechamento": 45824.652083333334,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 213181,
+    "Ticket": "213180-1",
+    "Solicitante": 8211,
+    "Resumo": "Solicitação de parecer médico não aparece para especialista responder",
+    "Data Abertura": 45820.37013888889,
+    "Data Fechamento": 45833.347916666666,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 250048,
+    "Ticket": "250047-1",
+    "Solicitante": 8211,
+    "Resumo": "Solicitação de parecer medico não apararece pro especialista e não está registrada na tabela par_med",
+    "Data Abertura": 45874.45416666667,
+    "Data Fechamento": 45901.77916666667,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 302805,
+    "Ticket": "302804-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao imprimir guia tiss pelo mvpep",
+    "Data Abertura": 45938.736805555556,
+    "Data Fechamento": 45953.55763888889,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 314948,
+    "Ticket": "314947-1",
+    "Solicitante": 8211,
+    "Resumo": "Parâmentro SN_CRIAR_DOC_APOS_ALTA não está sendo respeitado. Video em anexo detalhando e evidenciando o problema.",
+    "Data Abertura": 45953.572222222225,
+    "Data Fechamento": 45957.70208333333,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 314970,
+    "Ticket": "314968-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema ao finalizar documentos de prontuário do editor",
+    "Data Abertura": 45953.58472222222,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 325093,
+    "Ticket": "325092-1",
+    "Solicitante": 8211,
+    "Resumo": "Largura de campo material de coleta na prescrição medica",
+    "Data Abertura": 45967.413194444445,
+    "Data Fechamento": 45985.839583333334,
+    "Categoria": "PEP"
+  },
+  {
+    "Codigo": 138718,
+    "Ticket": "138717-1",
+    "Solicitante": 8211,
+    "Resumo": "Saldo de produto do estoque com inconsistência.",
+    "Data Abertura": 45712.38333333333,
+    "Data Fechamento": 45726.39097222222,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 152086,
+    "Ticket": "152085-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro na devolução dos kits ",
+    "Data Abertura": 45733.506944444445,
+    "Data Fechamento": 45761.700694444444,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 158981,
+    "Ticket": "158980-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro no saldo atual de produtos",
+    "Data Abertura": 45741.725694444445,
+    "Data Fechamento": 45756.729166666664,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 166585,
+    "Ticket": "166584-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro ao tentar vincular entrada de empréstimo na saída de empréstimo",
+    "Data Abertura": 45751.6875,
+    "Data Fechamento": 45806.37152777778,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 173657,
+    "Ticket": "173656-1",
+    "Solicitante": 8211,
+    "Resumo": "Dados inconsistentes em produto do estoque",
+    "Data Abertura": 45762.60208333333,
+    "Data Fechamento": 45777.51666666667,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 190378,
+    "Ticket": "190377-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro ao tentar modificar gasto de cirurgia",
+    "Data Abertura": 45789.75069444445,
+    "Data Fechamento": 45793.436111111114,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 190388,
+    "Ticket": "190387-1",
+    "Solicitante": 8207,
+    "Resumo": "ordens de compras não constam na tela de autorização",
+    "Data Abertura": 45789.75833333333,
+    "Data Fechamento": 45793.43472222222,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 208427,
+    "Ticket": "208426-1",
+    "Solicitante": 8211,
+    "Resumo": "Saldo de produtos do estoque com inconsistência.",
+    "Data Abertura": 45813.55625,
+    "Data Fechamento": 45818.35902777778,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 211785,
+    "Ticket": "211784-1",
+    "Solicitante": 8211,
+    "Resumo": "Produtos com saldo divergentes",
+    "Data Abertura": 45818.69305555556,
+    "Data Fechamento": 45833.347916666666,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 220196,
+    "Ticket": "220195-1",
+    "Solicitante": 8211,
+    "Resumo": "Divergência de saldo anteriores e atuais no relatório (R_BALANCO_CONTABIL))",
+    "Data Abertura": 45832.563888888886,
+    "Data Fechamento": 45846.39097222222,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 224969,
+    "Ticket": "224968-1",
+    "Solicitante": 8211,
+    "Resumo": "Baixa de produtos vencidos em KIT produzido - Suprimentos",
+    "Data Abertura": 45839.427083333336,
+    "Data Fechamento": 45881.82083333333,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 230000,
+    "Ticket": "229999-1",
+    "Solicitante": 8211,
+    "Resumo": "Saldo de produto em Kit com problema",
+    "Data Abertura": 45846.375,
+    "Data Fechamento": 45881.9125,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 237323,
+    "Ticket": "237322-1",
+    "Solicitante": 8211,
+    "Resumo": "Orientações de melhores práticas para devolução de produtos",
+    "Data Abertura": 45855.620833333334,
+    "Data Fechamento": 45882.05763888889,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 290086,
+    "Ticket": "290085-1",
+    "Solicitante": 8211,
+    "Resumo": "SN_PADRONIZADO, SN_MOVIMENTADO, SN_BLOQUEADO_COMPRA utilizando multiempresa",
+    "Data Abertura": 45924.347916666666,
+    "Data Fechamento": 45950.49652777778,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 295785,
+    "Ticket": "295784-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema na tela M_CONFIG_EST em base SML",
+    "Data Abertura": 45931.36388888889,
+    "Data Fechamento": 45947.44236111111,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 296108,
+    "Ticket": "296106-1",
+    "Solicitante": 17416,
+    "Resumo": "Erro ao tentar gerar ordem de compras de serviço",
+    "Data Abertura": 45931.459027777775,
+    "Data Fechamento": 45953.39236111111,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 301002,
+    "Ticket": "301001-1",
+    "Solicitante": 17416,
+    "Resumo": "Erro em entrada de ordem de compras",
+    "Data Abertura": 45937.48472222222,
+    "Data Fechamento": 45953.41736111111,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 301481,
+    "Ticket": "301479-1",
+    "Solicitante": 17416,
+    "Resumo": "Itens consignados sem geração de compras",
+    "Data Abertura": 45937.69583333333,
+    "Data Fechamento": 45952.46875,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 302629,
+    "Ticket": "302627-1",
+    "Solicitante": 17416,
+    "Resumo": "Erro ao tentar acessar tela de solicitação de cadastro de produto",
+    "Data Abertura": 45938.67916666667,
+    "Data Fechamento": 45954.47708333333,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 303089,
+    "Ticket": "303088-1",
+    "Solicitante": 17416,
+    "Resumo": "Tela de atendimento de solicitações de produtos com falha",
+    "Data Abertura": 45939.40347222222,
+    "Data Fechamento": 45953.70763888889,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 303544,
+    "Ticket": "303542-1",
+    "Solicitante": 8211,
+    "Resumo": "Solicitação de produtos com data diferente do atendimento ambulatorial",
+    "Data Abertura": 45939.58611111111,
+    "Data Fechamento": 45953.55625,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 312398,
+    "Ticket": "312395-1",
+    "Solicitante": 8211,
+    "Resumo": "Erro ao tentar excluir confirmação de atendimento de solicitação no estoque",
+    "Data Abertura": 45951.44861111111,
+    "Data Fechamento": 45953.55416666667,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 314920,
+    "Ticket": "314919-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema na tela CONFIGEST",
+    "Data Abertura": 45953.552777777775,
+    "Data Fechamento": 45958.381944444445,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 315972,
+    "Ticket": "315968-1",
+    "Solicitante": 8211,
+    "Resumo": "Inconsistência na tela M_SOLSAIPRO",
+    "Data Abertura": 45954.57430555556,
+    "Data Fechamento": 45974.47708333333,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 317199,
+    "Ticket": "317198-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema na entrada de emprestimo na empresa 3",
+    "Data Abertura": 45957.68958333333,
+    "Data Fechamento": 45959.35277777778,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 320184,
+    "Ticket": "320183-1",
+    "Solicitante": 8211,
+    "Resumo": "Rotina de aprovação de solicitação de compras",
+    "Data Abertura": 45960.611805555556,
+    "Data Fechamento": 46028.74097222222,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 335797,
+    "Ticket": "335796-1",
+    "Solicitante": 8211,
+    "Resumo": "Problema com trigger TRG_I_ITSOL_COM ao tentar fazer insert na tabela dbamv.itsol_com",
+    "Data Abertura": 45982.433333333334,
+    "Data Fechamento": 46000.72222222222,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 337263,
+    "Ticket": "337261-1",
+    "Solicitante": 8211,
+    "Resumo": "Não estamos conseguindo inserir formulas mais complexas na tela M_ISO_FORMULA para calculo da avaliação do fornecedor:  ((<1> + <2> + <3> + <4> + <5> + <6> + <7> + <8> + <9> + <10> + <11> + <12> + <13>)/130)*100",
+    "Data Abertura": 45985.6875,
+    "Data Fechamento": 46002.393055555556,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 338266,
+    "Ticket": "338263-1",
+    "Solicitante": 17416,
+    "Resumo": "Desvinculo de empresa em produto",
+    "Data Abertura": 45986.62847222222,
+    "Data Fechamento": 46002.459027777775,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 367901,
+    "Ticket": "367899-1",
+    "Solicitante": 19096,
+    "Resumo": "Função da tela M_ENTRADA_NOVA para salvar entrada sem concluir e avaliar",
+    "Data Abertura": 46010.41805555556,
+    "Data Fechamento": 46024.7375,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 370780,
+    "Ticket": "370779-1",
+    "Solicitante": 19096,
+    "Resumo": "Função da tela M_ENTRADA_NOVA para salvar entrada sem concluir e avaliar ",
+    "Data Abertura": 46013.66180555556,
+    "Data Fechamento": 46027.69930555556,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 119699,
+    "Ticket": "119698-1",
+    "Solicitante": 8211,
+    "Resumo": "Erro ao produzir kit devolvido",
+    "Data Abertura": 45684.66736111111,
+    "Data Fechamento": 45692.404861111114,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 159479,
+    "Ticket": "159478-1",
+    "Solicitante": 8207,
+    "Resumo": "Aviso cirúrgico cancelado e produtos não devolvidos ",
+    "Data Abertura": 45742.518055555556,
+    "Data Fechamento": 45755.52222222222,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 159943,
+    "Ticket": "159942-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro em entrada de ordem de compras",
+    "Data Abertura": 45742.74166666667,
+    "Data Fechamento": 45769.36944444444,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 211035,
+    "Ticket": "211034-1",
+    "Solicitante": 8211,
+    "Resumo": "KITS  COM ERRO NO LANÇAMENTO - SUPRIMENTOS",
+    "Data Abertura": 45818.39722222222,
+    "Data Fechamento": 45833.34861111111,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 265257,
+    "Ticket": "265256-1",
+    "Solicitante": 8207,
+    "Resumo": "Erro em entrada de produtos",
+    "Data Abertura": 45894.37569444445,
+    "Data Fechamento": 45909.55,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 282596,
+    "Ticket": "282594-1",
+    "Solicitante": 15373,
+    "Resumo": "Assinatura eletrônica comprador",
+    "Data Abertura": 45915.43680555555,
+    "Data Fechamento": 45930.67291666667,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 301460,
+    "Ticket": "301458-1",
+    "Solicitante": 17416,
+    "Resumo": "Baixa de solicitações pendentes do estoque",
+    "Data Abertura": 45937.68819444445,
+    "Data Fechamento": 45952.39027777778,
+    "Categoria": "SUPRIMENTOS"
+  },
+  {
+    "Codigo": 268767,
+    "Ticket": "268766-1",
+    "Solicitante": 8211,
+    "Resumo": "Mudança da versão do banco oracle",
+    "Data Abertura": 45897.41736111111,
+    "Data Fechamento": 45950.60833333333,
+    "Categoria": "INFRAESTRUTURA"
+  },
+  {
+    "Codigo": 389456,
+    "Ticket": "389454-1",
+    "Solicitante": 19096,
+    "Resumo": "Apontamento de ambiente SML para novo server BD",
+    "Data Abertura": 46031.74375,
+    "Data Fechamento": 46034.433333333334,
+    "Categoria": "INFRAESTRUTURA"
   }
 ]

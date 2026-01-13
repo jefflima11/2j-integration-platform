@@ -1,6 +1,6 @@
 import multer from 'multer';
+import fs from 'fs/promises';
 import path from 'path';
-import XLSX from 'xlsx';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -23,4 +23,27 @@ const upload = multer({
     }
 });
 
-export { upload };
+async function start() {
+    const uploadsDir = path.resolve('./src/uploads/');
+
+    try {
+
+        const entries = await fs.readdir(uploadsDir, { withFileTypes: true });
+
+        for (const entry of entries) {
+            const fullPath = path.join(uploadsDir, entry.name);
+
+            if (entry.isDirectory()) {
+                await fs.rm(fullPath, { recursive: true, force: true });
+            } else {
+                await fs.unlink(fullPath);
+            }
+        }
+
+        console.log(`Limpeza de arquivos temporarios concluída.`);
+    } catch (err) {
+        console.error(`Erro ao limpar arquivos temporarios: ${err.message}`);
+    }
+}
+
+export { upload, start };
