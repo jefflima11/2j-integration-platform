@@ -26,6 +26,8 @@ const upload = multer({
 async function start() {
     const uploadsDir = path.resolve('./src/uploads/');
 
+    await fs.mkdir(uploadsDir, { recursive: true })
+
     try {
 
         const entries = await fs.readdir(uploadsDir, { withFileTypes: true });
