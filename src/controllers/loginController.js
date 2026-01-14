@@ -6,8 +6,8 @@ export async function loginController(req, res) {
     try {
         const loggingIn = await loginModel(username, password);
         res.status(200).json(loggingIn);
-    } catch (error) {
-        res.status(401).json({ error: error.message });
+    } catch (err) {
+        res.status(401).json({ erro: err.message });
     };
 };
 

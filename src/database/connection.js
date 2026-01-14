@@ -1,18 +1,24 @@
 import oracledb from 'oracledb';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { getDbConfig } from './configuration.js';
 
 let pool;
 
 export async function initDB() {
+    if (pool) return pool;
+
+    const config = getDbConfig();
+
+    if (!config) {
+        return { message: 'teste'};
+    }
+
     try {
-        oracledb.initOracleClient({ libDir: process.env.DB_DIR });
+        oracledb.initOracleClient({ libDir: config.dirDB });
 
         pool = await oracledb.createPool({
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            connectString: process.env.DB_CONNECT,
+            user: config.userDB,
+            password: config.passwordDB,
+            connectString: config.connectDB,
             PoolMin: 1,
             poolMax: 20,
             poolIncrement: 2,
@@ -20,8 +26,8 @@ export async function initDB() {
         });
         console.log('Pool de conexão criada.');
     } catch (err) {
-        console.error('Erro ao criar o pool de conexão.', err);
-        process.exit(1);
+        console.log(err);
+        return;
     };
 };
 
