@@ -136,3 +136,9 @@ dist
 .pnp.*
 
 /src/temp
+.vscode
+
+.postman
+postman/environments/*.json
+postman/globals/
+

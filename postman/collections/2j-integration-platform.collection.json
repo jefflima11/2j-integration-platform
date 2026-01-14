@@ -1,0 +1,3525 @@
+{
+	"info": {
+		"_postman_id": "f3382f17-61d7-45a8-8e6f-04cc1bea5d17",
+		"name": "Documentação - US",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40312792",
+		"_collection_link": "https://jj5555-4946.postman.co/workspace/2j-integration-plataform~1beb6201-7c86-42d3-bfa3-8120f41bf290/collection/40312792-f3382f17-61d7-45a8-8e6f-04cc1bea5d17?action=share&source=collection_link&creator=40312792"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"password\": \"{{senha}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "## Login\n\nRealiza a autenticação do usuário no sistema e retorna as informações necessárias para acesso às rotas protegidas.\n\n## Método\n\nPOST\n\n## Endpoint\n\n`/login`\n\n## Autenticação\n\nNão requer token.\n\n## Body\n\n- **username** (string, obrigatório): Nome de usuário cadastrado.\n    \n- **password** (string, obrigatório): Senha do usuário.\n    \n\n## Regras de Negócio\n\n- O usuário e a senha devem ser válidos.\n    \n- Caso as credenciais estejam incorretas, a autenticação é recusada.\n    \n\n## Respostas Esperadas\n\n- **200**: Login realizado com sucesso.\n    \n- **401**: Usuário ou senha inválidos."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"password\": \"{{senha}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bd-YXewQc54Pb76NOBTQapQ8EN3nJc\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Dec 2025 15:22:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tokens\": \"chave_token\",\n    \"role\": \"tipo_de_role\"\n}"
+						},
+						{
+							"name": "Bad Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"password\": \"{{senha}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2f-Z5Udkra/oR+0NQUMkATbQ+0nqBo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Dec 2025 15:29:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Usuário e senha são obrigatorios!\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "All users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/all",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"all"
+							]
+						},
+						"description": "## List Users\n\nRetorna a lista de usuários cadastrados no sistema com suas informações básicas.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/users/all`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- O retorno contém informações básicas dos usuários.\n    \n\n## Resposta de Sucesso\n\nRetorna um array de usuários no seguinte formato:\n\n``` json\n[\n  {\n    \"CD_USUARIO\": \"Jefferson\",\n    \"NM_USUARIO\": \"jefferson Lima\",\n    \"ROLE\": \"Administrador\"\n  }\n]\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/all",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3726"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e8e-TQGudCMlgpjPlew0IsAY7IDGOcE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Dec 2025 16:07:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"CD_USUARIO\": \"teste01\",\n        \"NM_USUARIO\": \"teste 01 sousa machado\",\n        \"ROLE\": \"Administrador\"\n    },\n    {\n        \"CD_USUARIO\": \"teste02\",\n        \"NM_USUARIO\": \"teste 02 da silva rocha\",\n        \"ROLE\": \"Normal\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "New user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{novo_usuario}}\",\r\n    \"password\": \"{{novo_senha}}\",\r\n    \"name\": \"{{novo_nome_completo}}\",\r\n    \"role\": \"{{novo_tipo_de_usuario}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"new"
+							]
+						},
+						"description": "## New User\n\nCria um novo usuário no sistema.\n\n## Método\n\nPOST\n\n## Endpoint\n\n`/users/new`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\n- **USERNAME** (string, obrigatório): Código identificador do usuário.\n    \n- **NAME** (string, obrigatório): Nome completo do usuário.\n    \n- **PASSWORD** (string, obrigatório): Senha de acesso.\n    \n- **ROLE** (string, obrigatório): Perfil de acesso do usuário.\n    \n\n## Regras de Negócio\n\n- O código do usuário deve ser único.\n    \n- A senha deve atender aos critérios mínimos de segurança definidos pelo sistema.\n    \n- Apenas usuários autorizados podem criar novos usuários.\n    \n\n## Resposta de Sucesso\n\nUsuário criado com sucesso.\n\n## Respostas Esperadas\n\n- **201**: Usuário criado com sucesso.\n    \n- **400**: Dados inválidos ou incompletos.\n    \n- **401**: Token ausente, inválido ou expirado.\n    \n- **409**: Usuário já existente."
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{novo_usuario}}\",\r\n    \"password\": \"{{novo_senha}}\",\r\n    \"name\": \"{{novo_nome_completo}}\",\r\n    \"role\": \"{{novo_tipo_de_usuario}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/new",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"new"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-ASojDjVo7D9c27SxqA0rVdM8ZIM\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 19:02:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"message\": \"Usuário criado com sucesso!\"\n}"
+						},
+						{
+							"name": "Invalid user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{novo_usuario}}\",\r\n    \"password\": \"{{novo_senha}}\",\r\n    \"name\": \"{{novo_nome_completo}}\",\r\n    \"role\": \"{{novo_tipo_de_usuario}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/new",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"new"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "71"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"47-2r5P0NgXnAgctwGdYFbyCHadE3c\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 19:03:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Usuário, senha, nome completo e regra são obrigatórios\"\n}"
+						},
+						{
+							"name": "Invalid Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{novo_usuario}}\",\r\n    \"password\": \"{{novo_senha}}\",\r\n    \"name\": \"{{novo_nome_completo}}\",\r\n    \"role\": \"{{novo_tipo_de_usuario}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/new",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"new"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 19:05:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						},
+						{
+							"name": "User exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{novo_usuario}}\",\r\n    \"password\": \"{{novo_senha}}\",\r\n    \"name\": \"{{novo_nome_completo}}\",\r\n    \"role\": \"{{novo_tipo_de_usuario}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/new",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"new"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-H7c2oWp3CcVInR1XrllyhKtiadw\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 19:07:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"message\": \"Usuário já existe!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Alter password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"newPassword\": \"{{senha}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/alter-password",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"alter-password"
+							]
+						},
+						"description": "## Alter Password\n\nAltera a senha de um usuário já cadastrado no sistema.\n\n## Método\n\nPATCH\n\n## Endpoint\n\n`/users/alter-password`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\n- **USERNAME** (string, obrigatório): Código identificador do usuário.\n    \n- **NEWPASSWORD** (string, obrigatório): Nova senha a ser definida.\n    \n\n## Regras de Negócio\n\n- A senha atual deve ser válida.\n    \n- A nova senha deve atender aos critérios mínimos de segurança.\n    \n- O usuário deve estar ativo no sistema.\n    \n\n## Resposta de Sucesso\n\nSenha alterada com sucesso.\n\n## Respostas Esperadas\n\n- **200**: Senha alterada com sucesso.\n    \n- **400**: Dados inválidos ou incompletos.\n    \n- **401**: Token ausente, inválido ou expirado."
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"newPassword\": \"{{senha}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/alter-password",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"alter-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-TP2/fzpdJWKdUzDMGMNsBVjpXW8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 17 Dec 2025 20:26:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"message\": \"Senha alterada com sucesso!\"\n}"
+						},
+						{
+							"name": "Invalid Token",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"newPassword\": \"{{senha}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/alter-password",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"alter-password"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 19:12:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						},
+						{
+							"name": "User not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usuario}}\",\r\n    \"newPassword\": \"{{senha}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/alter-password",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"alter-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-q5EB/l8aCBEx230hpqL6vwYFoYM\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 19:13:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"message\": \"Usuário não encontrado\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Inactivate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/inactivate/{{inativar_usuario}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"inactivate",
+								"{{inativar_usuario}}"
+							]
+						},
+						"description": "## Inactivate User\n\nInativa um usuário no sistema, impedindo seu acesso às funcionalidades.\n\n## Método\n\nPATCH\n\n## Endpoint\n\n`/users/inactivate/{usuario}`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\n- **usuario** (path, obrigatório): Código identificador do usuário a ser inativado.\n    \n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autorizados podem inativar outros usuários.\n    \n- O usuário inativado não poderá mais realizar autenticação no sistema.\n    \n- A operação não remove o usuário, apenas altera seu status.\n    \n\n## Resposta de Sucesso\n\nUsuário inativado com sucesso.\n\n## Respostas Esperadas\n\n- **200**: Usuário inativado com sucesso.\n    \n- **401**: Token ausente, inválido ou expirado.\n    \n- **404**: Usuário não encontrado."
+					},
+					"response": [
+						{
+							"name": "Bad response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/inactivate/{{inativar_usuario}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"inactivate",
+										"{{inativar_usuario}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-sXKbFGlHQTRaQD0LpNDdyghBtEo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Dec 2025 13:55:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Usuário inativado!\"\n}"
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/inactivate/{{inativar_usuario}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"inactivate",
+										"{{inativar_usuario}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-sXKbFGlHQTRaQD0LpNDdyghBtEo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Dec 2025 13:56:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Usuário inativado!\"\n}"
+						},
+						{
+							"name": "Invalid Token",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/users/inactivate/{{inativar_usuario}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"inactivate",
+										"{{inativar_usuario}}"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:14:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Informations",
+			"item": [
+				{
+					"name": "Image logo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/inf/logo",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"inf",
+								"logo"
+							]
+						},
+						"description": "## Logo Image\n\nRetorna a imagem do logo do sistema.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/inf/logo`\n\n## Autenticação\n\nNão requer autenticação.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- A rota é pública e pode ser acessada sem autenticação.\n    \n- Retorna a imagem do logo padrão do sistema.\n    \n\n## Resposta de Sucesso\n\nRetorna o arquivo de imagem do logo.\n\n## Respostas Esperadas\n\n- **200**: Imagem retornada com sucesso.\n    \n- **404**: Logo não encontrado."
+					},
+					"response": [
+						{
+							"name": "Image not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/inf/logo",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"inf",
+										"logo"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"18-rdISJVZjNRe9fzAO/+cVuED9wg4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:39:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "\"Imagem não encontrada\""
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/inf/logo",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"inf",
+										"logo"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{Image}"
+						}
+					]
+				},
+				{
+					"name": "Generical informations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/inf",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"inf"
+							]
+						},
+						"description": "## General Informations\n\nRetorna informações gerais do sistema.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/inf`\n\n## Autenticação\n\nNão requer autenticação.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- A rota é pública.\n    \n- Retorna informações institucionais e/ou técnicas do sistema.\n    \n\n## Resposta de Sucesso\n\nRetorna as informações gerais do sistema.\n\n## Respostas Esperadas\n\n- **200**: Informações retornadas com sucesso.\n    \n- **401**: Token não fornecido ou expirado."
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/inf/",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"inf",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-ilJathsFZlSCS7fe1UaRapkUSRY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 14:24:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"empresa\": \"empresa\",\n    \"usuario\": \"usuario\"\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/inf",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"inf"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:41:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "All products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/products/all",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"products",
+								"all"
+							]
+						},
+						"description": "## All Products\n\nRetorna a lista de todos os produtos cadastrados no sistema.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/produts/all`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- O retorno inclui informações cadastrais e de controle dos produtos.\n    \n\n## Resposta de Sucesso\n\nRetorna um array de produtos no seguinte formato:\n\n``` json\n[\n  {\n    \"CODIGO_PRODUTO\": 123456,\n    \"DESCRICAO_PRODUTO\": \"teste 00001\",\n    \"DATA_ULTIMA_MOVIMENTACAO\": \"2024-11-24T13:17:32.000Z\",\n    \"DESCRICAO_OBSERVACAO\": \"DUMP AUTOMATICO\",\n    \"PADRONIZADO\": \"NAO\",\n    \"PSICOTROPICO\": \"NAO\",\n    \"BLOQUEIO_DE_COMPRA\": \"NAO\",\n    \"DS_ESPECIE\": \"MEDICAMENTOS\",\n    \"DS_SUB_CLA\": \"MEDICAMENTOS\"\n  }\n]\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/all",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106930"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a1b2-7jzN3py6oF+jWULNjRycJNE4OVc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Dec 2025 14:49:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"CODIGO_PRODUTO\": 123456,\n        \"DESCRICAO_PRODUTO\": \"teste 00001\",\n        \"DATA_ULTIMA_MOVIMENTACAO\": \"2024-11-24T13:17:32.000Z\",\n        \"DESCRICAO_OBSERVACAO\": \"DUMP AUTOMATICO\",\n        \"PADRONIZADO\": \"NAO\",\n        \"PSICOTROPICO\": \"NAO\",\n        \"BLOQUEIO_DE_COMPRA\": \"NAO\",\n        \"DS_ESPECIE\": \"MEDICAMENTOS\",\n        \"DS_SUB_CLA\": \"MEDICAMENTOS\"\n    },\n    {\n        \"CODIGO_PRODUTO\": 123456,\n        \"DESCRICAO_PRODUTO\": \"teste 00001\",\n        \"DATA_ULTIMA_MOVIMENTACAO\": \"2024-11-24T13:17:32.000Z\",\n        \"DESCRICAO_OBSERVACAO\": \"DUMP AUTOMATICO\",\n        \"PADRONIZADO\": \"NAO\",\n        \"PSICOTROPICO\": \"NAO\",\n        \"BLOQUEIO_DE_COMPRA\": \"NAO\",\n        \"DS_ESPECIE\": \"MEDICAMENTOS\",\n        \"DS_SUB_CLA\": \"MEDICAMENTOS\"\n    }\n]"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/all",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"all"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:43:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Historical products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/products/historical",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"products",
+								"historical"
+							]
+						},
+						"description": "## Historical Products\n\nRetorna o histórico de movimentações dos produtos no sistema.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/products/historical`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- As informações retornadas são destinadas a fins de consulta e auditoria.\n    \n\n## Resposta de Sucesso\n\nRetorna um array com o histórico de movimentações no seguinte formato:\n\n``` json\n[\n  {\n    \"CD_HISTORICO\": CódigoDoHistorico,\n    \"DT_HISTORICO\": \"18/12/2025 12:00:17\",\n    \"CD_USUARIO\": \"Jefferson\",\n    \"QTD\": 1\n  }\n]\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/historical",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"historical"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2496"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9c0-0bg2n9dZan8N6GqBpcsTHxjDyOk\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 14:34:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "[\n    {\n        \"CODIGO_HISTORICO\": 99,\n        \"DATA_HISTORICO\": \"18/12/2025 12:00:17\",\n        \"USUARIO\": \"DBAMV\",\n        \"QTD\": 2\n    },\n    {\n        \"CODIGO_HISTORICO\": 98,\n        \"DATA_HISTORICO\": \"18/12/2025 12:00:01\",\n        \"USUARIO\": \"DBAMV\",\n        \"QTD\": 2\n    }\n]"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/historical",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"historical"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:43:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Detailed historical",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/products/detailed-historical/{{idHistPro}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"products",
+								"detailed-historical",
+								"{{idHistPro}}"
+							]
+						},
+						"description": "## Detailed Historical\n\nRetorna o detalhamento completo de um histórico de movimentação de produtos, incluindo informações gerais do histórico e os registros associados.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/products/detailed-historical/{IdHistPro}`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\n- **IdHistPro** (path, obrigatório): Identificador do histórico de produto.\n    \n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- O histórico retornado deve existir no sistema.\n    \n- Os dados são destinados a consulta e auditoria.\n    \n\n## Resposta de Sucesso\n\nRetorna um objeto contendo as informações do histórico e seus registros associados, no seguinte formato:\n\n``` json\n{\n  \"header\": [\n    {\n      \"CD_HISTORICO\": 99999,\n      \"DT_HISTORICO\": \"16/12/2025 11:44:19\",\n      \"CD_USUARIO\": \"Jefferson\",\n      \"QTD\": 9\n    }\n  ],\n  \"records\": [\n    {\n      \"CD_PRODUTO\": 123456,\n      \"DS_PRODUTO\": \"TEICOPLANINA (TARGOCID) FA C/ 200MG\",\n      \"PAD_ANTERIOR\": \"NAO\",\n      \"PAD_SUGERIDO\": \"SIM\"\n    }\n  ]\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/detailed-historical/{{idHistPro}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"detailed-historical",
+										"{{idHistPro}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1222"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c6-TRghr2FgghSiOS+GdC1WO6TIAQU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 14:49:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "[\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 10720,\n        \"DS_PRODUTO\": \"TEICOPLANINA (TARGOCID) FA C/ 200MG\",\n        \"PAD_ANTERIOR\": \"NAO\",\n        \"PAD_SUGERIDO\": \"SIM\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 11649,\n        \"DS_PRODUTO\": \"DOXICICLINA (DOXICLIN) 100MG CPR\",\n        \"PAD_ANTERIOR\": \"NAO\",\n        \"PAD_SUGERIDO\": \"SIM\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 13198,\n        \"DS_PRODUTO\": \"TERBUTALINA (TERBUTIL) INJ 0,5MG AMP 1ML\",\n        \"PAD_ANTERIOR\": \"NAO\",\n        \"PAD_SUGERIDO\": \"SIM\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 11408,\n        \"DS_PRODUTO\": \"METOTREXATO (FAULDMETRO) 50MG 2ML AMP\",\n        \"PAD_ANTERIOR\": \"SIM\",\n        \"PAD_SUGERIDO\": \"NAO\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 11343,\n        \"DS_PRODUTO\": \"ULTIVA (REMIFENTANILA) FA C/2MG\",\n        \"PAD_ANTERIOR\": \"SIM\",\n        \"PAD_SUGERIDO\": \"NAO\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 11449,\n        \"DS_PRODUTO\": \"PROGESTERONA (UTROGESTAN) CAPSULA C/200MG\",\n        \"PAD_ANTERIOR\": \"NAO\",\n        \"PAD_SUGERIDO\": \"SIM\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 8010,\n        \"DS_PRODUTO\": \"NEOCAINA ISOBARICA 0,50% AMPOLA C/4ML (EMBALAG STERILE PACK)\",\n        \"PAD_ANTERIOR\": \"NAO\",\n        \"PAD_SUGERIDO\": \"SIM\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 2441,\n        \"DS_PRODUTO\": \"CAPTOPRIL (CAPOTEN) CPR C/50MG\",\n        \"PAD_ANTERIOR\": \"SIM\",\n        \"PAD_SUGERIDO\": \"NAO\"\n    },\n    {\n        \"CD_HIS_PAD_PRO\": 59,\n        \"CD_PRODUTO\": 4096,\n        \"DS_PRODUTO\": \"MORFINA (DIMORF) CPR C/30MG\",\n        \"PAD_ANTERIOR\": \"SIM\",\n        \"PAD_SUGERIDO\": \"NAO\"\n    }\n]"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/detailed-historical/{{idHistPro}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"detailed-historical",
+										"{{idHistPro}}"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:43:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Dump",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/products/dump",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"products",
+								"dump"
+							]
+						},
+						"description": "## Dump Products\n\nRealiza a extração (dump) dos dados de produtos do sistema.\n\n## Método\n\nPOST\n\n## Endpoint\n\n`/products/dump`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem executar esta operação.\n    \n- A operação pode levar alguns instantes, dependendo do volume de dados.\n    \n- Utilizada para fins de carga, sincronização ou auditoria.\n    \n\n## Resposta de Sucesso\n\nDump de produtos realizado com sucesso.\n\n## Exemplo de Resposta\n\n``` json\n{\n  \"message\": \"Dump realizado com sucesso!\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/dump",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"dump"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "192.168.10.36:5173"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-NU43iVzGMIEOgWtH3GU9m+8/j/c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Dec 2025 14:53:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Dump realizado com sucesso!\"\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/products/dump",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"dump"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Jan 2026 20:43:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"produto\": {{cdProOne}},\r\n        \"padronizado\": \"S\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/products/update",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"products",
+								"update"
+							]
+						},
+						"description": "## Update Products\n\nAtualiza informações de um ou mais produtos em lote.\n\n## Método\n\nPUT\n\n## Endpoint\n\n`/products/update`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nArray de objetos contendo os produtos a serem atualizados.\n\n### Campos do Body\n\n- **produto** (number, obrigatório): Código identificador do produto.\n    \n- **padronizado** (string, obrigatório): Indica se o produto é padronizado.\n    \n    - Valores possíveis: `\"S\"` ou `\"N\"`\n        \n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem executar esta operação.\n    \n- Todos os produtos informados devem existir no sistema.\n    \n- A atualização é realizada em lote.\n    \n- Caso algum produto seja inválido, a operação pode ser recusada.\n    \n\n## Exemplo de Request\n\n``` json\n[\n {\n   \"produto\": 10001,\n   \"padronizado\": \"S\"\n },\n {\n   \"produto\": 10002,\n   \"padronizado\": \"N\"\n }\n]\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"produto\": {{cdProOne}},\r\n        \"padronizado\": \"S\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/products/update",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-1dzEUM/mlb7grRDXw1cdjHkAPKA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 18:21:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Atualização realizada.\",\n    \"productUpdated\": 1\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"produto\": {{cdProOne}},\r\n        \"padronizado\": \"S\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/products/update",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 18:22:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						},
+						{
+							"name": "Partial success response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"produto\": {{cdProOne}},\r\n        \"padronizado\": \"S\"\r\n    },\r\n    {\r\n        \"produto\": {{cdProTwo}},\r\n        \"padronizado\": \"S\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/products/update",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"products",
+										"update"
+									]
+								}
+							},
+							"status": "Partial Content",
+							"code": 206,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-+lzmwcYamw8RDFEtkhsiv/y8wZ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 18:23:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"A atualização foi parcial. Nem todos os produtos foram atualizados.\",\n    \"productsUpdated\": 1\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "APP Hopsital beds status",
+			"item": [
+				{
+					"name": "Hospital beds status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/hospital-beds/status",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"hospital-beds",
+								"status"
+							]
+						},
+						"description": "## Hospital Beds Status\n\nRetorna o status atual dos leitos hospitalares.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/hospaital-beds/status`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- Retorna a situação atual dos leitos hospitalares do sistema.\n    \n\n## Resposta de Sucesso\n\nRetorna a lista de leitos e seus respectivos status.\n\n## Exemplo de Resposta\n\n``` json\n[\n    {\n        \"DS_UNID_INT\": \"UTI GERAL ADULTO\",\n        \"STATUS\": \"POS HIGIENIZACAO\",\n        \"TOTAL\": 1\n    },\n    {\n        \"DS_UNID_INT\": \"POSTO I\",\n        \"STATUS\": \"PARA HIGIENIZACAO\",\n        \"TOTAL\": 1\n    }\n]\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "270"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10e-/EpioWExHIq2qtSOaiByMB0PXzg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 18:29:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "[\n    {\n        \"DS_UNID_INT\": \"POSTO II\",\n        \"STATUS\": \"POS HIGIENIZACAO\",\n        \"TOTAL\": 2\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Cleaning requests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/hospital-beds/cleaning-request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"hospital-beds",
+								"cleaning-request"
+							]
+						},
+						"description": "## Cleaning Request\n\nRetorna as solicitações de limpeza hospitalares.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/hospital-beds/cleaning-request`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem realizar a solicitação.\n    \n- O leito deve existir no sistema.\n    \n\n## Exemplo de Request\n\n``` json\n{\n    \"cleaningRequests\": [\n        {\n            \"DS_UNID_INT\": \"POSTO II\",\n            \"STATUS\": \"PARA HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 213\",\n            \"CD_SOLIC_LIMPEZA\": 94903,\n            \"DT_SOLIC_LIMPEZA\": \"2026-01-09T19:56:54.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"TESTE TESTE TESTE\"\n        },\n        {\n            \"DS_UNID_INT\": \"POSTO I\",\n            \"STATUS\": \"PARA HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 116\",\n            \"CD_SOLIC_LIMPEZA\": 94904,\n            \"DT_SOLIC_LIMPEZA\": \"2026-01-09T19:57:08.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"ASDASDASD\"\n        }\n    ]\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/cleaning-request",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"cleaning-request"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "726"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d6-eJvYFrHJUpaX7Hys3dpNH9YWo/Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 19:57:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"cleaningRequests\": [\n        {\n            \"DS_UNID_INT\": \"UTI GERAL ADULTO\",\n            \"STATUS\": \"PARA HIGIENIZACAO\",\n            \"DS_LEITO\": \"U.T.I - LEITO 01\",\n            \"CD_SOLIC_LIMPEZA\": 123,\n            \"DT_SOLIC_LIMPEZA\": \"2025-09-29T18:06:50.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"EXPEDITO CALISTA DE MOURA\"\n        },\n        {\n            \"DS_UNID_INT\": \"UTI GERAL ADULTO\",\n            \"STATUS\": \"PARA HIGIENIZACAO\",\n            \"DS_LEITO\": \"U.T.I - LEITO 03\",\n            \"CD_SOLIC_LIMPEZA\": 321,\n            \"DT_SOLIC_LIMPEZA\": \"2025-09-29T18:07:11.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"RITA DA SILVA ROCHA \"\n        },\n        {\n            \"DS_UNID_INT\": \"POSTO II\",\n            \"STATUS\": \"PARA HIGIENIZACAO\",\n            \"DS_LEITO\": \"ENFERMARIA 204 - L1\",\n            \"CD_SOLIC_LIMPEZA\": 312,\n            \"DT_SOLIC_LIMPEZA\": \"2025-11-11T17:26:12.000Z\",\n            \"TP_SOLICITACAO\": \"Terminal\",\n            \"NM_PACIENTE\": \"BENEFICIARIO TESTE MASCULINO\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Requests waiting confirmation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/hospital-beds/request-waiting-confirmation",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"hospital-beds",
+								"request-waiting-confirmation"
+							]
+						},
+						"description": "## Cleaning Requests Waiting Confirmation\n\nRetorna a lista de solicitações de limpeza de leitos que estão aguardando confirmação.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/hospita-bdes/request-waiting-confirmation`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- Retorna apenas solicitações que ainda não foram confirmadas.\n    \n- As informações são utilizadas para controle e acompanhamento operacional.\n    \n\n## Resposta de Sucesso\n\nRetorna um array de solicitações de limpeza pendentes de confirmação.\n\n## Exemplo de Resposta\n\n``` json\n{\n    \"waitingConfirmations\": [\n        {\n            \"DS_UNID_INT\": \"UTI GERAL ADULTO\",\n            \"STATUS\": \"POS HIGIENIZACAO\",\n            \"DS_LEITO\": \"U.T.I - LEITO 05\",\n            \"CD_SOLIC_LIMPEZA\": 94908,\n            \"DT_SOLIC_LIMPEZA\": \"2026-01-09T20:46:53.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"OCIMAR MICHEL CARVALHO DE SOUSA\"\n        },\n        {\n            \"DS_UNID_INT\": \"POSTO I\",\n            \"STATUS\": \"POS HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 113\",\n            \"CD_SOLIC_LIMPEZA\": 94902,\n            \"DT_SOLIC_LIMPEZA\": \"2026-01-09T19:56:40.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"ASDASDASD\"\n        }\n   ]\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/request-waiting-confirmation",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"request-waiting-confirmation"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "934"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3a6-yV6Mcc0PyqHbOZGbF7Izr9ldTXs\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 20:07:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"waitingConfirmations\": [\n        {\n            \"DS_UNID_INT\": \"POSTO II\",\n            \"STATUS\": \"POS HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 222\",\n            \"CD_SOLIC_LIMPEZA\": 94884,\n            \"DT_SOLIC_LIMPEZA\": \"2025-09-29T18:05:17.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"SADDADSDSAADADSSADSASASAD\"\n        },\n        {\n            \"DS_UNID_INT\": \"POSTO I\",\n            \"STATUS\": \"POS HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 109\",\n            \"CD_SOLIC_LIMPEZA\": 94888,\n            \"DT_SOLIC_LIMPEZA\": \"2025-09-29T18:06:42.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"KKKKKKKKKKKKKKKKKKKKKKK\"\n        },\n        {\n            \"DS_UNID_INT\": \"POSTO II\",\n            \"STATUS\": \"POS HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 219\",\n            \"CD_SOLIC_LIMPEZA\": 94892,\n            \"DT_SOLIC_LIMPEZA\": \"2025-11-07T18:44:07.000Z\",\n            \"TP_SOLICITACAO\": \"Terminal\",\n            \"NM_PACIENTE\": \"DENYSE HELLEN DA SILVA SANTOS\"\n        },\n        {\n            \"DS_UNID_INT\": \"POSTO I\",\n            \"STATUS\": \"POS HIGIENIZACAO\",\n            \"DS_LEITO\": \"APARTAMENTO 106\",\n            \"CD_SOLIC_LIMPEZA\": 94894,\n            \"DT_SOLIC_LIMPEZA\": \"2025-11-11T20:15:57.000Z\",\n            \"TP_SOLICITACAO\": \"Concorrente\",\n            \"NM_PACIENTE\": \"JEFFERSON LIMA GONCALVES\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "No requests are pending confirmation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/request-waiting-confirmation",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"request-waiting-confirmation"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e-BnDUHLsWPpFe21qJI8ZXyLXPWCo\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 20:21:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Não há solicitações aguardando confirmação\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update cleaning request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/hospital-beds/update-cleaning-request/{{requestId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"hospital-beds",
+								"update-cleaning-request",
+								"{{requestId}}"
+							]
+						},
+						"description": "## Update Cleaning Request\n\nAtualiza o status de uma solicitação de limpeza de leito hospitalar.\n\n## Método\n\nPATCH\n\n## Endpoint\n\n`/hospital-beds/update-cleaning-request/{requestId}`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\n- **requestId** (path, obrigatório): Identificador da solicitação de limpeza.\n    \n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem atualizar a solicitação.\n    \n- A solicitação deve existir no sistema.\n    \n- Após finalizada, a solicitação não pode ser alterada novamente.\n    \n\n## Exemplo de Request\n\n``` json\n{\n  \"updateCleaningRequest\": \"Limpeza iniciada com sucesso\"\n}\n\n ```\n\n## Respostas Esperadas\n\n- **200**: Limpeza iniciada com sucesso.\n    \n- **400**: Status inválido ou transição não permitida.\n    \n- **401**: Token ausente, inválido ou expirado.\n    \n- **404**: Solicitação não encontrada."
+					},
+					"response": [
+						{
+							"name": "Request started",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/update-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"update-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-73B/0wKUlucw1AS/2qS1VsfFnn4\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 14:43:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"updateCleaningRequest\": \"Limpeza iniciada com sucesso\"\n}"
+						},
+						{
+							"name": "After cleaning started",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/update-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"update-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-xp7p1E1UUVxK98AX0405fh+5HIM\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 14:45:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"updateCleaningRequest\": \"Pos higienizacao iniciada com sucesso\"\n}"
+						},
+						{
+							"name": "Request completed",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/update-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"update-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "84"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"54-UWPeNIK2P8Fy7oTk9DeSknY5JEM\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 14:40:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"updateCleaningRequest\": \"Solicitação aguardando confirmação ou já finalizada\"\n}"
+						},
+						{
+							"name": "Request not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/update-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"update-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-66ifQUsz0tB0lNnRlgBwwFmLhFQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 14:48:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"updateCleaningRequest\": \"Solicitação não encontrada\"\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/update-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"update-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-NOeD41Az20qV9VmfwpPD0Zq2zKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 12 Jan 2026 20:15:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token não fornecido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Confirm cleaning request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employee\": {{employeeId}},\r\n    \"observation\": \"{{observation}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/hospital-beds/confirm-cleaning-request/{{requestId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"hospital-beds",
+								"confirm-cleaning-request",
+								"{{requestId}}"
+							]
+						},
+						"description": "## Confirm Cleaning Request\n\nConfirma uma solicitação de limpeza de leito hospitalar, vinculando um funcionário responsável pela execução.\n\n## Método\n\nPATCH\n\n## Endpoint\n\n`/hospital-beds/confirm-cleaning-request/{requestId}`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\n- **requestId** (path, obrigatório): Identificador da solicitação de limpeza.\n    \n\n## Body\n\n- **employee** (number, obrigatório): Identificador do funcionário responsável pela limpeza.\n    \n- **observation** (string, opcional): Observação complementar sobre a confirmação da limpeza.\n    \n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem confirmar solicitações.\n    \n- O funcionário informado deve existir no sistema.\n    \n- A solicitação deve existir e não pode estar previamente confirmada.\n    \n- Após confirmada, a solicitação segue o fluxo normal de finalização.\n    \n\n## Exemplo de Request\n\n``` json\n{\n  \"employee\": 845,\n  \"observation\": \"Limpeza iniciada conforme protocolo\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Employee not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"employee\": {{employeeId}},\r\n    \"observation\": \"{{observation}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/hospital-beds/confirm-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"confirm-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-SCJ79gcWM0MH8f5zLuwLuPAlT6I\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 17:46:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"confirmCleaningRequest\": \"Funcionário não encontrado\"\n}"
+						},
+						{
+							"name": "Request not found or confirmed",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"employee\": {{employeeId}},\r\n    \"observation\": \"{{observation}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/hospital-beds/confirm-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"confirm-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "94"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5e-1o0eDlUKceMHNblvmynyk4yzsxA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 17:47:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"confirmCleaningRequest\": \"Solicitação não encontrada ou já foi confirmada anteriormente\"\n}"
+						},
+						{
+							"name": "Confirmation complete",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"employee\": {{employeeId}},\r\n    \"observation\": \"{{observation}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/hospital-beds/confirm-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"confirm-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-EabHDHV7KIZS1ueoygGlWC5iJ/k\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 18:49:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"confirmCleaningRequest\": \"Solicitação de limpeza confirmada com sucesso\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refuse cleaning request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/hospital-beds/refuse-cleaning-request/{{requestId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"hospital-beds",
+								"refuse-cleaning-request",
+								"{{requestId}}"
+							]
+						},
+						"description": "## Refuse Cleaning Request\n\nRecusa uma solicitação de limpeza de leito hospitalar, quando a solicitação não atende aos critérios esperados.\n\n## Método\n\nPATCH\n\n## Endpoint\n\n`/hospital-beds/refuse-cleaning-request/{requestId}`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\n- **requestId** (path, obrigatório): Identificador da solicitação de limpeza.\n    \n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem realizar a recusa.\n    \n- A solicitação deve existir no sistema.\n    \n- A solicitação deve estar em estado compatível para recusa.\n    \n- Solicitações já finalizadas não podem ser recusadas.\n    \n\n## Respostas\n\n### Recusa realizada com sucesso\n\n``` json\n{\n  \"refuseCleaningRequest\": \"Solicitação recusada com sucesso\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Refuse confirm",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/refuse-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"refuse-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-5j4USwHHLhfYdkYejtWh3Y7yToQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 20:10:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"refuseCleaningRequest\": \"Solicitação de limpeza recusada com sucesso\"\n}"
+						},
+						{
+							"name": "Request not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/refuse-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"refuse-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-BzVYqbc50gegRWr2YmBkqqqV2gY\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 20:10:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"refuseCleaningRequest\": \"Solicitação não encontrada\"\n}"
+						},
+						{
+							"name": "Request still in progress",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hospital-beds/refuse-cleaning-request/{{requestId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hospital-beds",
+										"refuse-cleaning-request",
+										"{{requestId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5f-tMeMiTsVRwZS8g099yCcaxrSfDU\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Dec 2025 20:12:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"refuseCleaningRequest\": \"Solicitação não esta em estado de limpeza finalizada para recusa\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Procedures prices update",
+			"item": [
+				{
+					"name": "upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/ppu/upload",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"ppu",
+								"upload"
+							]
+						},
+						"description": "## Upload\n\nRealiza o upload de um arquivo XLSX contendo informações de atualização de preços de procedimentos para processamento dentro da API.\n\n## Método\n\nPOST\n\n## Endpoint\n\n`/ppu/upload`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros de URL.\n\n## Body\n\nTipo: `multipart/form-data`\n\n### Campos do Body\n\n- **file** (file, obrigatório): Arquivo XLSX contendo os dados de preços dos procedimentos.\n    \n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- O arquivo deve estar no formato `.xlsx`.\n    \n- O arquivo é validado antes do processamento.\n    \n- Dados inválidos ou inconsistentes podem impedir o processamento.\n    \n- O processamento ocorre dentro da API, podendo ser síncrono ou assíncrono, conforme configuração do sistema.\n    \n\n## Exemplo de Request\n\n- Método: `POST`\n    \n- Content-Type: `multipart/form-data`\n    \n- Campo:\n    \n    - `file`: procedures_prices_update.xlsx\n        \n\n## Resposta de Sucesso\n\nArquivo recebido e processado com sucesso.\n\n## Exemplo de Resposta\n\n``` json\n{\n  \"status\": \"success\",\n  \"message\": \"Procedures prices file processed successfully\"\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "All employees",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/employees/all",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"employees",
+								"all"
+							]
+						},
+						"description": "## All Employees\n\nRetorna a lista de todos os funcionários cadastrados no sistema.\n\n## Método\n\nGET\n\n## Endpoint\n\n`/employees/all`\n\n## Autenticação\n\nBearer Token obrigatório no header `Authorization`.\n\n## Parâmetros\n\nNão possui parâmetros.\n\n## Body\n\nNão se aplica.\n\n## Regras de Negócio\n\n- Apenas usuários autenticados podem acessar esta rota.\n    \n- Retorna informações básicas dos funcionários.\n    \n\n## Resposta de Sucesso\n\nRetorna um array de funcionários no seguinte formato:\n\n``` json\n[\n  {\n    \"CD_FUNC\": 501,\n    \"NM_FUNC\": \"Maria Santos\"\n  },\n  {\n    \"CD_FUNC\": 502,\n    \"NM_FUNC\": \"João Almeida\"\n  }\n]\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/inf/employees",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"inf",
+										"employees"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1694"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69e-jrpT9l2zCLtjQMgpx2lTY861Jdg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Dec 2025 15:44:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"CD_FUNC\": 123,\n        \"NM_FUNC\": \"JOÃOZINHO DA SILVA E SILVA\"\n    },\n    {\n        \"CD_FUNC\": 321,\n        \"NM_FUNC\": \"SILVA DA SILVA JOAOZINHO\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Configurations",
+			"item": [
+				{
+					"name": "Database",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/configurations/database",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"configurations",
+								"database"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
