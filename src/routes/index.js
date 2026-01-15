@@ -24,6 +24,6 @@ router.use('/hospital-beds', authMiddleware, hospitalBedsRoute);
 
 router.use('/employees', authMiddleware, employeesRoute);
 
-router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes)
+// router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes)
 
 export default router;

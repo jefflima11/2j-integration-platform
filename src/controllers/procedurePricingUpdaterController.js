@@ -1,9 +1,10 @@
-import { upload } from '../services/uploadService.js';
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
+import { upload } from '../services/uploadService.js';
+import { unconfiguredProcedures } from '../models/proceduresData.js'
 
-export async function uploadController(req, res) {
+export async function uploadFile(req, res) {
     
     try {
         upload.single('file')(req, res, (err) => {
@@ -41,3 +42,34 @@ export async function uploadController(req, res) {
     }
 }
 
+export async function processData(req, res) {
+    try {
+        let rawData
+
+        try {
+            rawData = fs.readFileSync('./src/temp/data.json', 'utf-8');
+        } catch (err) {
+            throw new Error(`Erro ao tentar ler '/temp/data.json': ${err}`);
+        };
+
+        const data = JSON.parse(rawData);
+
+        const processedData = await cleaningDatas(data);
+
+        try {
+            return processedData;
+        } catch (err) {
+            throw new Error(`Erro, Erro: ${err}`);
+        };
+
+    } catch (err) {
+        throw new Error('Erro no processamento dos dados')
+    };
+    
+    // try {
+    //     const unconfigured = await unconfiguredProcedures();
+    //     res.status(200).json({ message: err });
+    // } catch (err) {;
+    //     res.status(500).json({ message: err })
+    // }
+}
