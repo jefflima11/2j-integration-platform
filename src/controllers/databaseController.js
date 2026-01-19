@@ -5,7 +5,8 @@ async function databaseController(req, res) {
 
     try {
         setDbConfig({ userDB, passwordDB, connectDB, dirDB, secretKeyDB });
-        res.status(200).json({ message: 'Dados guardados!'})
+        
+        res.status(201).json({ message: 'Dados guardados!'})
     } catch (err) {
         res.status(500).json({ message: 'Erro interno do servidor: ' + err});
     }

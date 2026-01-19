@@ -6,7 +6,7 @@ import product from './productRoutes.js';
 import infos from './infosRoutes.js';
 import hospitalBedsRoute from './hospitalBedsRoutes.js';
 import employeesRoute from './employeeRoutes.js';
-import procedurePricingUpdaterRoutes from './procedurePricingUpdaterRoutes.js';
+// import procedurePricingUpdaterRoutes from './procedurePricingUpdaterRoutes.js';
 import configurationRoute from './configurationRoutes.js';
 const router = Router();
 
