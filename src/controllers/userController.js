@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { getConnection } from '../database/connection.js';
-import { allUsers as allUsersModel, alterPassword as alterPasswordModel, inactivateUser as inactivateUserModel } from '../models/userModel.js';
+import { allUsers as allUsersModel, alterPassword as alterPasswordModel, inactivateUser as inactivateUserModel, userAlterModel } from '../models/userModel.js';
 import { userQuerie } from '../queries/userQuerie.js';
 
 
@@ -76,9 +76,26 @@ export async function inactivateUser(req, res) {
     };
 };
 
+export async function userAlter(req, res) {
+    const { username } = req.params;
+    const { name, role, cpf } = req.body;
+
+    if (!name && !role && !cpf) {
+        return res.status(400).json({ message: 'Pelo menos um dos campos (nome completo, regra ou CPF) deve ser fornecido para alteração.' });
+    }
+
+    try {
+        const alteredUser = await userAlterModel(username, name, role, cpf);
+        res.json({ message: alteredUser});
+    } catch (err) {
+        res.json(err);
+    }
+};
+
 export default { 
     newUser,
     allUsers,
     alterPassword,
-    inactivateUser
+    inactivateUser,
+    userAlter
 };
