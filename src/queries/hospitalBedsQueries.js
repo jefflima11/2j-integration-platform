@@ -45,7 +45,8 @@ export const cleaningRequestQuery = `Select
                 End ds_leito,
                 cd_solic_limpeza,                
                 dt_solic_limpeza,
-                decode(sl.tp_solicitacao, 'C', 'Concorrente', 'A', 'Terminal', sl.tp_solicitacao) as tp_solicitacao,
+                decode(sl.tp_solicitacao, 'C', 'Cadastrada', 'A', 'Alta', 'T', 'Transferencia', sl.tp_solicitacao) as tp_solicitacao,
+                tl.ds_tipo_limpeza tp_limpeza,
                 p.nm_paciente
                 
             From
@@ -54,6 +55,7 @@ export const cleaningRequestQuery = `Select
                 Inner Join dbamv.unid_int ui On l.cd_unid_int = ui.cd_unid_int
                 Inner join dbamv.atendime a on sl.cd_atendimento = a.cd_atendimento
                 Inner join dbamv.paciente p on a.cd_paciente = p.cd_paciente
+                left join dbamv.tipo_limpeza tl on sl.cd_tipo_limpeza = tl.cd_tipo_limpeza
             Where
                 sn_realizado = 'N'
                 And sn_lib_limpeza_auto = 'N'

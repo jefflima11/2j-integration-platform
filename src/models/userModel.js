@@ -79,3 +79,46 @@ export async function inactivateUser(username) {
         };
     };
 };
+
+export async function userAlterModel(username, name, role, cpf) {
+    const connection = await getConnection();
+    
+    const fieldsToUpdate = [];
+    const binds = { username };
+
+    if(name !== undefined) {
+        fieldsToUpdate.push('NM_USUARIO = :name');
+        binds.name = name;
+    }
+
+    if(role !== undefined) {
+        fieldsToUpdate.push('ROLE = :role');
+        binds.role = role;
+    }
+
+
+    if(cpf !== undefined) {
+        fieldsToUpdate.push('NR_CPF = :cpf');
+        binds.cpf = cpf;
+    }
+
+    if (fieldsToUpdate.length === 0) {
+        throw new Error('Nenhum campo para atualizar.');
+    }
+
+    const sql = `
+        UPDATE DBAHUMS.USERS SET
+            ${fieldsToUpdate.join(', ')},
+            UPDATED_AT = SYSDATE
+        WHERE CD_USUARIO = :username
+    `;
+
+
+    try {
+        const userAltered = await connection.execute(sql, binds, { autoCommit: true });
+        return { message: userAltered };
+    
+    } finally {
+        await connection.close();
+    }
+};

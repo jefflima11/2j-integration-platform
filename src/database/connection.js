@@ -19,7 +19,7 @@ export async function initDB() {
             user: config.userDB,
             password: config.passwordDB,
             connectString: config.connectDB,
-            PoolMin: 1,
+            poolMin: 1,
             poolMax: 20,
             poolIncrement: 2,
             queueTimeout: 10000
