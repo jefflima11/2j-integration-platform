@@ -1,51 +1,34 @@
 import oracledb from 'oracledb';
-import { getDbConfig } from './configuration.js';
+let pool = null;
 
-let pool;
-
-export async function initDB() {
+export async function createPool(config) {
     if (pool) return pool;
 
-    const config = getDbConfig();
+    oracledb.initOracleClient({ libDir: config.dirDB });
 
-    if (!config) {
-        return { message: 'teste'};
-    }
+    pool = await oracledb.createPool({
+        user: config.userDB,
+        password: config.passwordDB,
+        connectString: config.connectDB,
+        poolMin: 1,
+        poolMax: 5,
+        poolIncrement: 2,
+        queueTimeout: 10000
+    });
 
-    try {
-        oracledb.initOracleClient({ libDir: config.dirDB });
+    return pool;
+}
 
-        pool = await oracledb.createPool({
-            user: config.userDB,
-            password: config.passwordDB,
-            connectString: config.connectDB,
-            poolMin: 1,
-            poolMax: 20,
-            poolIncrement: 2,
-            queueTimeout: 10000
-        });
-        console.log('Pool de conexão criada.');
-    } catch (err) {
-        console.log(err);
-        return;
-    };
-};
-
-export async function closeDB() {
-    try {
-        if (pool) {
-            await pool.close(0);
-            console.log('Pool de conexão fechado.')
-        }
-    } catch (err) {
-        console.error('Erro ao fechar o Pool de conexão', err);
-    };
-};
+export function isPoolReady() {
+    return !!pool;
+}
 
 export async function getConnection() {
     if (!pool) {
-        throw new Error('Pool não inicializado. Chamar função iniDB() primeiro.');
+        throw new Error('Banco não configurado');
     }
 
-    return pool.getConnection();
+    const conn = await pool.getConnection();
+    conn.callTimeout = 15000;
+    return conn;
 }
