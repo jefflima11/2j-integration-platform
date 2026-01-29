@@ -35,7 +35,7 @@ export async function loginModel(username, password) {
         const token = jwt.sign(
             { user: cd_usuario, role },
             config.secretKeyDB,
-            { expiresIn: '5h' }
+            { expiresIn: '1h' }
         );
 
         return { token, role };

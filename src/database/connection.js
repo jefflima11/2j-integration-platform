@@ -11,7 +11,7 @@ export async function createPool(config) {
         password: config.passwordDB,
         connectString: config.connectDB,
         poolMin: 1,
-        poolMax: 5,
+        poolMax: 15,
         poolIncrement: 2,
         queueTimeout: 10000
     });
