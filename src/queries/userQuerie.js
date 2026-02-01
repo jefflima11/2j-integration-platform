@@ -7,7 +7,7 @@ export const userQuerie = `INSERT INTO dbahums.USERS
 export const allUsers = `SELECT 
     CD_USUARIO, 
     NM_USUARIO, 
-    DECODE(ROLE, 'N', 'Normal', 'A', 'Administrador', 'L', 'Concierge') ROLE
+    DECODE(ROLE, 'N', 'Normal', 'A', 'Administrador', 'L', 'Concierge', 'O', 'Outros') ROLE
     FROM DBAHUMS.USERS
 `;
 

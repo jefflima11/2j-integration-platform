@@ -8,6 +8,7 @@ import hospitalBedsRoute from './hospitalBedsRoutes.js';
 import employeesRoute from './employeeRoutes.js';
 // import procedurePricingUpdaterRoutes from './procedurePricingUpdaterRoutes.js';
 import configurationRoute from './configurationRoutes.js';
+import satisfactionSurveyRoute from './satisfactionSurveyRoutes.js';
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.use('/hospital-beds', authMiddleware, hospitalBedsRoute);
 
 router.use('/employees', authMiddleware, employeesRoute);
 
-
+router.use('/satisfaction-survey', authMiddleware, satisfactionSurveyRoute);
 
 // router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes)
 
