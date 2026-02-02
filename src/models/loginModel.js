@@ -32,13 +32,13 @@ export async function loginModel(username, password) {
             throw new Error('Senha incorreta');
         }
 
-        const tokens = jwt.sign(
+        const token = jwt.sign(
             { user: cd_usuario, role },
             config.secretKeyDB,
             { expiresIn: '1h' }
         );
 
-        return { tokens, role };
+        return { token, role };
 
     } finally {
         if (connection) {

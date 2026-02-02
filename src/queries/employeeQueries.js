@@ -6,4 +6,4 @@ export const getAllEmployeesQuery = `SELECT
                 inner join dbamv.func_espec fe on f.cd_func = fe.cd_func
             WHERE
                 sn_ativo = 'S'
-                and fe.cd_espec = 40`;
+                and fe.cd_espec = 38`;
