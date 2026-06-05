@@ -88,10 +88,10 @@ export async function refuseCleanRequestController(req, res) {
 };
 
 export async function checkListFormController(req, res) {
-    const { user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura } = req.body;
+    const params = req.body;
 
     try {
-        const checkListForm = await checkListFormModel(user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura);
+        const checkListForm = await checkListFormModel(params);
         res.status(200).json({ checkListForm });
     } catch  (err) {
         res.status(500).json({

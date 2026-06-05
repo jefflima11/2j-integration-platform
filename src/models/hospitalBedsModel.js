@@ -167,16 +167,35 @@ export async function refuseCleanRequestModel(request) {
     };
 };
 
-export async function checkListFormModel(user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura) {
+export async function checkListFormModel(params) {
     const connection  = await getConnection();
 
-    // return { user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura };
+    const  { userName, solicLimp, tipo, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao } = params;
 
     try {
-        const checkListForm = await connection.execute(checkListFormQuery, {user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura}, { autoCommit: true }, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        const checkListForm = await connection.execute(checkListFormQuery, { 
+            userName, 
+            solicLimp,
+            tipo,
+            leito, 
+            tv, 
+            cama, 
+            travesseiro, 
+            enxoval, 
+            sofa, 
+            poltrona, 
+            escada, 
+            toalha, 
+            telefone, 
+            observacao
+        }, { autoCommit: true });
         return 'inserido';
     } catch(err) {
-        return err;
+        return {
+            code: err.code,
+            errorNum: err.errorNum,
+            message: err.message
+        };
     } finally {
         await connection.close();
     };
