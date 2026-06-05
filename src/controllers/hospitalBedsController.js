@@ -1,4 +1,4 @@
-import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel, allHospitalBedsStatusModel } from '../models/hospitalBedsModel.js';
+import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel, allHospitalBedsStatusModel, checkListFormModel } from '../models/hospitalBedsModel.js';
 
 export async function allHospitalBedsStatusController(req, res) {
     try {
@@ -86,3 +86,17 @@ export async function refuseCleanRequestController(req, res) {
         res.status(500).json({ message: 'Internal Server Error' });
     };
 };
+
+export async function checkListFormController(req, res) {
+    const { user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura } = req.body;
+
+    try {
+        const checkListForm = await checkListFormModel(user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura);
+        res.status(200).json({ checkListForm });
+    } catch  (err) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            loca: 'function: checkListFormController'
+        });
+    }
+}

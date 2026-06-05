@@ -1,6 +1,6 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
-import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery } from '../queries/hospitalBedsQueries.js';
+import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery, checkListFormQuery } from '../queries/hospitalBedsQueries.js';
 
 export async function allHospitalBedsStatusModel() {
     const connection = await getConnection();
@@ -164,5 +164,20 @@ export async function refuseCleanRequestModel(request) {
         return err;
     } finally {
         await connection.close();
-    }
+    };
+};
+
+export async function checkListFormModel(user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura) {
+    const connection  = await getConnection();
+
+    // return { user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura };
+
+    try {
+        const checkListForm = await connection.execute(checkListFormQuery, {user, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao, assinatura}, { autoCommit: true }, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        return 'inserido';
+    } catch(err) {
+        return err;
+    } finally {
+        await connection.close();
+    };
 };

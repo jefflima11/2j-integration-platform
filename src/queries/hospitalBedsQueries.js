@@ -182,3 +182,24 @@ export const refuseCleanRequestQuery = `UPDATE
                 WHERE
                     cd_solic_limpeza = :request
 `;
+
+export const checkListFormQuery = `
+    insert into dbahums.check_list values (
+        dbahums.seq_check_list.nextval,
+        sysdate,
+        null,
+        :user,
+        :Leito,
+        :tv,
+        :cama,
+        :travesseiro,
+        :enxoval,
+        :sofa,
+        :poltrona,
+        :escada,
+        :toalha,
+        :telefone,
+        :observacao,
+        :assinatura
+    );
+`
