@@ -1,3 +1,17 @@
+export const allHospitalBedsStatusQuery = `
+    select
+      cd_leito,
+      ds_leito,
+      ds_unid_int
+    from
+        dbamv.leito l
+        inner join dbamv.unid_int ui
+          on l.cd_unid_int = ui.cd_unid_int
+    where
+        dt_desativacao is null
+
+`;
+
 export const hospitalBedsStatusQuery = `Select 
                 ds_unid_int,
                 status,

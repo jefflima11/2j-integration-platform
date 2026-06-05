@@ -1,6 +1,21 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
-import { hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery } from '../queries/hospitalBedsQueries.js';
+import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery } from '../queries/hospitalBedsQueries.js';
+
+export async function allHospitalBedsStatusModel() {
+    const connection = await getConnection();
+
+    try {
+        const { rows: allHospitalBedsStatus } = await connection.execute(allHospitalBedsStatusQuery, [], 
+                { outFormat: oracledb.OUT_FORMAT_OBJECT}
+            );
+        return allHospitalBedsStatus;
+    } catch (err) {
+
+    } finally {
+        await connection.close();
+    };
+};
 
 export async function hospitalBedsStatusModel() {
     const connection = await getConnection();

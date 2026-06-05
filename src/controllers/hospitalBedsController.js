@@ -1,4 +1,18 @@
-import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel } from '../models/hospitalBedsModel.js';
+import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel, allHospitalBedsStatusModel } from '../models/hospitalBedsModel.js';
+
+export async function allHospitalBedsStatusController(req, res) {
+    try {
+        const allStatus = await allHospitalBedsStatusModel();
+        res.status(200).json(allStatus);
+    } catch (error) {
+        res.status(500).json(
+            { 
+                message: 'Internal server Error',
+                local: 'allHospitalBedsStatusController'
+            }
+        );
+    }
+}
 
 export async function hospitalBedsStatusController(req, res) {
     try {

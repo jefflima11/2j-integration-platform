@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/status', authorize(['A','L','N']), hospitalBedsStatusController);
 router.get('/cleaning-request', authorize(['A','L','N']), cleaningRequestController);
-router.get('/request-waiting-confirmation', authorize(['A','L']),waitingConfirmationController);
+router.get('/request-waiting-confirmation', authorize(['A','L']), waitingConfirmationController);
 
 router.patch('/update-cleaning-request/:request', authorize(['N','A','L']), updateCleanRequestController);
 router.patch('/confirm-cleaning-request/:request', authorize(['A','L']), confirmCleanRequestController);
