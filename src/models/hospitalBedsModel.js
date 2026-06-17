@@ -1,6 +1,21 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
-import { hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery } from '../queries/hospitalBedsQueries.js';
+import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery, checkListFormQuery } from '../queries/hospitalBedsQueries.js';
+
+export async function allHospitalBedsStatusModel() {
+    const connection = await getConnection();
+
+    try {
+        const { rows: allHospitalBedsStatus } = await connection.execute(allHospitalBedsStatusQuery, [], 
+                { outFormat: oracledb.OUT_FORMAT_OBJECT}
+            );
+        return allHospitalBedsStatus;
+    } catch (err) {
+
+    } finally {
+        await connection.close();
+    };
+};
 
 export async function hospitalBedsStatusModel() {
     const connection = await getConnection();
@@ -149,5 +164,56 @@ export async function refuseCleanRequestModel(request) {
         return err;
     } finally {
         await connection.close();
+    };
+};
+
+export async function checkListFormModel(params) {
+    const connection  = await getConnection();
+
+    Object.keys(params).forEach(key => {
+        if (params[key] == null || params[key] == '' || !params[key]) {
+            params[key] = 'N';
+        }
+    });
+
+    if (params.assinatura == 'N' || params.assinatura == 'S') {
+        params.assinatura = null;
     }
+
+    if (params.solicLimp == 'N' || params.solicLimp == 'S') {
+        params.solicLimp = null;
+    }
+
+    if (params.observacao == 'N' || params.observacao == 'S') {
+        params.observacao = null;
+    }
+
+    try {
+        
+        const checkListForm = await connection.execute(checkListFormQuery, [
+            params.solicLimp,
+            params.tipo,
+            params.userName, 
+            params.leito, 
+            params.tv, 
+            params.cama, 
+            params.travesseiro, 
+            params.enxoval, 
+            params.sofa, 
+            params.poltrona, 
+            params.escada, 
+            params.toalha, 
+            params.telefone, 
+            params.observacao,
+            params.cd_atendimento
+        ], { autoCommit: true });
+
+        return {
+            message: 'Formulário de checklist inserido com sucesso'
+        };
+    } catch(err) {
+        return err;
+    } finally {
+        await connection.close();
+    };
 };

@@ -9,6 +9,7 @@ import employeesRoute from './employeeRoutes.js';
 // import procedurePricingUpdaterRoutes from './procedurePricingUpdaterRoutes.js';
 import configurationRoute from './configurationRoutes.js';
 import satisfactionSurveyRoute from './satisfactionSurveyRoutes.js';
+import checkListRoute from './checkListRoutes.js'
 
 const router = Router();
 
@@ -28,6 +29,8 @@ router.use('/employees', authMiddleware, employeesRoute);
 
 router.use('/satisfaction-survey', authMiddleware, satisfactionSurveyRoute);
 
-// router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes)
+// router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes);
+
+router.use('/check-list', authMiddleware, checkListRoute);
 
 export default router;

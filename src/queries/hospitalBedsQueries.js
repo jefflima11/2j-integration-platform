@@ -1,3 +1,17 @@
+export const allHospitalBedsStatusQuery = `
+    select
+      cd_leito,
+      ds_leito,
+      ds_unid_int
+    from
+        dbamv.leito l
+        inner join dbamv.unid_int ui
+          on l.cd_unid_int = ui.cd_unid_int
+    where
+        dt_desativacao is null
+
+`;
+
 export const hospitalBedsStatusQuery = `Select 
                 ds_unid_int,
                 status,
@@ -167,4 +181,26 @@ export const refuseCleanRequestQuery = `UPDATE
                     DS_OBSERVACAO = null
                 WHERE
                     cd_solic_limpeza = :request
+`;
+
+export const checkListFormQuery = `
+    begin
+        dbahums.sp_insert_check_list_2j_hums(
+            :solicLimp,
+            :tipo,
+            :userName, 
+            :leito, 
+            :tv, 
+            :cama, 
+            :travesseiro, 
+            :enxoval, 
+            :sofa, 
+            :poltrona, 
+            :escada, 
+            :toalha, 
+            :telefone, 
+            :observacao,
+            :cd_atendimento
+        );
+    end;
 `;
