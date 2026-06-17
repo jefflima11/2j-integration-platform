@@ -88,15 +88,23 @@ export async function refuseCleanRequestController(req, res) {
 };
 
 export async function checkListFormController(req, res) {
-    const params = req.body;
+    const checkListParams = req.body;
 
     try {
-        const checkListForm = await checkListFormModel(params);
-        res.status(200).json({ checkListForm });
+        const checkListForm = await checkListFormModel(checkListParams);
+
+        if (checkListForm.code) {
+            return res.status(500).json({
+                error: checkListForm.message
+            });
+        } else {
+            res.status(200).json(checkListForm.message);
+        }
+
     } catch  (err) {
         res.status(500).json({
             message: 'Internal Server Error',
-            loca: 'function: checkListFormController'
+            local: 'function: checkListFormController'
         });
     }
 }

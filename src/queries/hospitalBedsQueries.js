@@ -184,45 +184,23 @@ export const refuseCleanRequestQuery = `UPDATE
 `;
 
 export const checkListFormQuery = `
-    insert into dbahums.check_list values (
-        dbahums.seq_check_list.nextval,
-        :solicLimp,
-        :tipo,
-        sysdate,
-        null,
-        :userName, 
-        :leito, 
-        :tv, 
-        :cama, 
-        :travesseiro, 
-        :enxoval, 
-        :sofa, 
-        :poltrona, 
-        :escada, 
-        :toalha, 
-        :telefone, 
-        :observacao,
-        null
-    )
+    begin
+        dbahums.sp_insert_check_list_2j_hums(
+            :solicLimp,
+            :tipo,
+            :userName, 
+            :leito, 
+            :tv, 
+            :cama, 
+            :travesseiro, 
+            :enxoval, 
+            :sofa, 
+            :poltrona, 
+            :escada, 
+            :toalha, 
+            :telefone, 
+            :observacao,
+            :cd_atendimento
+        );
+    end;
 `;
-
-// export const checkListFormQuery = `
-//     insert into dbahums.check_list values (
-//         dbahums.seq_check_list.nextval,
-//         sysdate,
-//         null,
-//         'jefferson',
-//         2,
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         'S',
-//         null
-//     )
-// `;

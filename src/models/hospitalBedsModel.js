@@ -170,32 +170,49 @@ export async function refuseCleanRequestModel(request) {
 export async function checkListFormModel(params) {
     const connection  = await getConnection();
 
-    const  { userName, solicLimp, tipo, leito, tv, cama, travesseiro, enxoval, sofa, poltrona, escada, toalha, telefone, observacao } = params;
+    Object.keys(params).forEach(key => {
+        if (params[key] == null || params[key] == '' || !params[key]) {
+            params[key] = 'N';
+        }
+    });
+
+    if (params.assinatura == 'N' || params.assinatura == 'S') {
+        params.assinatura = null;
+    }
+
+    if (params.solicLimp == 'N' || params.solicLimp == 'S') {
+        params.solicLimp = null;
+    }
+
+    if (params.observacao == 'N' || params.observacao == 'S') {
+        params.observacao = null;
+    }
 
     try {
-        const checkListForm = await connection.execute(checkListFormQuery, { 
-            userName, 
-            solicLimp,
-            tipo,
-            leito, 
-            tv, 
-            cama, 
-            travesseiro, 
-            enxoval, 
-            sofa, 
-            poltrona, 
-            escada, 
-            toalha, 
-            telefone, 
-            observacao
-        }, { autoCommit: true });
-        return 'inserido';
-    } catch(err) {
+        
+        const checkListForm = await connection.execute(checkListFormQuery, [
+            params.solicLimp,
+            params.tipo,
+            params.userName, 
+            params.leito, 
+            params.tv, 
+            params.cama, 
+            params.travesseiro, 
+            params.enxoval, 
+            params.sofa, 
+            params.poltrona, 
+            params.escada, 
+            params.toalha, 
+            params.telefone, 
+            params.observacao,
+            params.cd_atendimento
+        ], { autoCommit: true });
+
         return {
-            code: err.code,
-            errorNum: err.errorNum,
-            message: err.message
+            message: 'Formulário de checklist inserido com sucesso'
         };
+    } catch(err) {
+        return err;
     } finally {
         await connection.close();
     };
