@@ -12,7 +12,7 @@ export const allHospitalBedsStatusQuery = `
         on l.cd_leito = a.cd_leito
     where
         dt_desativacao is null
-        and ui.cd_unid_int in (2,12,26)
+        and ui.cd_unid_int in (2,12)
         and a.dt_alta is null
 `;
 
