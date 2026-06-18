@@ -1,15 +1,19 @@
 export const allHospitalBedsStatusQuery = `
     select
-      cd_leito,
-      ds_leito,
-      ds_unid_int
+        a.cd_leito,
+        ds_leito,
+        ds_unid_int,
+        a.cd_atendimento
     from
         dbamv.leito l
         inner join dbamv.unid_int ui
-          on l.cd_unid_int = ui.cd_unid_int
+        on l.cd_unid_int = ui.cd_unid_int
+        inner join dbamv.atendime a
+        on l.cd_leito = a.cd_leito
     where
         dt_desativacao is null
-
+        and ui.cd_unid_int in (2,12)
+        and a.dt_alta is null
 `;
 
 export const hospitalBedsStatusQuery = `Select 
