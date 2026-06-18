@@ -16,7 +16,7 @@ export const allHospitalBedsStatusQuery = `
                 on a.cd_paciente = p.cd_paciente
         where
             dt_desativacao is null
-            and ui.cd_unid_int in (2,12)
+            and ui.cd_unid_int in (2,11)
             and a.dt_alta is null
         ),
         check_in as (
