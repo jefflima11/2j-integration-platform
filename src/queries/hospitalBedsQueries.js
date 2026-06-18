@@ -1,19 +1,67 @@
 export const allHospitalBedsStatusQuery = `
-    select
-        a.cd_leito,
-        ds_leito,
-        ds_unid_int,
-        a.cd_atendimento
-    from
-        dbamv.leito l
-        inner join dbamv.unid_int ui
-        on l.cd_unid_int = ui.cd_unid_int
-        inner join dbamv.atendime a
-        on l.cd_leito = a.cd_leito
-    where
-        dt_desativacao is null
-        and ui.cd_unid_int in (2,12)
-        and a.dt_alta is null
+    with leit as (
+        select distinct
+            a.cd_leito,
+            ds_leito,
+            ds_unid_int,
+            a.cd_atendimento,
+            p.nm_paciente
+        from
+            dbamv.leito l
+            inner join dbamv.unid_int ui
+                on l.cd_unid_int = ui.cd_unid_int
+            inner join dbamv.atendime a
+                on l.cd_leito = a.cd_leito
+            inner join dbamv.paciente p
+                on a.cd_paciente = p.cd_paciente
+        where
+            dt_desativacao is null
+            and ui.cd_unid_int in (2,12)
+            and a.dt_alta is null
+        ),
+        check_in as (
+        select
+            cd_atendimento,
+            max(dt_registro) ult_registro
+        from
+            dbahums.check_list
+        where
+            tp_check_list = 1
+        group by
+            cd_atendimento
+        ),
+        check_out as (
+        select
+            cd_atendimento,
+            max(dt_registro) ult_registro
+        from
+            dbahums.check_list
+        where
+            tp_check_list = 2
+        group by
+            cd_atendimento
+        )
+
+        select
+        l.cd_leito,
+        l.cd_atendimento,
+        l.nm_paciente,
+        l.ds_leito,
+        l.ds_unid_int,
+        case
+            when ci.cd_atendimento is not null then 'S'
+            else 'N'
+        end check_in,
+        case
+            when ci.cd_atendimento is not null then 'S'
+            else 'N'
+        end check_out
+        from
+        leit l
+        left join check_in ci
+            on l.cd_atendimento = ci.cd_atendimento
+        left join check_out co
+            on l.cd_atendimento = co.cd_atendimento
 `;
 
 export const hospitalBedsStatusQuery = `Select 
