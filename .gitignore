@@ -141,4 +141,4 @@ dist
 .postman
 postman/environments/*.json
 postman/globals/
-
+src/uploads/*

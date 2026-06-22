@@ -252,7 +252,8 @@ export const checkListFormQuery = `
             :toalha, 
             :telefone, 
             :observacao,
-            :cd_atendimento
+            :cd_atendimento,
+            :signature
         );
     end;
 `;
