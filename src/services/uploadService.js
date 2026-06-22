@@ -23,6 +23,17 @@ const upload = multer({
     }
 });
 
+const uploadSignature = multer({
+    storage: storage,
+    fileFilter: function(req, file, cb) {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, true);
+        } else {
+            cb(new Error('Only JPEG and PNG files are allowed!'), false);
+        }
+    }
+});
+
 async function start() {
     const uploadsDir = path.resolve('./src/uploads/');
     const tempDir = path.resolve('./src/temp');
@@ -51,4 +62,4 @@ async function start() {
     }
 }
 
-export { upload, start };
+export { upload, uploadSignature, start };

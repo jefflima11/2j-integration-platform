@@ -1,6 +1,7 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
 import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery, checkListFormQuery } from '../queries/hospitalBedsQueries.js';
+import fs from 'fs/promises';
 
 export async function allHospitalBedsStatusModel() {
     const connection = await getConnection();
@@ -167,53 +168,71 @@ export async function refuseCleanRequestModel(request) {
     };
 };
 
-export async function checkListFormModel(params) {
-    const connection  = await getConnection();
+export async function checkListFormModel(params, signature) {
+    let connection;
 
-    Object.keys(params).forEach(key => {
-        if (params[key] == null || params[key] == '' || !params[key]) {
-            params[key] = 'N';
-        }
-    });
-
-    if (params.assinatura == 'N' || params.assinatura == 'S') {
-        params.assinatura = null;
-    }
-
-    if (params.solicLimp == 'N' || params.solicLimp == 'S') {
-        params.solicLimp = null;
-    }
-
-    if (params.observacao == 'N' || params.observacao == 'S') {
-        params.observacao = null;
-    }
+    const imageBuffer = await fs.readFile(signature.path);
 
     try {
-        
-        const checkListForm = await connection.execute(checkListFormQuery, [
-            params.solicLimp,
-            params.tipo,
-            params.userName, 
-            params.leito, 
-            params.tv, 
-            params.cama, 
-            params.travesseiro, 
-            params.enxoval, 
-            params.sofa, 
-            params.poltrona, 
-            params.escada, 
-            params.toalha, 
-            params.telefone, 
-            params.observacao,
-            params.cd_atendimento
-        ], { autoCommit: true });
+        connection = await getConnection();
+
+        const cleanParams = { ...params };
+
+        Object.keys(cleanParams).forEach(key => {
+            if (!cleanParams[key]) {
+                cleanParams[key] = 'N';
+            }
+        });
+
+        if (cleanParams.solicLimp === 'N' || cleanParams.solicLimp === 'S') {
+            cleanParams.solicLimp = null;
+        }
+
+        if (cleanParams.observacao === 'N' || cleanParams.observacao === 'S') {
+            cleanParams.observacao = null;
+        }
+        console.log(signature);
+        const result = await connection.execute(
+            checkListFormQuery,
+            [
+                cleanParams.solicLimp,
+                cleanParams.tipo,
+                cleanParams.userName,
+                cleanParams.leito,
+                cleanParams.tv,
+                cleanParams.cama,
+                cleanParams.travesseiro,
+                cleanParams.enxoval,
+                cleanParams.sofa,
+                cleanParams.poltrona,
+                cleanParams.escada,
+                cleanParams.toalha,
+                cleanParams.telefone,
+                cleanParams.observacao,
+                cleanParams.cd_atendimento,
+                {
+                    val: imageBuffer,
+                    type: oracledb.BLOB
+                }
+            ],
+            { autoCommit: true }
+        );
 
         return {
-            message: 'Formulário de checklist inserido com sucesso'
+            message: 'Formulário inserido com sucesso',
+            rowsAffected: result.rowsAffected
         };
-    } catch(err) {
-        return err;
+
+    } catch (err) {
+        console.error("Oracle error:", err);
+        throw err;
     } finally {
-        await connection.close();
-    };
-};
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (e) {
+                console.error("Error closing connection:", e);
+            }
+        }
+    }
+}
