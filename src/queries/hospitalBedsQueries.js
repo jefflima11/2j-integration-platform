@@ -53,7 +53,7 @@ export const allHospitalBedsStatusQuery = `
             else 'N'
         end check_in,
         case
-            when ci.cd_atendimento is not null then 'S'
+            when co.cd_atendimento is not null then 'S'
             else 'N'
         end check_out
         from
