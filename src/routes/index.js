@@ -6,7 +6,7 @@ import product from './productRoutes.js';
 import infos from './infosRoutes.js';
 import hospitalBedsRoute from './hospitalBedsRoutes.js';
 import employeesRoute from './employeeRoutes.js';
-// import procedurePricingUpdaterRoutes from './procedurePricingUpdaterRoutes.js';
+import billingProcedureRoute from './procedurePricingUpdaterRoutes.js';
 import configurationRoute from './configurationRoutes.js';
 import satisfactionSurveyRoute from './satisfactionSurveyRoutes.js';
 import checkListRoute from './checkListRoutes.js'
@@ -29,7 +29,7 @@ router.use('/employees', authMiddleware, employeesRoute);
 
 router.use('/satisfaction-survey', authMiddleware, satisfactionSurveyRoute);
 
-// router.use('/ppu', authMiddleware, procedurePricingUpdaterRoutes);
+router.use('/billing-procedure', authMiddleware, billingProcedureRoute);
 
 router.use('/check-list', authMiddleware, checkListRoute);
 
