@@ -56,13 +56,15 @@ export async function processDataController(req, res) {
 
         const data = JSON.parse(rawData);
 
+        return res.status(200).json({ message: 'Dados processados e inseridos com sucesso!', data });
+
         // const processedData = await cleaningDatas(data);
 
-        try {
-            return processedData;
-        } catch (err) {
-            throw new Error(`Erro, Erro: ${err}`);
-        };
+        // try {
+        //     return processedData;
+        // } catch (err) {
+        //     throw new Error(`Erro, Erro: ${err}`);
+        // };
 
     } catch (err) {
         throw new Error('Erro no processamento dos dados')
