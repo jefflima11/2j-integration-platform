@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js",
+    "dev": "nodemon --ignore ./src/uploads/** --ignore ./src/temp/** ./src/server.js",
     "stable": "cross-env PORT=4010 node ./src/server.js"
   },
   "type": "module"

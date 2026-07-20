@@ -1,67 +1,62 @@
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
-import { upload } from '../services/uploadService.js';
 import { unconfiguredProcedures } from '../models/proceduresData.js'
-// import fs from 'fs/promises';
+import { importCache } from '../cache/importCache.js';
 
 export async function importFileController(req, res) {
-
-    
     
     try {
+        const pathName = path.parse(req.file.originalname).name;
 
-        const tst = req.body;
-        return res.status(200).json({ message: 'Arquivo carregado com sucesso!', data: tst });
+        const filePath = req.file.path;
 
-        // upload.single('file')(req, res, (err) => {
-        //     if (err) {
-        //         return res.status(400).json({ error: err.message });
-        //     }
-
-        //     if (!req.file) {
-        //         return res.status(400).json({ error: 'No file uploaded' });
-        //     }
-
-        //     const filePath = req.file.path;
-
-        //     const workbook = XLSX.readFile(filePath);
-            
-        //     const firstSheetName = workbook.SheetNames[0];
-        //     const worksheet = workbook.Sheets[firstSheetName]; 
-
-        //     const data = XLSX.utils.sheet_to_json(worksheet);
-
-        //     const tempFilePath = path.join('./src/temp/data.json');
-
-        //     fs.writeFileSync(tempFilePath, JSON.stringify(data, null, 2));
-
-        //     res.status(200).send({ 
-        //         message: 'Arquivo carregado e processo com sucesso!', 
-        //         dataFile: req.file.originalname,
-        //         recordsProcessed: data.length
-        //     });
-        // });
+        const workbook = XLSX.readFile(filePath);
         
-      
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName]; 
+
+        const data = XLSX.utils.sheet_to_json(worksheet);
+
+        const tempFilePath = path.join(`./src/temp/${pathName}(dados processados).json`);
+
+        fs.writeFileSync(tempFilePath, JSON.stringify(data, null, 2));
+
+        const cache = new Map();
+
+        importCache.set("planilha",{
+            fieldname: req.file.fieldname,
+            originalname: path.parse(req.file.originalname).name
+        });
+
+        return res.status(200).send({ 
+            message: 'Arquivo carregado e processo com sucesso!', 
+            dataFile: req.file.originalname,
+            recordsProcessed: data.length
+        });
+        
+              
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 }
 
-export async function processData(req, res) {
+export async function processDataController(req, res) {
+
     try {
+        const cache = importCache.get("planilha");
+        console.log({ cache });
         let rawData
 
         try {
-            rawData = fs.readFileSync('./src/temp/data.json', 'utf-8');
+            rawData = fs.readFileSync(`./src/temp/${cache.originalname}(dados processados).json`, 'utf-8');
         } catch (err) {
-            throw new Error(`Erro ao tentar ler '/temp/data.json': ${err}`);
+            throw new Error(`Erro ao tentar ler '/temp/${cache.originalname}(dados processados).json': ${err}`);
         };
 
         const data = JSON.parse(rawData);
 
-        const processedData = await cleaningDatas(data);
+        // const processedData = await cleaningDatas(data);
 
         try {
             return processedData;

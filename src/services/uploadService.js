@@ -14,13 +14,15 @@ const storage = multer.diskStorage({
 const upload = multer({ 
     storage: storage,
     fileFilter: function(req, file, cb) {
-        if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-            file.mimetype === 'application/vnd.ms-excel') {
+        // console.log("Multer recebeu", file);
+        
+        if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.mimetype === 'application/vnd.ms-excel') {
             cb(null, true);
         } else {
             cb(new Error('Only Excel files are allowed!'), false);
         }
     }
+
 });
 
 const uploadSignature = multer({
