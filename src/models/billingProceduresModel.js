@@ -1,5 +1,5 @@
 import { getConnection } from '../database/connection.js';
-import { verifyImpBraQuerie } from '../queries/proceduresQueries.js';
+import { verifyImpBraQuerie } from '../queries/billingProceduresQuerie.js';
 
 export async function unconfiguredProcedures() {
     const connection = await getConnection();

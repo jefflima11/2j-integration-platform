@@ -1,7 +1,7 @@
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
-import { unconfiguredProcedures } from '../models/proceduresData.js'
+import { unconfiguredProcedures } from '../models/billingProceduresModel.js'
 import { importCache } from '../cache/importCache.js';
 
 export async function importFileController(req, res) {
@@ -45,7 +45,7 @@ export async function processDataController(req, res) {
 
     try {
         const cache = importCache.get("planilha");
-        console.log({ cache });
+        // console.log({ cache });
         let rawData
 
         try {
@@ -56,7 +56,12 @@ export async function processDataController(req, res) {
 
         const data = JSON.parse(rawData);
 
-        return res.status(200).json({ message: 'Dados processados e inseridos com sucesso!', data });
+        const newData = data.map((item) => {
+            const newItem = { ...item };
+            return newItem;
+        });
+
+        return res.status(200).json(newData);
 
         // const processedData = await cleaningDatas(data);
 
@@ -76,4 +81,8 @@ export async function processDataController(req, res) {
     // } catch (err) {;
     //     res.status(500).json({ message: err })
     // }
+}
+
+export async function insertDataController(req, res) {
+    //
 }

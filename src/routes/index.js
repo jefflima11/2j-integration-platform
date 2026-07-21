@@ -6,7 +6,7 @@ import product from './productRoutes.js';
 import infos from './infosRoutes.js';
 import hospitalBedsRoute from './hospitalBedsRoutes.js';
 import employeesRoute from './employeeRoutes.js';
-import billingProcedureRoute from './procedurePricingUpdaterRoutes.js';
+import billingProcedureRoute from './billingProcedureRoutes.js';
 import configurationRoute from './configurationRoutes.js';
 import satisfactionSurveyRoute from './satisfactionSurveyRoutes.js';
 import checkListRoute from './checkListRoutes.js'

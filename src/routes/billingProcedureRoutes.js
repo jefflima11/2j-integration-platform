@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authorize } from '../middlewares/authorize.js';
-import { importFileController, processDataController } from '../controllers/procedurePricingUpdaterController.js';
+import { importFileController, processDataController } from '../controllers/billingProcedureController.js';
 import { upload } from '../services/uploadService.js';
 
 
