@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js';
 import { loginQuerie } from '../queries/loginQuerie.js';
 import { getDbConfig } from '../database/configuration.js'

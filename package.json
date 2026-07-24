@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
@@ -13,10 +13,19 @@
     "save-dev": "^0.0.1-security",
     "xlsx": "^0.18.5"
   },
-  "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "nodemon --ignore ./src/uploads/** --ignore ./src/temp/** ./src/server.js",
-    "stable": "cross-env PORT=4010 node ./src/server.js"
+  "pkg": {
+    "assets": [
+      "node_modules/oracledb/build/Release/*.node"
+    ]
   },
-  "type": "module"
+  "scripts": {
+    "build:exe": "pkg . --targets node22-win-x64 --output dist/2j-system-api-v3.exe",
+    "start": "cross-env PORT=4020 node ./src/server.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@yao-pkg/pkg": "^6.21.0"
+  },
+  "bin": "src/server.js",
+  "name": "2j_system-api"
 }

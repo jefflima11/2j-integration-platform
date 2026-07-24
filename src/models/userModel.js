@@ -1,5 +1,5 @@
 import oracledb from 'oracledb';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js'
 import { allUsers as allUsersQuerie,  checkUserExistence as checkUserExistenceQuerie, updatePasswordQuerie, inactiveFilter, inactiveUser as inactiveUserQuerie } from '../queries/userQuerie.js'
 

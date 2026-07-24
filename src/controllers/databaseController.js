@@ -19,7 +19,8 @@ async function databaseController(req, res) {
         });
     } catch (err) {
         res.status(500).json({ 
-            message: 'Erro ao configurar banco de dados'
+            message: 'Erro ao configurar banco de dados',
+            err
         });
     }
 }

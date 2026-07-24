@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js';
 import { allUsers as allUsersModel, alterPassword as alterPasswordModel, inactivateUser as inactivateUserModel, userAlterModel } from '../models/userModel.js';
 import { userQuerie } from '../queries/userQuerie.js';
