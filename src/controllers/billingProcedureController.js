@@ -5,7 +5,7 @@ import { unconfiguredProcedures } from '../models/billingProceduresModel.js'
 import { importCache } from '../cache/importCache.js';
 
 export async function importFileController(req, res) {
-    
+
     try {
         const pathName = path.parse(req.file.originalname).name;
 
@@ -37,7 +37,7 @@ export async function importFileController(req, res) {
         
               
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(501).json({ error: err.message });
     }
 }
 
@@ -56,10 +56,11 @@ export async function processDataController(req, res) {
 
         const data = JSON.parse(rawData);
 
-        const newData = data.map((item) => {
-            const newItem = { ...item };
-            return newItem;
-        });
+        console.log({ data });
+
+        const newData = data.map(({ tiss }) => ({
+            'Código': tiss
+        }));
 
         return res.status(200).json(newData);
 

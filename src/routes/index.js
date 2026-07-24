@@ -29,7 +29,8 @@ router.use('/employees', authMiddleware, employeesRoute);
 
 router.use('/satisfaction-survey', authMiddleware, satisfactionSurveyRoute);
 
-router.use('/billing-procedure', authMiddleware, billingProcedureRoute);
+// router.use('/billing-procedure', authMiddleware, billingProcedureRoute);
+router.use('/billing-procedure', billingProcedureRoute);
 
 router.use('/check-list', authMiddleware, checkListRoute);
 

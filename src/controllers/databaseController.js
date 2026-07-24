@@ -3,6 +3,7 @@ import { createPool } from '../database/connection.js';
 import { verifica_tabelas } from '../services/tableServices.js';
 
 async function databaseController(req, res) {
+
     const { userDB, passwordDB, connectDB, dirDB, secretKeyDB } = req.body;
 
     try {
