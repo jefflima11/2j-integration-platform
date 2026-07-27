@@ -19,7 +19,9 @@
     ]
   },
   "scripts": {
-    "build:exe": "pkg . --targets node22-win-x64 --output dist/2j-system-api-v3.exe",
+    "build:dev": "pkg . --targets node22-win-x64 --output dist/dev/2j-system-api-dev.exe",
+    "build:sml": "pkg . --targets node22-win-x64 --output dist/sml/2j-system-api-sml.exe",
+    "build:prd": "pkg . --targets node22-win-x64 --output dist/prd/2j-system-api-prd.exe",
     "start": "cross-env PORT=4020 node ./src/server.js"
   },
   "type": "module",
