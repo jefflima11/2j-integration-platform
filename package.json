@@ -18,16 +18,28 @@
       "node_modules/oracledb/build/Release/*.node"
     ]
   },
-  "scripts": {
-    "build:dev": "pkg . --targets node22-win-x64 --output dist/dev/2j-system-api-dev.exe",
-    "build:sml": "pkg . --targets node22-win-x64 --output dist/sml/2j-system-api-sml.exe",
-    "build:prd": "pkg . --targets node22-win-x64 --output dist/prd/2j-system-api-prd.exe",
-    "start": "cross-env PORT=4020 node ./src/server.js"
+   "scripts": {
+    "config:dev": "node scripts/build-dev.js",
+    "config:sml": "node scripts/build-sml.js",
+    "config:prd": "node scripts/build-prd.js",
+    
+    "pkg:dev": "npx @yao-pkg/pkg . --targets node22-win-x64 --output dist/dev/2j-system-api-dev",
+    "pkg:sml": "npx @yao-pkg/pkg . --targets node22-win-x64 --output dist/sml/2j-system-api-sml",
+    "pkg:prd": "npx @yao-pkg/pkg . --targets node22-win-x64 --output dist/prd/2j-system-api-prd",
+    
+    "build:dev": "npm run config:dev && npm run pkg:dev",
+    "build:sml": "npm run config:sml && npm run pkg:sml",
+    "build:prd": "npm run config:prd && npm run pkg:prd",
+
+    "release:dev": "npm run build:dev && \"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" installers\\dev\\2j-system-api-dev.iss",
+    "release:sml": "npm run build:sml && \"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" installers\\sml\\2j-system-api-sml.iss",
+    "release:prd": "npm run build:prd && \"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" installers\\prd\\2j-system-api-prd.iss"
+
   },
   "type": "module",
   "devDependencies": {
     "@yao-pkg/pkg": "^6.21.0"
   },
   "bin": "src/server.js",
-  "name": "2j_system-api"
+  "name": "2j-system-api"
 }

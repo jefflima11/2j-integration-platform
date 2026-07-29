@@ -142,3 +142,7 @@ dist
 postman/environments/*.json
 postman/globals/
 src/uploads/*
+
+installers/dev/Output
+installers/prd/Output
+installers/sml/Output
