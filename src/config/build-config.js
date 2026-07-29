@@ -1,7 +1,7 @@
 
     export default {
-        enviromente: "Desenvolvimento",
+        environment: "Desenvolvimento",
         port: 4020,
         service: "api-2j-dev",
-        version: "3.0.5"
+        version: "3.0.12"
     };

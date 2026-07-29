@@ -41,5 +41,6 @@
     "@yao-pkg/pkg": "^6.21.0"
   },
   "bin": "src/server.js",
-  "name": "2j-system-api"
+  "name": "2j-system-api",
+  "version": "3.0.12"
 }
