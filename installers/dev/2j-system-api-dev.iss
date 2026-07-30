@@ -1,5 +1,5 @@
 #define MyAppName "API 2J Systems - Desenvolvimento"
-#define MyAppVersion "3.0.12"
+#define MyAppVersion "3.0.15"
 #define MyAppPublisher "2J Systems"
 
 [Setup]

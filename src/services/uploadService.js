@@ -1,10 +1,11 @@
 import multer from 'multer';
 import fs from 'fs/promises';
 import path from 'path';
+import { createFolders } from '../utils/createTemporaryFolders.js'
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './src/uploads/');
+        cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);
@@ -14,7 +15,6 @@ const storage = multer.diskStorage({
 const upload = multer({ 
     storage: storage,
     fileFilter: function(req, file, cb) {
-        // console.log("Multer recebeu", file);
         
         if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.mimetype === 'application/vnd.ms-excel') {
             cb(null, true);
@@ -22,7 +22,6 @@ const upload = multer({
             cb(new Error('Only Excel files are allowed!'), false);
         }
     }
-
 });
 
 const uploadSignature = multer({
@@ -36,13 +35,10 @@ const uploadSignature = multer({
     }
 });
 
-async function start() {
-    const uploadsDir = path.resolve('./src/uploads/');
-    const tempDir = path.resolve('./src/temp');
+async function limparPastasTemporarias(req, res, next) {
 
-    await fs.mkdir(uploadsDir, { recursive: true });
-
-    await fs.mkdir(tempDir, { recursive: true });
+    const { uploadsDir, tempDir} = await createFolders();
+    console.log({ uploadsDir, tempDir})
 
     try {
 
@@ -58,10 +54,27 @@ async function start() {
             }
         }
 
-        console.log(`Limpeza de arquivos temporarios concluída.`);
     } catch (err) {
-        console.error(`Erro ao limpar arquivos temporarios: ${err.message}`);
+        next ({uploadsDir: err});
+    };
+
+    try {
+        const entries = await fs.readdir(tempDir, { withFileTypes: true });
+
+        for (const entry of entries) {
+            const fullPath = path.join(tempDir, entry.name);
+
+            if (entry.isDirectory()) {
+                await fs.rm(fullPath, { recursive: true, force: true });
+            } else {
+                await fs.unlink(fullPath);
+            }
+        }
+
+        next()
+    } catch (err) {
+        next({ tempDir: err });
     }
 }
 
-export { upload, uploadSignature, start };
+export { upload, uploadSignature, limparPastasTemporarias };

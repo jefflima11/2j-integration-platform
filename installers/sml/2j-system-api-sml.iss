@@ -1,5 +1,5 @@
 #define MyAppName "API 2J Systems - Simulação"
-#define MyAppVersion "3.0.5"
+#define MyAppVersion "3.0.17"
 #define MyAppPublisher "2J Systems"
 
 [Setup]
@@ -28,6 +28,10 @@ VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription={#MyAppName}
 VersionInfoProductName={#MyAppName}
 
+[Dirs]
+Name: "{app}\temp"
+Name: "{app}\uploads"
+Name: "{app}\logs"
 
 [Files]
 Source: "*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion

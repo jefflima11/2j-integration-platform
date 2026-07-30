@@ -11,6 +11,7 @@ import configurationRoute from './configurationRoutes.js';
 import satisfactionSurveyRoute from './satisfactionSurveyRoutes.js';
 import checkListRoute from './checkListRoutes.js'
 
+
 const router = Router();
 
 router.use('/configuration', configurationRoute)

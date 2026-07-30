@@ -19,6 +19,8 @@
     ]
   },
    "scripts": {
+    "start": "nodemon --ignore uploads/** --ignore temp/** ./src/server.js",
+
     "config:dev": "node scripts/build-dev.js",
     "config:sml": "node scripts/build-sml.js",
     "config:prd": "node scripts/build-prd.js",
@@ -42,5 +44,5 @@
   },
   "bin": "src/server.js",
   "name": "2j-system-api",
-  "version": "3.0.12"
+  "version": "3.0.17"
 }

@@ -1,7 +1,7 @@
 
     export default {
-        environment: "Desenvolvimento",
-        port: 4020,
-        service: "api-2j-dev",
-        version: "3.0.12"
+        environment: "Simulação",
+        port: 4030,
+        service: "api-2j-sml",
+        version: "3.0.17"
     };

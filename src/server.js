@@ -1,5 +1,6 @@
 import app from './app.js';
 import config from "./config/build-config.js";
+// import { createFolders } from './utils/createTemporaryFolders.js'
 
 const PORT = config.port;
 
@@ -11,6 +12,7 @@ const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Serviço  : ${config.service}`);
     console.log(`Porta    : ${config.port}`);
     console.log("=================================");
+    // createFolders();
 });
 
 server.on('error', (error) => {

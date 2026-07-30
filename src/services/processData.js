@@ -9,9 +9,9 @@ export async function processData() {
         let rawData
 
         try {
-            rawData = fs.readFileSync(`./src/temp/${cache.originalname}(dados processados).json`, 'utf-8');
+            rawData = fs.readFileSync(`temp/${cache.originalname}(dados processados).json`, 'utf-8');
         } catch (err) {
-            throw new Error(`Erro ao tentar ler '/temp/${cache.originalname}(dados processados).json': ${err}`);
+            throw new Error(`Erro ao tentar ler 'temp/${cache.originalname}(dados processados).json': ${err}`);
         };
 
         const data = JSON.parse(rawData);
@@ -55,6 +55,6 @@ export async function processData() {
         return dataAnalitics;
 
     } catch (err) {
-        return err;
+        return { processData: err };
     };
 };
