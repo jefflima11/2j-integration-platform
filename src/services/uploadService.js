@@ -2,10 +2,13 @@ import multer from 'multer';
 import fs from 'fs/promises';
 import path from 'path';
 import { createFolders } from '../utils/createTemporaryFolders.js'
+import config from '../config/build-config.js'
+
+const uploadPath = path.join('..', config.folder, 'uploads');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads');
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);
@@ -15,7 +18,6 @@ const storage = multer.diskStorage({
 const upload = multer({ 
     storage: storage,
     fileFilter: function(req, file, cb) {
-        
         if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.mimetype === 'application/vnd.ms-excel') {
             cb(null, true);
         } else {
@@ -35,46 +37,46 @@ const uploadSignature = multer({
     }
 });
 
-async function limparPastasTemporarias(req, res, next) {
+// async function limparPastasTemporarias(req, res, next) {
 
-    const { uploadsDir, tempDir} = await createFolders();
-    console.log({ uploadsDir, tempDir})
+//     const { uploadsDir, tempDir} = await createFolders();
+//     console.log({ uploadsDir, tempDir})
 
-    try {
+//     try {
 
-        const entries = await fs.readdir(uploadsDir, { withFileTypes: true });
+//         const entries = await fs.readdir(uploadsDir, { withFileTypes: true });
 
-        for (const entry of entries) {
-            const fullPath = path.join(uploadsDir, entry.name);
+//         for (const entry of entries) {
+//             const fullPath = path.join(uploadsDir, entry.name);
 
-            if (entry.isDirectory()) {
-                await fs.rm(fullPath, { recursive: true, force: true });
-            } else {
-                await fs.unlink(fullPath);
-            }
-        }
+//             if (entry.isDirectory()) {
+//                 await fs.rm(fullPath, { recursive: true, force: true });
+//             } else {
+//                 await fs.unlink(fullPath);
+//             }
+//         }
 
-    } catch (err) {
-        next ({uploadsDir: err});
-    };
+//     } catch (err) {
+//         next ({uploadsDir: err});
+//     };
 
-    try {
-        const entries = await fs.readdir(tempDir, { withFileTypes: true });
+//     try {
+//         const entries = await fs.readdir(tempDir, { withFileTypes: true });
 
-        for (const entry of entries) {
-            const fullPath = path.join(tempDir, entry.name);
+//         for (const entry of entries) {
+//             const fullPath = path.join(tempDir, entry.name);
 
-            if (entry.isDirectory()) {
-                await fs.rm(fullPath, { recursive: true, force: true });
-            } else {
-                await fs.unlink(fullPath);
-            }
-        }
+//             if (entry.isDirectory()) {
+//                 await fs.rm(fullPath, { recursive: true, force: true });
+//             } else {
+//                 await fs.unlink(fullPath);
+//             }
+//         }
 
-        next()
-    } catch (err) {
-        next({ tempDir: err });
-    }
-}
+//         next()
+//     } catch (err) {
+//         next({ tempDir: err });
+//     }
+// }
 
-export { upload, uploadSignature, limparPastasTemporarias };
+export { upload, uploadSignature };

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { authorize } from '../middlewares/authorize.js';
 import { importFileController, insertDataController } from '../controllers/billingProcedureController.js';
-// import { limparPastasTemporarias, upload } from '../services/uploadService.js';
+import { upload } from '../services/uploadService.js';
 
 
 const router = Router();
@@ -12,7 +12,7 @@ const router = Router();
 router.get('/test', (req, res) => {
     res.status(202).json('retorna ok')
 })
-router.post('/import', importFileController);
+router.post('/import', upload.single('file'), importFileController);
 router.post('/update', insertDataController);
 
 

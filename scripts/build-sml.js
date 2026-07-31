@@ -9,6 +9,7 @@ const version = packageJson.version;
 const config = `
     export default {
         environment: "Simulação",
+        folder: "sml",
         port: 4030,
         service: "api-2j-sml",
         version: "${version}"
