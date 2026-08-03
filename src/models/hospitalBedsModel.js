@@ -213,7 +213,15 @@ export async function checkListFormModel(params, signature) {
                 {
                     val: imageBuffer,
                     type: oracledb.BLOB
-                }
+                },
+                cleanParams.cadeira,
+                cleanParams.controle_tv,
+                cleanParams.controle_ar,
+                cleanParams.carrinho_refeicao,
+                cleanParams.frigobar,
+                cleanParams.suporte_soro,
+                cleanParams.pertences_pessoais,
+                cleanParams.ds_pertences
             ],
             { autoCommit: true }
         );

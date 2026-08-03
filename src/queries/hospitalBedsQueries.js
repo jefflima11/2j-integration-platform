@@ -253,7 +253,15 @@ export const checkListFormQuery = `
             :telefone, 
             :observacao,
             :cd_atendimento,
-            :signature
+            :signature,
+            :cadeira,
+            :controle_tv,
+            :controle_ar,
+            :carrinho_refeicao,
+            :frigobar,
+            :suporte_soro,
+            :pertences_pessoais,
+            :ds_pertences
         );
     end;
 `;
