@@ -1,4 +1,4 @@
-import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel, allHospitalBedsStatusModel, checkListFormModel } from '../models/hospitalBedsModel.js';
+import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel, allHospitalBedsStatusModel, checkListFormModel, verifyCheckoutModel } from '../models/hospitalBedsModel.js';
 
 export async function allHospitalBedsStatusController(req, res) {
     try {
@@ -108,4 +108,32 @@ export async function checkListFormController(req, res) {
             message: err.message
         });
     }
+}
+
+export async function verifyCheckoutController(req, res) {
+    
+    try {
+        const cdLeito = req.params;
+
+        if (!cdLeito) {
+            return res.status(400).json({
+                message: "Leito não informado"
+            });
+        }
+
+        const result = await verifyCheckoutModel(cdLeito);
+
+        if (result.code === 501) {
+            return res.status(501).json({
+                message: result.message
+            });
+        } else {
+            return res.status(200).json(result);
+        }
+
+    } catch  (err) {
+        res.status(500).json({
+            "Verify Checkout error: ": err.message
+        });
+    };
 }

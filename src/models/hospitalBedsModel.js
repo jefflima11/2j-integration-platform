@@ -1,6 +1,6 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
-import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery, checkListFormQuery } from '../queries/hospitalBedsQueries.js';
+import { allHospitalBedsStatusQuery, hospitalBedsStatusQuery, cleaningRequestQuery, waitingConfirmationQuery, verifyRequestQuery, startCleaningQuery, updateAfterCleaningQuery, requestCompleteQuery, checkEmployeeQuery, confirmationRequestQuery, refuseCleanRequestQuery, checkListFormQuery, verifyCheckoutQuery } from '../queries/hospitalBedsQueries.js';
 import fs from 'fs/promises';
 
 export async function allHospitalBedsStatusModel() {
@@ -178,20 +178,20 @@ export async function checkListFormModel(params, signature) {
 
         const cleanParams = { ...params };
 
-        Object.keys(cleanParams).forEach(key => {
-            if (!cleanParams[key]) {
-                cleanParams[key] = 'N';
-            }
-        });
+        // Object.keys(cleanParams).forEach(key => {
+        //     if (!cleanParams[key]) {
+        //         cleanParams[key] = 'N';
+        //     }
+        // });
 
-        if (cleanParams.solicLimp === 'N' || cleanParams.solicLimp === 'S') {
-            cleanParams.solicLimp = null;
-        }
+        // if (cleanParams.solicLimp === 'N' || cleanParams.solicLimp === 'S') {
+        //     cleanParams.solicLimp = null;
+        // }
 
-        if (cleanParams.observacao === 'N' || cleanParams.observacao === 'S') {
-            cleanParams.observacao = null;
-        }
-        console.log(signature);
+        // if (cleanParams.observacao === 'N' || cleanParams.observacao === 'S') {
+        //     cleanParams.observacao = null;
+        // }
+        
         const result = await connection.execute(
             checkListFormQuery,
             [
@@ -234,6 +234,26 @@ export async function checkListFormModel(params, signature) {
     } catch (err) {
         console.error("Oracle error:", err);
         throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (e) {
+                console.error("Error closing connection:", e);
+            }
+        }
+    }
+}
+
+export async function verifyCheckoutModel(cdLeito) {
+    const connection = await getConnection();
+
+    try {
+        const { rows: [verifyCheckout] } = await connection.execute(verifyCheckoutQuery, [cdLeito.cdLeito], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+
+        return verifyCheckout || { code: 501, message: 'Nao existe checkin para o leito informado' };
+    } catch (err) {
+        return err;
     } finally {
         if (connection) {
             try {

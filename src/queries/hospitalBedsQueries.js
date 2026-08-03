@@ -265,3 +265,5 @@ export const checkListFormQuery = `
         );
     end;
 `;
+
+export const verifyCheckoutQuery = `select * from dbahums.vw_checkin_2j_hums where cd_leito = :cdLeito`;
