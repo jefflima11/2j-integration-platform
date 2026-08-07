@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { importCache } from '../cache/importCache.js';
+import { validProcedures } from '../models/billingProceduresModel.js';
 
 export async function processData() {
 
@@ -15,27 +16,29 @@ export async function processData() {
         };
 
         const data = JSON.parse(rawData);
-
+        
         const nomeColunas = Object.keys(data[0]);
+        // console.log(nomeColunas);
 
         data.forEach(item => {
             item.tiss = item["Código"];
             item.valor = item["Preço Máximo Intercâmbio Nacional"];
             item.brasindice = item["Cod TISS Brasindice"];
 
+            
             const colunasParaManter = ["tiss", "valor", "brasindice"];
-
+            
             Object.keys(item).forEach(coluna => {
                 if (!colunasParaManter.includes(coluna)) {
                     delete item[coluna];
                 }
             });
-
+            
             if (item.brasindice == 'NAO POSSUI BRASINDICE') {
                 item.brasindice = 'N/A';
             }
-
-            item.valor = Number(item.valor.replace(",","."));
+            
+            item.valor = Number(String(item.valor).replace(",", "."));
             
         });
 
@@ -50,7 +53,9 @@ export async function processData() {
             zerados: valoresZero.length,
             semDePara: null,
             validos: validos.length
-        };
+        };  
+
+        const validData =  await validProcedures(validos);
 
         return dataAnalitics;
 
