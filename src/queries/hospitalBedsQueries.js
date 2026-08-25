@@ -170,7 +170,7 @@ export const startCleaningQuery = `UPDATE dbamv.solic_limpeza
                     DT_HR_FIM_ROUPARIA = sysdate
                 WHERE
                     cd_solic_limpeza = :request
-`; 
+`;
 
 export const verifyRequestQuery = `Select 
                 dt_inicio_higieniza,
@@ -205,7 +205,7 @@ export const checkEmployeeQuery = `SELECT
                     Inner join dbamv.func_espec fe on f.cd_func = fe.cd_func
                 WHERE
                     f.cd_func = :employee
-                    and fe.cd_espec = 40
+                    and fe.cd_espec = 38
 `;
 
 export const confirmationRequestQuery = `UPDATE 
