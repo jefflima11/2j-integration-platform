@@ -11,7 +11,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\2J Systems - api\prd
 DefaultGroupName={#MyAppName}
 
-OutputDir=Output
+OutputDir="..\..\setup"
 OutputBaseFilename=api-2j-systems-prd-{#MyAppVersion}-setup
 
 Compression=lzma2

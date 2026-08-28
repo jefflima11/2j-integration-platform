@@ -1,5 +1,5 @@
 #define MyAppName "API 2J Systems - Desenvolvimento"
-#define MyAppVersion "3.0.20"
+#define MyAppVersion "3.0.23"
 #define MyAppPublisher "2J Systems"
 
 [Setup]
@@ -11,7 +11,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\2J Systems - api\dev
 DefaultGroupName={#MyAppName}
 
-OutputDir=Output
+OutputDir="..\..\setup"
 OutputBaseFilename=api-2j-systems-dev-{#MyAppVersion}-setup
 
 Compression=lzma2
