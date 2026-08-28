@@ -1,0 +1,15 @@
+<service>
+  <id>api-2j-dev</id>
+  <name>API 2J-Systems</name>
+  <description>Desenvolvimento - 4020</description>
+
+  <executable>%BASE%\2j-system-api-dev.exe</executable>
+  <workingdirectory>%BASE%</workingdirectory>
+
+  <startmode>Automatic</startmode>
+  <log mode="roll" />
+
+  <onfailure action="restart" delay="10 sec" />
+  <onfailure action="restart" delay="10 sec" />
+  <onfailure action="restart" delay="10 sec" />
+</service>

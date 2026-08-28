@@ -89,7 +89,12 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+dist/dev/*
+!dist/dev/2j-system-api-service-dev.xml
+dist/sml/*
+!dist/sml/2j-system-api-service-sml.xml
+dist/prd/*
+!dist/prd/2j-system-api-service-prd.xml
 
 # Gatsby files
 .cache/
