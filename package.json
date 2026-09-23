@@ -40,5 +40,5 @@
   },
   "bin": "src/server.js",
   "name": "2j-system-api",
-  "version": "3.0.23"
+  "version": "3.0.24"
 }

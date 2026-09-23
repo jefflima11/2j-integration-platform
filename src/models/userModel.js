@@ -1,7 +1,13 @@
 import oracledb from 'oracledb';
 import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js'
-import { allUsers as allUsersQuerie,  checkUserExistence as checkUserExistenceQuerie, updatePasswordQuerie, inactiveFilter, inactiveUser as inactiveUserQuerie } from '../queries/userQuerie.js'
+import { 
+    allUsers as allUsersQuerie,  
+    checkUserExistence as checkUserExistenceQuerie, 
+    updatePasswordQuerie, 
+    inactiveFilter, 
+    inactiveUser as inactiveUserQuerie 
+} from '../queries/userQuerie.js'
 
 export async function allUsers() {
     const connection = await getConnection();

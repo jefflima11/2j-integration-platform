@@ -57,9 +57,8 @@ export async function waitingConfirmationModel() {
     };
 };
 
-export async function updateCleanRequestModel(request) {
+export async function updateCleanRequestModel(request, user) {
     const connection = await getConnection();
-
     try {
         const {rows: [verifyRequest]} = await connection.execute(verifyRequestQuery, [request], { outFormat: oracledb.OUT_FORMAT_OBJECT });
 
@@ -68,7 +67,31 @@ export async function updateCleanRequestModel(request) {
         };
 
         if (verifyRequest['DT_INICIO_HIGIENIZA'] === null) {
-            const cleaningRequest = await connection.execute(startCleaningQuery, [request], { autoCommit: true });
+
+            const userUppper = user.toUpperCase();
+
+            const {rows: [employee]} = await connection.execute(`
+                with raw_data as (
+                    select
+                        upper(u.cd_usuario) cd_usuario,
+                        f.cd_func
+                    from
+                        dbahums.users u
+                        inner join dbamv.funcionario f
+                        on upper(u.nm_usuario) = upper(f.nm_func)
+                )
+
+                select
+                    *
+                from
+                    raw_data
+                where
+                    cd_usuario = :userUppper
+                `,
+                { userUppper },
+                { outFormat: oracledb.OUT_FORMAT_OBJECT }); 
+
+            const cleaningRequest = await connection.execute(startCleaningQuery, {request, func: employee.CD_FUNC}, { autoCommit: true });
 
             if (cleaningRequest.rowsAffected === 1) {
                 cleaningRequest.updateMessage = 'Limpeza iniciada com sucesso';
@@ -89,7 +112,6 @@ export async function updateCleanRequestModel(request) {
             return 'Solicitação aguardando confirmação ou já finalizada';
         }
 
-
     } catch(err) {
         return err;
     } finally {
@@ -97,11 +119,11 @@ export async function updateCleanRequestModel(request) {
     };
 };
 
-export async function confirmCleanRequestModel(request, employee, observation) {
+export async function confirmCleanRequestModel(request, employee, observation, user) {
 
-    if (!employee) {
-        return 'Funcionário é obrigatório para confirmar a solicitação';
-    };
+    // if (!employee) {
+    //     return 'Funcionário é obrigatório para confirmar a solicitação';
+    // };
 
     if (!observation) {
         observation = 'Sem observações';
@@ -110,20 +132,43 @@ export async function confirmCleanRequestModel(request, employee, observation) {
     const connection = await getConnection();
 
     try {
-
+        
         const { rows: [verifyRequestComplete] } = await connection.execute(requestCompleteQuery, [request], { outFormat: oracledb.OUT_FORMAT_OBJECT });
         
         if (!verifyRequestComplete || verifyRequestComplete['SN_REALIZADO'] === 'S') {
             return 'Solicitação não encontrada ou já foi confirmada anteriormente';
         } else {
-            const { rows: [checkEmployee]} = await connection.execute(checkEmployeeQuery, [employee], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+            const userUppper = user.toUpperCase();
+
+            const {rows: [cdfunc]} = await connection.execute(`
+                with raw_data as (
+                    select
+                        upper(u.cd_usuario) cd_usuario,
+                        f.cd_func
+                    from
+                        dbahums.users u
+                        inner join dbamv.funcionario f
+                        on upper(u.nm_usuario) = upper(f.nm_func)
+                )
+
+                select
+                    *
+                from
+                    raw_data
+                where
+                    cd_usuario = :userUppper
+                `,
+                { userUppper },
+                { outFormat: oracledb.OUT_FORMAT_OBJECT }); 
+            
+            const { rows: [checkEmployee]} = await connection.execute(checkEmployeeQuery, [cdfunc.CD_FUNC], { outFormat: oracledb.OUT_FORMAT_OBJECT });
 
             if (!checkEmployee) {
                 return 'Funcionário não encontrado';
             }
 
             try {
-                const confirmationRequest = await connection.execute(confirmationRequestQuery, [employee, observation, request], { autoCommit: true });
+                const confirmationRequest = await connection.execute(confirmationRequestQuery, [cdfunc.CD_FUNC, observation, request], { autoCommit: true });
                 
                 if (confirmationRequest.rowsAffected === 1) {
                     confirmationRequest.confirmationMessage = 'Solicitação de limpeza confirmada com sucesso';

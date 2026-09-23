@@ -1,4 +1,5 @@
 import { hospitalBedsStatusModel, cleaningRequestModel, waitingConfirmationModel, updateCleanRequestModel, confirmCleanRequestModel, refuseCleanRequestModel, allHospitalBedsStatusModel, checkListFormModel, verifyCheckoutModel } from '../models/hospitalBedsModel.js';
+import { infosModel } from '../models/infosModel.js';
 
 export async function allHospitalBedsStatusController(req, res) {
     try {
@@ -33,25 +34,24 @@ export async function cleaningRequestController(req, res) {
 };
 
 export async function waitingConfirmationController(req, res) {
+
     try {
         const waitingConfirmations = await waitingConfirmationModel();
         if (!waitingConfirmations) {
             res.status(200).json({ message: 'Não há solicitações aguardando confirmação' });
-        }
-        
-        res.status(200).json({ waitingConfirmations });
-        
-
+        };
+        res.status(200).json({ waitingConfirmations, user_logged: req.user.user });
     } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Erro ao buscar solicitações em pós-higienização' });
     };
 };
 
 export async function updateCleanRequestController(req, res) {
     const { request } = req.params;
+    const { user } = req.user;
 
     try {
-        const updateCleaningRequest = await updateCleanRequestModel(request);
+        const updateCleaningRequest = await updateCleanRequestModel(request, user);
 
         if (updateCleaningRequest === 'Solicitação não encontrada') {
             return res.status(404).json({ message: updateCleaningRequest });
@@ -68,8 +68,10 @@ export async function confirmCleanRequestController(req, res) {
 
     const { employee, observation } = req.body;
 
+    const { user } = req.user;
+
     try {
-        const confirmCleaningRequest = await confirmCleanRequestModel(request, employee, observation);
+        const confirmCleaningRequest = await confirmCleanRequestModel(request, employee, observation, user);
         res.status(200).json({ confirmCleaningRequest });
     } catch (err) {
         res.status(500).json({ message: 'Internal Server Error' });

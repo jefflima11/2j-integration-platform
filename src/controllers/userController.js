@@ -1,25 +1,38 @@
 import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js';
-import { allUsers as allUsersModel, alterPassword as alterPasswordModel, inactivateUser as inactivateUserModel, userAlterModel } from '../models/userModel.js';
+import { 
+    allUsers as allUsersModel, 
+    alterPassword as alterPasswordModel, 
+    inactivateUser as inactivateUserModel, 
+    userAlterModel 
+} from '../models/userModel.js';
 import { userQuerie } from '../queries/userQuerie.js';
 
 
 export async function newUser(req, res) {
-    const { username, password, name, role } = req.body;
+    const { username, password, name, role} = req.body;
 
     if (!username || !password || !name || !role) {
         return res.status(400).json({
-            message: 'Usuário, senha, nome completo e regra são obrigatórios'
+            message: 'Usuário, senha, nome completo, regra e CPF são obrigatórios'
         });
     }
-
+    
     let connection;
+
+    console.log({ username: username.toUpperCase(), password, name, role});
 
     try {
         connection = await getConnection();
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        try {
+            const checkEmployeeExistence = await connection.execute();
+        } catch {
+
+        }
+        
         await connection.execute(
             userQuerie,
             { username, password: hashedPassword, name, role },
