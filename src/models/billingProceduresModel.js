@@ -16,22 +16,29 @@ export async function unconfiguredProcedures() {
 export async function validProcedures(validos) {
     const connection = await getConnection();
 
+    console.log(`Total de procedimentos válidos para inserção em de-para: ${validos.length}`);
+    const tempoDoProcesso = validos.length
+    const contador = 0;
+
     try {
 
-        validos.forEach(item => {
-            const procedures =  connection.execute(
-                insertFromToQuerie, 
-                { tiss: item.tiss, valor: item.valor }, 
-                { autoCommit: true }
-            );
-        })
+        // Prepara os dados em formato de array de objetos
+        const bindDefs = validos.map(item => ({
+            tiss: item.tiss,
+            valor: item.valor
+        }));
 
-        const procedures = await connection.executeMany(
+        // Executa todas as inserções de uma só vez
+        const result = await connection.executeMany(
             insertFromToQuerie,
-            { tiss: validos.tiss, valor: validos.valor }, 
+            bindDefs,
             { autoCommit: true }
         );
 
+        const contador = result.rowsAffected;
+        console.log(`Total de registros inseridos: ${contador}`);
+
+        console.log('Procedimentos válidos inseridos com sucesso.');
         return procedures;
         
     } catch (err) {

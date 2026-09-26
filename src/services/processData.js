@@ -9,6 +9,7 @@ export async function processData() {
 
         let rawData
 
+        console.log('Lendo dados...');
         try {
             rawData = fs.readFileSync(`temp/${cache.originalname}(dados processados).json`, 'utf-8');
         } catch (err) {
@@ -20,6 +21,7 @@ export async function processData() {
         const nomeColunas = Object.keys(data[0]);
         // console.log(nomeColunas);
 
+        console.log('Alterando dados...')
         data.forEach(item => {
             item.tiss = item["Código"];
             item.valor = item["Preço Máximo Intercâmbio Nacional"];
@@ -42,12 +44,16 @@ export async function processData() {
             
         });
 
+        console.log('Filtrando dados zerados...');
         const valoresZero = data.filter(item => item.valor === 0);
-
+        
+        console.log('Filtrando dados sem Brasindice...');
         const semBrasindice = data.filter(item => item.brasindice === 'N/A');
 
+        console.log('Filtrando dados válidos...');
         const validos = data.filter(item => (item.valor != 0 && item.brasindice != 'N/A'));
 
+        console.log('Dados filtrados com sucesso');
         const dataAnalitics = { 
             SemBrasindice: semBrasindice.length,
             zerados: valoresZero.length,
@@ -55,8 +61,10 @@ export async function processData() {
             validos: validos.length
         };  
 
+        console.log('Validando procedimentos...');
         const validData =  await validProcedures(validos);
 
+        console.log('Processamento concluído.');
         return dataAnalitics;
 
     } catch (err) {
