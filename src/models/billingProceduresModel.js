@@ -16,9 +16,7 @@ export async function unconfiguredProcedures() {
 export async function validProcedures(validos) {
     const connection = await getConnection();
 
-    console.log(`Total de procedimentos válidos para inserção em de-para: ${validos.length}`);
-    const tempoDoProcesso = validos.length
-    const contador = 0;
+    // Criar função para verificar se já existe dados na tabela de de-para antes de inserir novos dados
 
     try {
 
@@ -29,16 +27,15 @@ export async function validProcedures(validos) {
         }));
 
         // Executa todas as inserções de uma só vez
-        const result = await connection.executeMany(
+        await connection.executeMany(
             insertFromToQuerie,
             bindDefs,
             { autoCommit: true }
         );
 
-        const contador = result.rowsAffected;
-        console.log(`Total de registros inseridos: ${contador}`);
+        // Verifica os procedimentos de de-para com os procedimentos do imp_bra
+        const procedures = await unconfiguredProcedures();
 
-        console.log('Procedimentos válidos inseridos com sucesso.');
         return procedures;
         
     } catch (err) {

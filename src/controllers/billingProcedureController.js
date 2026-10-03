@@ -34,7 +34,6 @@ export async function importFileController(req, res, next) {
             originalname: path.parse(req.file.originalname).name
         });
 
-        console.log('Arquivo sendo processado.')
         const execProcessData = await processData();
 
         res.status(200).send({ 

@@ -1,12 +1,52 @@
 export const verifyImpBraQuerie = `
-    Select
-        dp.*
-    From
-        dbamv.imp_bra ib
-        Full Outer Join dbahums.de_para_hums dp On ib.cd_tuss = dp.cd_tuss
-    Where
-        ib.cd_tuss Is Null
-        And dp.cd_tuss Is Not Null
+    with de_para as (
+    select
+        cd_tiss,
+        dt_vigencia,
+        vl_total
+    from
+        dbahums.de_para_hums
+    ),
+
+    brasindice as (
+    select
+        vp.cd_tab_fat,
+        pf.ds_pro_fat,
+        vp.cd_pro_fat cd_pro_fat_valor,
+        ip.cd_pro_fat cd_pro_fat_brasindice,
+        cd_tuss,
+        cd_tiss
+    from
+        dbamv.imp_bra ip
+        left join dbamv.val_pro vp
+        on ip.cd_pro_fat = vp.cd_pro_fat
+            and ip.cd_tab_fat = vp.cd_tab_fat
+        inner join dbamv.pro_fat pf
+        on vp.cd_pro_fat = pf.cd_pro_fat
+    where
+        vp.cd_tab_fat = 1
+        and (ip.cd_tuss is null or ip.cd_tiss is null)
+    group by
+        vp.cd_tab_fat,
+        vp.cd_pro_fat,
+        cd_tuss,
+        cd_tiss,
+        ip.cd_pro_fat,
+        pf.ds_pro_fat
+    )
+
+    select
+    dp.cd_tiss,
+    dp.dt_vigencia,
+    b.cd_tab_fat,
+    b.cd_pro_fat_valor,
+    ds_pro_fat
+    from
+    de_para dp
+    full outer join brasindice b
+        on dp.cd_tiss = b.cd_tuss
+    where
+    dp.cd_tiss is null
 `;
 
 export const verifyValid = `SELECT DISTINCT 0 FROM DBAMV.VAL_PRO WHERE DT_VIGENCIA = TO_DATE(SYSDATE,'DD/MM/YY')`;
@@ -30,7 +70,6 @@ export const insertFromToQuerie = `
         user
     )
 `;
-
 
 export const consultConfirmQuerie = `
      select

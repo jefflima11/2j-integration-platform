@@ -9,6 +9,8 @@ export async function processData() {
 
         let rawData
 
+        console.log('')
+        console.log('##################################')
         console.log('Lendo dados...');
         try {
             rawData = fs.readFileSync(`temp/${cache.originalname}(dados processados).json`, 'utf-8');
@@ -17,9 +19,6 @@ export async function processData() {
         };
 
         const data = JSON.parse(rawData);
-        
-        const nomeColunas = Object.keys(data[0]);
-        // console.log(nomeColunas);
 
         console.log('Alterando dados...')
         data.forEach(item => {
@@ -53,18 +52,21 @@ export async function processData() {
         console.log('Filtrando dados válidos...');
         const validos = data.filter(item => (item.valor != 0 && item.brasindice != 'N/A'));
 
+        console.log('Inserindo em tabela de de-para...');
+        const unconfiguredProcedures =  await validProcedures(validos);
+        
         console.log('Dados filtrados com sucesso');
         const dataAnalitics = { 
             SemBrasindice: semBrasindice.length,
             zerados: valoresZero.length,
-            semDePara: null,
+            semDePara: unconfiguredProcedures.rows.length,
             validos: validos.length
         };  
-
-        console.log('Validando procedimentos...');
-        const validData =  await validProcedures(validos);
-
+        
         console.log('Processamento concluído.');
+        console.log('##################################')
+        console.log('');
+
         return dataAnalitics;
 
     } catch (err) {
