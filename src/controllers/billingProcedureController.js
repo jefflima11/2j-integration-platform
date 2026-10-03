@@ -52,6 +52,11 @@ export async function importFileController(req, res, next) {
 export async function insertDataController(req, res) {
     try {
         const confirmProceduresResult = await confirmProcedures();
+
+        if (confirmProceduresResult.msg === 'ja existe atualizacao com a competencia atual') {
+            return res.status(400).json({ message: 'Já existe atualização com a competência atual.', data: confirmProceduresResult.verifyValid });
+        }
+
         res.status(200).json({ message: 'Dados inseridos com sucesso!', data: confirmProceduresResult });
     } catch (err) {
         res.status(500).json({ error_insert: err.message });

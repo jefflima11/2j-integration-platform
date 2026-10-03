@@ -1,6 +1,6 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
-import { verifyImpBraQuerie, insertFromToQuerie,  consultConfirmQuerie, confirmProceduresQuerie } from '../queries/billingProceduresQuerie.js';
+import { verifyImpBraQuerie, insertFromToQuerie,  consultConfirmQuerie, confirmProceduresQuerie, verifyValidQuerie } from '../queries/billingProceduresQuerie.js';
 
 export async function unconfiguredProcedures() {
     const connection = await getConnection();
@@ -19,6 +19,9 @@ export async function validProcedures(validos) {
     // Criar função para verificar se já existe dados na tabela de de-para antes de inserir novos dados
 
     try {
+
+        // Limpa a tabela de de-para antes de inserir novos dados
+        await connection.execute('DELETE FROM dbahums.de_para_hums', [], { autoCommit: true });
 
         // Prepara os dados em formato de array de objetos
         const bindDefs = validos.map(item => ({
@@ -48,17 +51,18 @@ export async function validProcedures(validos) {
 }
 
 export async function confirmProcedures() {
-    // console.log('confirmProcedures called');
     const connection = await getConnection();
 
     try {
+
+        const { rows: verifyValid } = await connection.execute(verifyValidQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        
+        if (verifyValid[0].QTD > 0) {
+            return {msg: 'ja existe atualizacao com a competencia atual', verifyValid};
+        }
+
         const { rows: confirmProcedures } = await connection.execute(consultConfirmQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
 
-        // const proceduresToUpdate = await connection.executeMany(
-        //     confirmProceduresQuerie,
-        //     {  pro_fat: confirmProcedures.pro_fat, new_value: confirmProcedures.new_value },
-        //     { autoCommit: true }
-        // );
         const proceduresToUpdate = await connection.executeMany(
             confirmProceduresQuerie,
             confirmProcedures.map(item => ({
@@ -71,20 +75,7 @@ export async function confirmProcedures() {
         console.log(proceduresToUpdate);
         console.log('confirmProcedures executed successfully');
         return proceduresToUpdate;
-        
-        // confirmProcedures.forEach(item => {
-        //     const proceduresToUpdate = connection.execute(
-        //         confirmProceduresQuerie,
-        //         {
-        //             tiss: item.cd_tiss,
-        //             pro_fat: item.cd_pro_fat,
-        //             new_value: item.new_value
-        //         },
-        //         { autoCommit: true }
-        //     );
-        // });
-
-        // return;
+    
     } finally {
         await connection.close();
     }

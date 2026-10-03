@@ -124,3 +124,15 @@ export const confirmProceduresQuerie = `
         USER
     )
 `;
+
+export const verifyValidQuerie = `
+    select
+        count(*) qtd,
+        to_char(dt_vigencia, 'mm/yyyy') competencia
+    from
+        dbamv.val_pro
+    where
+        dt_vigencia = to_char(sysdate, 'dd/mm/yy')
+    group by
+        to_char(dt_vigencia, 'mm/yyyy')
+`;
