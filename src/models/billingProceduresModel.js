@@ -56,10 +56,12 @@ export async function confirmProcedures() {
     try {
 
         const { rows: verifyValid } = await connection.execute(verifyValidQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
-        
-        if (verifyValid[0].QTD > 0) {
-            return {msg: 'ja existe atualizacao com a competencia atual', verifyValid};
+
+        if (verifyValid.length > 0) {
+            return { msg: 'ja existe atualizacao com a competencia atual', verifyValid };
         }
+
+        console.log(verifyValid);
 
         const { rows: confirmProcedures } = await connection.execute(consultConfirmQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
 
@@ -72,8 +74,11 @@ export async function confirmProcedures() {
             { autoCommit: true }
         );
         
-        console.log(proceduresToUpdate);
-        console.log('confirmProcedures executed successfully');
+        console.log('Atualização de tabela de procedimentos concluída com sucesso!');
+
+        await connection.execute('delete from dbahums.de_para_hums', [], { autoCommit: true });
+        console.log('Tabela de de-para limpa com sucesso!');
+
         return proceduresToUpdate;
     
     } finally {
