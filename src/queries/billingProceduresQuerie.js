@@ -127,12 +127,11 @@ export const confirmProceduresQuerie = `
 
 export const verifyValidQuerie = `
     select
-        count(*) qtd,
-        to_char(dt_vigencia, 'mm/yyyy') competencia
+        1
     from
         dbamv.val_pro
     where
         dt_vigencia = to_char(sysdate, 'dd/mm/yy')
     group by
-        to_char(dt_vigencia, 'mm/yyyy')
+        1
 `;

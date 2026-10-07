@@ -2,16 +2,18 @@ import fs from 'fs';
 import { importCache } from '../cache/importCache.js';
 import { validProcedures } from '../models/billingProceduresModel.js';
 
-export async function processData() {
+export async function importMedicamentos() {
 
     try {
         const cache = importCache.get("planilha");
 
         let rawData
-
         console.log('')
         console.log('##################################')
-        console.log('Lendo dados...');
+        console.log('#    Processamento iniciado      #');
+        console.log('##################################')
+        console.log('')
+
         try {
             rawData = fs.readFileSync(`temp/${cache.originalname}(dados processados).json`, 'utf-8');
         } catch (err) {
@@ -20,7 +22,7 @@ export async function processData() {
 
         const data = JSON.parse(rawData);
 
-        console.log('Alterando dados...')
+        console.log('Alterando os dados brutos.');
         data.forEach(item => {
             item.tiss = item["Código"];
             item.valor = item["Preço Máximo Intercâmbio Nacional"];
@@ -43,16 +45,16 @@ export async function processData() {
             
         });
 
-        console.log('Filtrando dados zerados...');
+        console.log('Filtrando dados zerados');
         const valoresZero = data.filter(item => item.valor === 0);
         
-        console.log('Filtrando dados sem Brasindice...');
+        console.log('Filtrando dados sem Brasindice');
         const semBrasindice = data.filter(item => item.brasindice === 'N/A');
 
-        console.log('Filtrando dados válidos...');
+        console.log('Filtrando dados válidos');
         const validos = data.filter(item => (item.valor != 0 && item.brasindice != 'N/A'));
 
-        console.log('Inserindo em tabela de de-para...');
+        console.log('Inserindo em tabela de importacao');
         const unconfiguredProcedures =  await validProcedures(validos);
         
         console.log('Dados filtrados com sucesso');
@@ -63,7 +65,9 @@ export async function processData() {
             validos: validos.length
         };  
         
-        console.log('Processamento concluído.');
+        console.log('')
+        console.log('##################################')
+        console.log('#    Processamento finalizado    #');
         console.log('##################################')
         console.log('');
 
