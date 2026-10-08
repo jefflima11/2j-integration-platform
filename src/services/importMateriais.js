@@ -18,7 +18,7 @@ export async function importMateriais(filePath) {
 
             if (row.number === 1) {
                 headers = values;
-                console.log('Cabeçalhos:', headers);
+                // console.log('Cabeçalhos:', headers);
                 continue;
             }
 
@@ -32,9 +32,45 @@ export async function importMateriais(filePath) {
 
             total++;
 
-            if (total <= 3) {
-                console.log(registro);
-            }
+            // registro.forEach(item => {
+            //     item.tiss = item["Código"];
+
+            //     const colunasParaManter = ["tiss"];
+
+            //     Object.keys(item).forEach(coluna => {
+            //         if(!colunasParaManter.includes(coluna)) {
+            //             delete item[coluna];
+            //         }
+            //     });
+                
+            // });
+
+            registro.tuss = registro["Código"];
+            registro.valor = registro["Valor Máximo Intercâmbio Nacional"];
+            registro.tiss = registro["TISS Código do Material"];
+            registro.simpro = registro["Cod Simpro"];
+
+            const colunasParaManter = ["tuss", "valor", "tiss", "simpro"];
+
+            Object.keys(registro).forEach(coluna => {
+                if (!colunasParaManter.includes(coluna)) {
+                    delete registro[coluna];
+                }
+            })
+
+            registro.valor = Number(String(registro.valor).replace(",","."));
+
+
+            // if (total <= 1) {
+            //     console.log(registro);
+            // }
+
+            // console.log(registro);
+
+            const zeroValues = registro.filter(item => item.valor === 0);
+
+
+
         }
     }
 
