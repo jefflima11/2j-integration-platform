@@ -10,6 +10,7 @@ export async function importMateriais(filePath) {
 
     let headers = [];
     let total = 0;
+    const registro = {};
 
     for await (const worksheetReader of workbookReader) {
         for await (const row of worksheetReader) {
@@ -18,11 +19,9 @@ export async function importMateriais(filePath) {
 
             if (row.number === 1) {
                 headers = values;
-                // console.log('Cabeçalhos:', headers);
                 continue;
             }
 
-            const registro = {};
 
             headers.forEach((header, index) => {
                 if (header) {
@@ -31,19 +30,6 @@ export async function importMateriais(filePath) {
             });
 
             total++;
-
-            // registro.forEach(item => {
-            //     item.tiss = item["Código"];
-
-            //     const colunasParaManter = ["tiss"];
-
-            //     Object.keys(item).forEach(coluna => {
-            //         if(!colunasParaManter.includes(coluna)) {
-            //             delete item[coluna];
-            //         }
-            //     });
-                
-            // });
 
             registro.tuss = registro["Código"];
             registro.valor = registro["Valor Máximo Intercâmbio Nacional"];
@@ -61,18 +47,24 @@ export async function importMateriais(filePath) {
             registro.valor = Number(String(registro.valor).replace(",","."));
 
 
-            // if (total <= 1) {
-            //     console.log(registro);
-            // }
+            if (total <= 100) {
+                console.log(registro);
+                return;
+            }
+        
 
-            // console.log(registro);
-
-            const zeroValues = registro.filter(item => item.valor === 0);
-
-
-
+            console.log("Em processamento..")
         }
     }
+    
+    if (registro) {
+        console.log("Variavel existe fora do escopo.")
+    };
+
+    const zeroValues = registro.filter(item => item.valor === 0);
+    console.log({
+        "Valores zerados": zeroValues
+    });
 
     return total;
 }

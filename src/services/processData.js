@@ -45,6 +45,9 @@ export async function importMedicamentos() {
             
         });
 
+        console.log(typeof data);
+        return;
+
         console.log('Filtrando dados zerados');
         const valoresZero = data.filter(item => item.valor === 0);
         
