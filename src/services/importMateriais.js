@@ -11,6 +11,13 @@ export async function importMateriais(filePath) {
     let headers = [];
     let total = 0;
     const registro = {};
+    const data = [];
+
+    console.log('')
+    console.log('##################################')
+    console.log('#    Processamento iniciado      #');
+    console.log('##################################')
+    console.log('')
 
     for await (const worksheetReader of workbookReader) {
         for await (const row of worksheetReader) {
@@ -44,27 +51,35 @@ export async function importMateriais(filePath) {
                 }
             })
 
-            registro.valor = Number(String(registro.valor).replace(",","."));
+            registro.valor = Number(
+                String(registro.valor).replace(",",".")
+            );
 
 
-            if (total <= 100) {
-                console.log(registro);
-                return;
-            }
+            data.push({
+                tuss: registro.tuss,
+                valor: registro.valor,
+                tiss: registro.tiss,
+                simpro: registro.simpro
+            })
         
-
-            console.log("Em processamento..")
         }
     }
     
-    if (registro) {
-        console.log("Variavel existe fora do escopo.")
-    };
+    const zeroValues = data.filter(item => item.valor === 0);
 
-    const zeroValues = registro.filter(item => item.valor === 0);
+    
+
     console.log({
-        "Valores zerados": zeroValues
-    });
+        "Totais: ": data.length,
+        "Zerados: ": zeroValues.length,
+        "Diferenca: ": data.length - zeroValues.length
+    })
 
-    return total;
+
+    console.log('')
+    console.log('##################################')
+    console.log('#    Processamento finalizado    #');
+    console.log('##################################')
+    console.log('');
 }
