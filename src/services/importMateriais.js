@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs';
+import { importProcedures } from '../models/billingProceduresModel.js'
 
 export async function importMateriais(filePath) {
     const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader(filePath, {
@@ -68,18 +69,28 @@ export async function importMateriais(filePath) {
     
     const zeroValues = data.filter(item => item.valor === 0);
 
-    
+    const withoutSimpro = data.filter(item => item.valor === 'N/A');
 
-    console.log({
+    const preValidValues = data.filter(item => (
+        item.valor != 0 && item.simpro != 'N/A')
+    );
+
+    const unconfiguredProcedures = await importProcedures(preValidValues);
+
+    const dataAnalitics = ({
         "Totais: ": data.length,
         "Zerados: ": zeroValues.length,
-        "Diferenca: ": data.length - zeroValues.length
+        "Diferenca: ": data.length - zeroValues.length,
+        "Sem Brasindice: ": withoutSimpro.length,
+        "Valores Pré-Validos: ": preValidValues.length,
+        "Procedimentos sem configuracao: ": unconfiguredProcedures.length
     })
-
 
     console.log('')
     console.log('##################################')
     console.log('#    Processamento finalizado    #');
     console.log('##################################')
     console.log('');
+
+    return dataAnalitics;
 }

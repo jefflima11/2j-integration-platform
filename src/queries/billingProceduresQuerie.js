@@ -49,7 +49,60 @@ export const verifyImpBraQuerie = `
     dp.cd_tiss is null
 `;
 
-export const verifyValid = `SELECT DISTINCT 0 FROM DBAMV.VAL_PRO WHERE DT_VIGENCIA = TO_DATE(SYSDATE,'DD/MM/YY')`;
+export const verifyImpSimproQuerie = `
+    with de_para as (
+    select
+        cd_tuss,
+        dt_vigencia,
+        vl_total
+    from
+        dbahums.de_para_hums
+    ),
+
+    simpro as (
+    select
+      vp.cd_tab_fat,
+      pf.ds_pro_fat,
+      vp.cd_pro_fat cd_pro_fat_valor,
+      i.cd_pro_fat cd_pro_fat_simpro,
+      cd_tuss,
+      cd_simpro
+    from
+        dbamv.imp_simpro i
+        left join val_pro vp
+          on i.cd_pro_fat = vp.cd_pro_fat
+            and i.cd_tab_fat = vp.cd_tab_fat
+        inner join dbamv.pro_fat pf
+          on vp.cd_pro_fat = pf.cd_pro_fat
+    where
+        vp.cd_tab_fat = 50
+        and (i.cd_tuss is null or i.cd_simpro is null)
+    group by
+        vp.cd_tab_fat,
+        vp.cd_pro_fat,
+        cd_tuss,
+        cd_simpro,
+        i.cd_pro_fat,
+        pf.ds_pro_fat
+    )
+
+    select
+    dp.cd_tuss,
+    dp.dt_vigencia,
+    s.cd_tab_fat,
+    s.cd_pro_fat_valor,
+    ds_pro_fat
+    from
+    de_para dp
+    full outer join simpro s
+        on dp.cd_tuss = s.cd_tuss
+    where
+    dp.cd_tuss is null
+`;
+
+export const verifyValid = `
+    SELECT DISTINCT 0 FROM DBAMV.VAL_PRO WHERE DT_VIGENCIA = TO_DATE(SYSDATE,'DD/MM/YY')
+`;
 
 export const insertFromToQuerie = `
     insert into dbahums.de_para_hums (
@@ -59,7 +112,8 @@ export const insertFromToQuerie = `
         vl_operacional, 
         vl_total, 
         sn_ativo, 
-        nm_usuario
+        nm_usuario,
+        cd_tuss
     ) values (
         :tiss,
         sysdate,
@@ -67,7 +121,8 @@ export const insertFromToQuerie = `
         0,
         :valor,
         'S',
-        user
+        user,
+        :tuss
     )
 `;
 
@@ -100,6 +155,41 @@ export const consultConfirmQuerie = `
                 rn = 1) vp_ult on ib.cd_pro_fat = vp_ult.cd_pro_fat
     where
         ib.cd_tab_fat = 1
+`;
+
+export const consultConfirmMatQuerie = `
+    with last_value as (
+        select
+        dt_vigencia,
+        cd_pro_fat,
+        vl_total
+        from (
+        select
+            dt_vigencia,
+            cd_pro_fat,
+            vl_total,
+            row_number() over (partition by cd_pro_fat order by dt_vigencia desc) rn
+        from
+            dbamv.val_pro vp
+        where
+            cd_tab_fat = 50
+        )
+        where
+        rn = 1         
+    )
+
+    select
+    dp.cd_tuss,
+    i.cd_pro_fat,
+    dp.vl_total new_value,
+    lv.vl_total old_value,
+    lv.dt_vigencia old_date
+    from
+        dbahums.de_para_hums dp
+        inner join dbamv.imp_simpro i
+        on dp.cd_tuss = i.cd_tuss
+        inner join last_value lv
+        on i.cd_pro_fat = lv.cd_pro_fat
 `;
 
 

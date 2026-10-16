@@ -1,6 +1,7 @@
 import { getConnection } from '../database/connection.js';
 import oracledb from 'oracledb';
-import { verifyImpBraQuerie, insertFromToQuerie, consultConfirmQuerie, confirmProceduresQuerie, verifyValidQuerie } from '../queries/billingProceduresQuerie.js';
+import { verifyImpBraQuerie, insertFromToQuerie, consultConfirmQuerie, confirmProceduresQuerie, verifyValidQuerie, verifyImpSimproQuerie, consultConfirmMatQuerie } from '../queries/billingProceduresQuerie.js';
+import { importCache } from '../cache/importCache.js';
 
 export async function unconfiguredProcedures() {
     const connection = await getConnection();
@@ -13,18 +14,25 @@ export async function unconfiguredProcedures() {
     }
 };
 
+export async function unconfiguredProceduresSimpro() {
+    const connection = await getConnection();
+
+    try {
+        const { rows: verifyImpSimpro} = await connection.execute(
+            verifyImpSimproQuerie,
+            [],
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        return verifyImpSimpro;
+    } finally {
+        await connection.close();
+    };
+}
+
 export async function validProcedures(validos) {    
     const connection = await getConnection();
 
-    // if (!connection) {
-    //     console.log("Importacao congelada");
-    //     return {
-    //         code: 501,
-    //         msg: "Importação congelada, devido a falta de conexão ao banco de dados"
-    //     }
-    // };
-
-    // Criar função para verificar se já existe dados na tabela de de-para antes de inserir novos dados
     try {
         // Limpa a tabela de de-para antes de inserir novos dados
         await connection.execute('DELETE FROM dbahums.de_para_hums', [], { autoCommit: true });
@@ -52,8 +60,64 @@ export async function validProcedures(validos) {
     } finally {
         await connection.close();
     }
+    
+    
+};
 
+export async function importProcedures(preValidValues) {
+    const connection = await getConnection();
 
+    await connection.execute('DELETE FROM dbahums.de_para_hums', [], { autoCommit: true });
+    console.log("limpeza da tabela de importacao")
+
+    const bindDefs = preValidValues.map(item => ({
+            tiss: {
+                type: oracledb.STRING,
+                maxSize: 50
+            },
+            valor: {
+                type: oracledb.NUMBER
+            },
+            tuss: {
+                type: oracledb.STRING,
+                maxSize: 50
+            }
+        }));
+
+    try {
+        const result = await connection.executeMany(
+            insertFromToQuerie,
+            preValidValues,
+            {
+                autoCommit: false,
+                bindDefs: {
+                    tiss: {
+                        type: oracledb.STRING,
+                        maxSize: 50
+                    },
+                    valor: {
+                        type: oracledb.NUMBER
+                    },
+                    tuss: {
+                        type: oracledb.STRING,
+                        maxSize: 50
+                    }
+                }
+            }
+        );
+        await connection.commit();
+        
+        console.log("Insercao na tabela de importacao realizada!");
+
+        // Veririfica os procedimento de importação com a tabela imp_simpro
+        const procedures = await unconfiguredProceduresSimpro();
+
+        return procedures;
+    } catch (err) {
+        return err;
+    }finally {
+        await connection.close();
+    };
 };
 
 export async function confirmProcedures() {
@@ -70,7 +134,16 @@ export async function confirmProcedures() {
             };
         };
 
-        const { rows: confirmProcedures } = await connection.execute(consultConfirmQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        const cache = importCache.get("planilha");
+        console.log(cache)
+
+        let confirmProcedures
+        
+        if (cache.tableType === 'med') {
+            confirmProcedures = await connection.execute(consultConfirmQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        } else {
+            confirmProcedures = await connection.execute(consultConfirmMatQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        }
 
         if (confirmProcedures.length === 0) {
             return {
@@ -78,6 +151,11 @@ export async function confirmProcedures() {
                 msg: 'Não existe importação a ser confirmada.'
             };
         };
+
+        return {
+            code: 200,
+            msg: confirmProcedures
+        }
 
         const proceduresToUpdate = await connection.executeMany(
             confirmProceduresQuerie,

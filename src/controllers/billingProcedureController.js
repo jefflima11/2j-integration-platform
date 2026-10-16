@@ -27,6 +27,12 @@ export async function importFileController(req, res, next) {
 
         let data;
 
+        importCache.set("planilha",{
+            fieldname: req.file.fieldname,
+            originalname: path.parse(req.file.originalname).name,
+            tableType
+        });
+
         if (tableType === 'med') {
 
             const workbook = XLSX.readFile(filePath);
@@ -44,13 +50,6 @@ export async function importFileController(req, res, next) {
             const tempFilePath = path.join(`temp/${pathName}(dados processados).json`);
     
             fs.writeFileSync(tempFilePath, JSON.stringify(data, null, 2));
-    
-            const cache = new Map();
-    
-            importCache.set("planilha",{
-                fieldname: req.file.fieldname,
-                originalname: path.parse(req.file.originalname).name
-            });
 
             importedData = await importMedicamentos();
 
@@ -63,9 +62,12 @@ export async function importFileController(req, res, next) {
 
         } else {
             const total = await importMateriais(filePath);
+
             return res.status(409).json({
-                message: "Função de processamento de tabela de materiais ainda não concluida, peço desculpas.",
-                total
+                message: "Arquivo carregador e processado com sucesso!",
+                dataFile: req.file.originalname,
+                "return": total
+                
             })
         }
 
