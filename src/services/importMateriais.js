@@ -67,6 +67,8 @@ export async function importMateriais(filePath) {
         }
     }
     
+    // console.log({"TesteData": data})
+
     const zeroValues = data.filter(item => item.valor === 0);
 
     const withoutSimpro = data.filter(item => item.valor === 'N/A');
@@ -74,6 +76,8 @@ export async function importMateriais(filePath) {
     const preValidValues = data.filter(item => (
         item.valor != 0 && item.simpro != 'N/A')
     );
+
+    // console.log({"antes: ":preValidValues})    
 
     const unconfiguredProcedures = await importProcedures(preValidValues);
 

@@ -70,19 +70,21 @@ export async function importProcedures(preValidValues) {
     await connection.execute('DELETE FROM dbahums.de_para_hums', [], { autoCommit: true });
     console.log("limpeza da tabela de importacao")
 
-    const bindDefs = preValidValues.map(item => ({
-            tiss: {
-                type: oracledb.STRING,
-                maxSize: 50
-            },
-            valor: {
-                type: oracledb.NUMBER
-            },
-            tuss: {
-                type: oracledb.STRING,
-                maxSize: 50
-            }
-        }));
+    // const bindDefs = preValidValues.map(item => ({
+    //         tiss: {
+    //             type: oracledb.STRING,
+    //             maxSize: 50
+    //         },
+    //         valor: {
+    //             type: oracledb.NUMBER
+    //         },
+    //         tuss: {
+    //             type: oracledb.STRING,
+    //             maxSize: 50
+    //         }
+    //     }));
+
+    // console.log({"TesteQualidade: ": preValidValues})
 
     try {
         const result = await connection.executeMany(
@@ -137,12 +139,15 @@ export async function confirmProcedures() {
         const cache = importCache.get("planilha");
         console.log(cache)
 
-        let confirmProcedures
+        let confirmProcedures;
+        let codeTable;
         
         if (cache.tableType === 'med') {
             confirmProcedures = await connection.execute(consultConfirmQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+            codeTable = 1;
         } else {
             confirmProcedures = await connection.execute(consultConfirmMatQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+            codeTable = 50;
         }
 
         if (confirmProcedures.length === 0) {
@@ -152,19 +157,22 @@ export async function confirmProcedures() {
             };
         };
 
-        return {
-            code: 200,
-            msg: confirmProcedures
-        }
-
+        // return {
+        //     code: 200,
+        //     msg: confirmProcedures
+        // }
+        console.log(codeTable)
         const proceduresToUpdate = await connection.executeMany(
             confirmProceduresQuerie,
-            confirmProcedures.map(item => ({
+            confirmProcedures.rows.map(item => ({
                 pro_fat: item.CD_PRO_FAT,
-                new_value: item.NEW_VALUE
+                new_value: item.NEW_VALUE,
+                codeTable: codeTable
             })),
             { autoCommit: true }
         );
+
+        console.log(confirmProceduresQuerie)
         
         console.log('Atualização de tabela de procedimentos concluída com sucesso!');
 

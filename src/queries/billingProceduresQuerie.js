@@ -204,7 +204,7 @@ export const confirmProceduresQuerie = `
         SN_ATIVO,
         NM_USUARIO
     ) VALUES (
-        1,
+        :codeTable,
         :pro_fat,
         to_date(sysdate, 'DD/MM/YY'),
         0,
