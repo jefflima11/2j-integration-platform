@@ -8,6 +8,7 @@ export async function unconfiguredProcedures() {
 
     try {
         const verifyImpBra = await connection.execute(verifyImpBraQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        console.log("  # Retornando verificacao da imp_bra")
         return verifyImpBra;
     } finally {
         await connection.close();
@@ -18,7 +19,7 @@ export async function unconfiguredProceduresSimpro() {
     const connection = await getConnection();
 
     try {
-        const { rows: verifyImpSimpro} = await connection.execute(
+        const { rows: verifyImpSimpro } = await connection.execute(
             verifyImpSimproQuerie,
             [],
             { outFormat: oracledb.OUT_FORMAT_OBJECT }
@@ -30,17 +31,21 @@ export async function unconfiguredProceduresSimpro() {
     };
 }
 
-export async function validProcedures(validos) {    
+export async function validProcedures(preValidValues) {
     const connection = await getConnection();
 
     try {
         // Limpa a tabela de de-para antes de inserir novos dados
+        console.log("  # Limpeza da tabela de importacao")
         await connection.execute('DELETE FROM dbahums.de_para_hums', [], { autoCommit: true });
-        
+
+        // console.log("passou aqui")
+        // return
         // Prepara os dados em formato de array de objetos
-        const bindDefs = validos.map(item => ({
+        const bindDefs = preValidValues.map(item => ({
             tiss: item.tiss,
-            valor: item.valor
+            valor: item.valor,
+            tuss: item.tiss
         }));
 
         // Executa todas as inserções de uma só vez
@@ -53,6 +58,8 @@ export async function validProcedures(validos) {
         // Verifica os procedimentos de de-para com os procedimentos do imp_bra
         const procedures = await unconfiguredProcedures();
 
+        console.log("  # Retornando informacoes de procedimento");
+        console.log("    nao configurados.");
         return procedures;
 
     } catch (err) {
@@ -60,8 +67,8 @@ export async function validProcedures(validos) {
     } finally {
         await connection.close();
     }
-    
-    
+
+
 };
 
 export async function importProcedures(preValidValues) {
@@ -69,22 +76,6 @@ export async function importProcedures(preValidValues) {
 
     await connection.execute('DELETE FROM dbahums.de_para_hums', [], { autoCommit: true });
     console.log("limpeza da tabela de importacao")
-
-    // const bindDefs = preValidValues.map(item => ({
-    //         tiss: {
-    //             type: oracledb.STRING,
-    //             maxSize: 50
-    //         },
-    //         valor: {
-    //             type: oracledb.NUMBER
-    //         },
-    //         tuss: {
-    //             type: oracledb.STRING,
-    //             maxSize: 50
-    //         }
-    //     }));
-
-    // console.log({"TesteQualidade: ": preValidValues})
 
     try {
         const result = await connection.executeMany(
@@ -108,7 +99,7 @@ export async function importProcedures(preValidValues) {
             }
         );
         await connection.commit();
-        
+
         console.log("Insercao na tabela de importacao realizada!");
 
         // Veririfica os procedimento de importação com a tabela imp_simpro
@@ -117,7 +108,7 @@ export async function importProcedures(preValidValues) {
         return procedures;
     } catch (err) {
         return err;
-    }finally {
+    } finally {
         await connection.close();
     };
 };
@@ -126,28 +117,38 @@ export async function confirmProcedures() {
     const connection = await getConnection();
 
     try {
+        // recolhe informações da planilha em cache
+        const cache = importCache.get("planilha");
 
-        const { rows: verifyValid } = await connection.execute(verifyValidQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        let codeTable;
+        if (cache.tableType === 'med') {
+            codeTable = 1;
+        } else {
+            codeTable = 50;
+        };
+
+        const { rows: verifyValid } = await connection.execute(
+            verifyValidQuerie,
+            { tab_fat: codeTable },
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
 
         if (verifyValid.length > 0) {
-            return { 
+            return {
                 code: 409,
-                msg: 'ja existe atualizacao com a competencia atual' 
+                msg: 'ja existe atualizacao com a competencia atual'
             };
         };
 
-        const cache = importCache.get("planilha");
-        console.log(cache)
-
         let confirmProcedures;
-        let codeTable;
-        
-        if (cache.tableType === 'med') {
-            confirmProcedures = await connection.execute(consultConfirmQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
-            codeTable = 1;
+        if (codeTable === 1) {
+            confirmProcedures = await connection.execute(
+                consultConfirmQuerie,
+                [],
+                { outFormat: oracledb.OUT_FORMAT_OBJECT }
+            );
         } else {
             confirmProcedures = await connection.execute(consultConfirmMatQuerie, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
-            codeTable = 50;
         }
 
         if (confirmProcedures.length === 0) {
@@ -157,33 +158,25 @@ export async function confirmProcedures() {
             };
         };
 
-        // return {
-        //     code: 200,
-        //     msg: confirmProcedures
-        // }
-        console.log(codeTable)
-        const proceduresToUpdate = await connection.executeMany(
+        let proceduresToUpdate = await connection.executeMany(
             confirmProceduresQuerie,
             confirmProcedures.rows.map(item => ({
                 pro_fat: item.CD_PRO_FAT,
                 new_value: item.NEW_VALUE,
-                codeTable: codeTable
+                codeTable
             })),
             { autoCommit: true }
         );
 
-        console.log(confirmProceduresQuerie)
-        
-        console.log('Atualização de tabela de procedimentos concluída com sucesso!');
 
         await connection.execute('delete from dbahums.de_para_hums', [], { autoCommit: true });
-        console.log('Tabela de de-para limpa com sucesso!');
-
+        console.log('limpeza de tabela de importacao realizada.');
 
         return {
             code: 200,
-            msg: 'Processo de confirmação da importação finalizado.',
-            qtd: proceduresToUpdate.rowsAffected
+            msg: 'Atualizacao',
+            qtd: proceduresToUpdate.rowsAffected,
+            codeTable
         };
 
     } finally {
@@ -238,7 +231,7 @@ export async function deleteCompetence() {
             msg: 'Última competência deletada com sucesso!'
         };
 
-    } catch(err) {
+    } catch (err) {
         // 
         return {
             code: 500,

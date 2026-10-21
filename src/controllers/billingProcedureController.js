@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { confirmProcedures, deleteCompetence } from '../models/billingProceduresModel.js'
 import { importCache } from '../cache/importCache.js';
-import { importMedicamentos,  } from '../services/processData.js'
+import { importMedicamentos, } from '../services/processData.js'
 import { importMateriais } from '../services/importMateriais.js'
 
 export async function importFileController(req, res, next) {
@@ -11,73 +11,69 @@ export async function importFileController(req, res, next) {
     try {
         const pathName = path.parse(req.file.originalname).name;
 
+        console.log(pathName)
+
         let tableType;
         if (pathName.toLowerCase().includes('med')) {
             tableType = 'med'
         } else if (pathName.toLowerCase().includes('mat')) {
             tableType = 'mat';
         } else {
-            res.status(400).json({ message: 'Planilha não aceita. Carregue uma planilha de materiais ou medicamentos, ou renomeie a planilha conforme a atualização desejada'});
+            res.status(400).json({ message: 'Planilha não aceita. Carregue uma planilha de materiais ou medicamentos, ou renomeie a planilha conforme a atualização desejada' });
             return;
         };
 
         const filePath = req.file.path;
 
-        let importedData;
-
-        let data;
-
-        importCache.set("planilha",{
+        // Guardando informações sobre a planilha em cache para ser usada posteriormente.
+        importCache.set("planilha", {
             fieldname: req.file.fieldname,
             originalname: path.parse(req.file.originalname).name,
             tableType
         });
 
+        // Tratamento das planilhas de acordo com o tipo (med = medicamentos / mat = materiais)
+        let data;
+        let total;
+        let retorno;
         if (tableType === 'med') {
 
+            // Processo de leitura do arquivo de planilha de medicamentos
+            // ### O bloco de código precisa ser refeito em um novo arquivo, possivelmente em um services.
             const workbook = XLSX.readFile(filePath);
-    
             const firstSheetName = workbook.SheetNames[0];
-    
-            const worksheet = workbook.Sheets[firstSheetName]; 
-            
+            const worksheet = workbook.Sheets[firstSheetName];
             data = XLSX.utils.sheet_to_json(worksheet);
-    
+
             if (!data || data.length === 0) {
                 return res.status(400).json({ error: 'O arquivo Excel está vazio, não contém dados ou está em modo de leitura.' });
             }
-    
+
             const tempFilePath = path.join(`temp/${pathName}(dados processados).json`);
-    
             fs.writeFileSync(tempFilePath, JSON.stringify(data, null, 2));
 
-            importedData = await importMedicamentos();
+            retorno = await importMedicamentos();
 
-            res.status(200).send({ 
-                message: 'Arquivo carregado e processo com sucesso!', 
+            res.status(200).send({
+                message: 'Arquivo carregado e processo com sucesso!',
                 dataFile: req.file.originalname,
-                recordsProcessed: data.length,
-                retorno: importedData
+                "return": retorno
             });
 
         } else {
-            const total = await importMateriais(filePath);
+            total = await importMateriais(filePath);
 
             return res.status(409).json({
                 message: "Arquivo carregador e processado com sucesso!",
                 dataFile: req.file.originalname,
                 "return": total
-                
+
             })
         }
-
-
-
-
     } catch (err) {
-        res.status(501).json({ 
+        res.status(501).json({
             Local: "importFileController()",
-            Erro: err.message 
+            Erro: err.message
         });
     }
 }
@@ -87,20 +83,20 @@ export async function insertDataController(req, res) {
         const confirmProceduresResult = await confirmProcedures();
 
         if (confirmProceduresResult.code === 200) {
-            res.status(confirmProceduresResult.code).json({ 
+            res.status(confirmProceduresResult.code).json({
                 message: confirmProceduresResult.msg,
-                data: `${confirmProceduresResult.qtd} registros importados.`
+                data: `${confirmProceduresResult.qtd} registros atualizado da tabela ${confirmProceduresResult.codeTable}.`
             });
         };
 
-        if (confirmProceduresResult.code === 409) { 
+        if (confirmProceduresResult.code === 409) {
             res.status(confirmProceduresResult.code).json({
                 message: confirmProceduresResult.msg
             });
         };
 
     } catch (err) {
-        res.status(500).json({ 
+        res.status(500).json({
             Error: err.message,
             Local: 'insertDataController()'
         });

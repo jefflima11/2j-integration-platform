@@ -127,7 +127,7 @@ export const insertFromToQuerie = `
 `;
 
 export const consultConfirmQuerie = `
-     select
+    select
         dp.cd_tiss,
         ib.cd_pro_fat,
         dp.vl_total new_value,
@@ -190,6 +190,12 @@ export const consultConfirmMatQuerie = `
         on dp.cd_tuss = i.cd_tuss
         inner join last_value lv
         on i.cd_pro_fat = lv.cd_pro_fat
+    group by 
+      dp.cd_tuss,
+      i.cd_pro_fat,
+      lv.vl_total,
+      dp.vl_total,
+      lv.dt_vigencia
 `;
 
 
@@ -222,6 +228,7 @@ export const verifyValidQuerie = `
         dbamv.val_pro
     where
         dt_vigencia = to_char(sysdate, 'dd/mm/yy')
+        and cd_tab_fat = :tab_fat
     group by
         1
 `;
