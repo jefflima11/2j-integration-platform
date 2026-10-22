@@ -219,7 +219,6 @@ export async function deleteCompetence() {
                 where 
                     trunc(dt_vigencia, 'mm') = trunc(sysdate, 'mm')
                     and trunc(dt_vigencia, 'yyyy') = trunc(sysdate, 'yyyy')
-                    and cd_tab_fat = 1
             `,
             [],
             { autoCommit: true }
@@ -243,3 +242,65 @@ export async function deleteCompetence() {
         await connection.close();
     }
 }
+
+
+export async function deleteCompetenceId(idTable) {
+    const connection = await getConnection();
+
+    const { rows: verifyLastCompetence } = await connection.execute(`
+        select
+            1
+        from
+            dbamv.val_pro
+        where
+            trunc(dt_vigencia, 'mm') = trunc(sysdate, 'mm')
+            and trunc(dt_vigencia, 'yyyy') = trunc(sysdate, 'yyyy')
+            and cd_tab_fat = 50
+        `,
+        [],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
+
+    if (verifyLastCompetence.length === 0) {
+        return {
+            code: 409,
+            msg: 'Não foi possivel deletar, a competência informada não existe.'
+        }
+    }
+
+    try {
+
+        const r = await connection.execute(`
+                delete
+                from 
+                    dbamv.val_pro 
+                where 
+                    trunc(dt_vigencia, 'mm') = trunc(sysdate, 'mm')
+                    and trunc(dt_vigencia, 'yyyy') = trunc(sysdate, 'yyyy')
+                    and cd_tab_fat = :idTable
+            `,
+            [idTable],
+            { autoCommit: true }
+        );
+
+        console.log({ resultDelete: r.rowsAffected });
+
+        if (r.rowsAffected === 0) {
+            return {
+                code: 409,
+                msg: 'Não existe competência a ser deletada'
+            }
+        }
+
+        return {
+            code: 200,
+            msg: `Total de ${r.rowsAffected} registro deletados da tabela ${idTable}`
+        }
+    } catch (err) {
+        return {
+            code: 500,
+            msg: err
+        }
+    }
+
+};

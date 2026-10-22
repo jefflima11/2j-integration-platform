@@ -1,7 +1,7 @@
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
-import { confirmProcedures, deleteCompetence } from '../models/billingProceduresModel.js'
+import { confirmProcedures, deleteCompetence, deleteCompetenceId } from '../models/billingProceduresModel.js'
 import { importCache } from '../cache/importCache.js';
 import { importMedicamentos, } from '../services/processData.js'
 import { importMateriais } from '../services/importMateriais.js'
@@ -109,15 +109,25 @@ export async function deleteCompetenceController(req, res) {
 
 export async function deleteLastCompetenceController(req, res) {
     try {
+        const { idTable } = req.params;
 
-        console.log(req.params);
-        console.log(req.params.idTable)
-        return;
+        console.log(req.body);
 
-        const competenceDeleted = await deleteCompetence();
+        let competenceDeleted;
+        if (idTable) {
+
+            competenceDeleted = await deleteCompetenceId(idTable);
+        } else {
+            competenceDeleted = await deleteCompetence();
+
+            console.log('Parametro não existe');
+        }
+
+        // return;
 
         res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
     } catch (err) {
-        res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
+        // res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
+        res.status(500).json({ message: 'Erro: deleteLastCompetenceController' });
     };
 };
