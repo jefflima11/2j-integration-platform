@@ -10,5 +10,6 @@ router.post('/update', insertDataController);
 
 router.delete('/delete', deleteCompetenceController)
 router.delete('/delete/last-competence', deleteLastCompetenceController);
+router.delete('/delete/last-competence/:idTable', deleteLastCompetenceController)
 
 export default router;

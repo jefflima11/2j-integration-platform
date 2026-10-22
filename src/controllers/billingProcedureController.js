@@ -109,6 +109,11 @@ export async function deleteCompetenceController(req, res) {
 
 export async function deleteLastCompetenceController(req, res) {
     try {
+
+        console.log(req.params);
+        console.log(req.params.idTable)
+        return;
+
         const competenceDeleted = await deleteCompetence();
 
         res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
