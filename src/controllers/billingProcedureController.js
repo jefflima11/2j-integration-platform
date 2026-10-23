@@ -1,7 +1,7 @@
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
-import { confirmProcedures, deleteCompetence, deleteCompetenceId } from '../models/billingProceduresModel.js'
+import { confirmProcedures, deleteCompetence, deleteCompetenceId, deleteCompetenceIdComp } from '../models/billingProceduresModel.js'
 import { importCache } from '../cache/importCache.js';
 import { importMedicamentos, } from '../services/processData.js'
 import { importMateriais } from '../services/importMateriais.js'
@@ -111,19 +111,19 @@ export async function deleteLastCompetenceController(req, res) {
     try {
         const { idTable } = req.params;
 
-        console.log(req.body);
-
+        const { competencia } = req.body;
         let competenceDeleted;
-        if (idTable) {
 
+        if ((!competencia || competencia === null) && idTable) {
+            console.log('Competencia nao informada e o codigo de tabela sim')
             competenceDeleted = await deleteCompetenceId(idTable);
+        } else if ((competencia || competencia != null) && idTable) {
+            console.log('Dois parametros informados');
+            competeceDeleted = await deleteCompetenceIdComp(idTable, { comp: competencia });
         } else {
-            competenceDeleted = await deleteCompetence();
-
-            console.log('Parametro não existe');
+            console.log('Todas competencias excluidas')
+            // competenceDeleted = await deleteCompetence();
         }
-
-        // return;
 
         res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
     } catch (err) {

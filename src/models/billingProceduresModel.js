@@ -304,3 +304,17 @@ export async function deleteCompetenceId(idTable) {
     }
 
 };
+
+export async function deleteCompetenceIdComp(idTable, comp) {
+    const connection = getConnection();
+
+    try {
+        const data = new Date(comp);
+
+        console.log(data);
+        return;
+    } catch (err) {
+        return err;
+    }
+
+}
