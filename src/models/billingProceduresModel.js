@@ -305,16 +305,21 @@ export async function deleteCompetenceId(idTable) {
 
 };
 
-export async function deleteCompetenceIdComp(idTable, comp) {
+export async function deleteCompetenceIdComp(comp) {
     const connection = getConnection();
 
     try {
-        const data = new Date(comp);
+        const data = new Date(comp.competencia);
 
-        console.log(data);
-        return;
+        return {
+            code: 202,
+            msg: data
+        };
     } catch (err) {
-        return err;
+        return {
+            code: 501,
+            msg: err
+        };
     }
 
 }

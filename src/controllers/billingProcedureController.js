@@ -119,13 +119,22 @@ export async function deleteLastCompetenceController(req, res) {
             competenceDeleted = await deleteCompetenceId(idTable);
         } else if ((competencia || competencia != null) && idTable) {
             console.log('Dois parametros informados');
-            competeceDeleted = await deleteCompetenceIdComp(idTable, { comp: competencia });
+            // console.log({ idTable, competencia })
+
+            // const data = new Date(competencia);
+            // res.status(201).json(competencia)
+            // return
+            competenceDeleted = await deleteCompetenceIdComp({ idTable, competencia });
+
+            console.log(competenceDeleted);
+            // console.log(data)
         } else {
             console.log('Todas competencias excluidas')
             // competenceDeleted = await deleteCompetence();
         }
 
         res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
+        // res.status(200).json(competenceDeleted)
     } catch (err) {
         // res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
         res.status(500).json({ message: 'Erro: deleteLastCompetenceController' });
