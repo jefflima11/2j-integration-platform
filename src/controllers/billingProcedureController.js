@@ -116,27 +116,20 @@ export async function deleteLastCompetenceController(req, res) {
 
         if ((!competencia || competencia === null) && idTable) {
             console.log('Competencia nao informada e o codigo de tabela sim')
+
             competenceDeleted = await deleteCompetenceId(idTable);
+
         } else if ((competencia || competencia != null) && idTable) {
             console.log('Dois parametros informados');
-            // console.log({ idTable, competencia })
 
-            // const data = new Date(competencia);
-            // res.status(201).json(competencia)
-            // return
             competenceDeleted = await deleteCompetenceIdComp({ idTable, competencia });
 
-            console.log(competenceDeleted);
-            // console.log(data)
         } else {
             console.log('Todas competencias excluidas')
-            // competenceDeleted = await deleteCompetence();
         }
 
         res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
-        // res.status(200).json(competenceDeleted)
     } catch (err) {
-        // res.status(competenceDeleted.code).json({ message: competenceDeleted.msg });
         res.status(500).json({ message: 'Erro: deleteLastCompetenceController' });
     };
 };

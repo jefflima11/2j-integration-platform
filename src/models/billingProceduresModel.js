@@ -306,14 +306,64 @@ export async function deleteCompetenceId(idTable) {
 };
 
 export async function deleteCompetenceIdComp(comp) {
-    const connection = getConnection();
+    const connection = await getConnection();
 
     try {
         const data = new Date(comp.competencia);
 
+        const codTable = parseInt(comp.idTable);
+
+
+
+        const sql = `
+            select 
+                1
+            from 
+                dbamv.val_pro 
+            where 
+                trunc(dt_vigencia) = :data
+                and cd_tab_fat = :codTable
+            `;
+
+        const result = await connection.execute(
+            sql,
+            { data, codTable },
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        if (result.rows.length === 0) {
+            console.log('sem resultados a mostrar')
+
+            return {
+                code: 409,
+                msg: 'Não existe competência com os parâmetros informados'
+            };
+        } else {
+            console.log('Variavel existe')
+        }
+
+
+        const sqlDelete = `
+            delete
+            from
+                dbamv.val_pro
+            where
+                trunc(dt_vigencia) = :data
+                and cd_tab_fat = :codTable
+        `;
+
+        const r = await connection.execute(
+            sqlDelete,
+            {
+                data,
+                codTable
+            },
+            { autoCommit: true }
+        );
+
         return {
             code: 202,
-            msg: data
+            msg: 'Dados deletados com sucesso'
         };
     } catch (err) {
         return {
