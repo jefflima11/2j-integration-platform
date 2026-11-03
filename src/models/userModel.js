@@ -1,15 +1,19 @@
 import oracledb from 'oracledb';
 import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js'
-import { 
-    allUsers as allUsersQuerie,  
-    checkUserExistence as checkUserExistenceQuerie, 
-    updatePasswordQuerie, 
-    inactiveFilter, 
-    inactiveUser as inactiveUserQuerie 
+import {
+    allUsers as allUsersQuerie,
+    checkUserExistence as checkUserExistenceQuerie,
+    updatePasswordQuerie,
+    inactiveFilter,
+    inactiveUser as inactiveUserQuerie
 } from '../queries/userQuerie.js'
 
-export async function allUsers() {
+async function newUser() {
+    console.log('funcinou')
+}
+
+async function allUsers() {
     const connection = await getConnection();
 
     try {
@@ -21,29 +25,29 @@ export async function allUsers() {
     };
 };
 
-export async function alterPassword(username, newPassword) {
+async function alterPassword(username, newPassword) {
     const connection = await getConnection();
 
     if (!username) {
         return ({ message: 'Nome de usuário é obrigatório!' });
     }
-    
-    try {
-        const userExistence = await connection.execute(checkUserExistenceQuerie, { username });        
 
-        if (userExistence.rows.length === 0 ) {
+    try {
+        const userExistence = await connection.execute(checkUserExistenceQuerie, { username });
+
+        if (userExistence.rows.length === 0) {
             return ({ message: 'Usuário não encontrado' });
         };
     } catch (err) {
-        return(err);
+        return (err);
     };
-    
+
 
     if (!newPassword && !req.password) {
         return ({ message: 'Nova senha é obrigatória' });
     };
 
-    
+
     try {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         await connection.execute(updatePasswordQuerie, { hashedPassword, username });
@@ -56,23 +60,23 @@ export async function alterPassword(username, newPassword) {
     };
 };
 
-export async function inactivateUser(username) {
+async function inactivateUser(username) {
     const connection = await getConnection();
 
     try {
         const querieComplete = checkUserExistenceQuerie + inactiveFilter;
         const user = await connection.execute(querieComplete, { username });
 
-        if  (user.rows.length > 0 ) {
+        if (user.rows.length > 0) {
             return ({ message: 'Usuário já está inativado!' });
         };
     } catch (err) {
         return err;
-    } 
+    }
 
     try {
         await connection.execute(inactiveUserQuerie, { username }, { autoCommit: true });
-        return { message: 'Usuário inativado!'};
+        return { message: 'Usuário inativado!' };
     } catch (err) {
         if (err.errorNum === 1) {
             return { message: 'Usuário não encontrado!' };
@@ -86,24 +90,24 @@ export async function inactivateUser(username) {
     };
 };
 
-export async function userAlterModel(username, name, role, cpf) {
+async function userAlterModel(username, name, role, cpf) {
     const connection = await getConnection();
-    
+
     const fieldsToUpdate = [];
     const binds = { username };
 
-    if(name !== undefined) {
+    if (name !== undefined) {
         fieldsToUpdate.push('NM_USUARIO = :name');
         binds.name = name;
     }
 
-    if(role !== undefined) {
+    if (role !== undefined) {
         fieldsToUpdate.push('ROLE = :role');
         binds.role = role;
     }
 
 
-    if(cpf !== undefined) {
+    if (cpf !== undefined) {
         fieldsToUpdate.push('NR_CPF = :cpf');
         binds.cpf = cpf;
     }
@@ -123,8 +127,16 @@ export async function userAlterModel(username, name, role, cpf) {
     try {
         const userAltered = await connection.execute(sql, binds, { autoCommit: true });
         return { message: userAltered };
-    
+
     } finally {
         await connection.close();
     }
 };
+
+export default {
+    newUser,
+    allUsers,
+    alterPassword,
+    inactivateUser,
+    userAlterModel
+}

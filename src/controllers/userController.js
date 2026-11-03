@@ -1,39 +1,31 @@
 import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js';
-import { 
-    allUsers as allUsersModel, 
-    alterPassword as alterPasswordModel, 
-    inactivateUser as inactivateUserModel, 
-    userAlterModel 
-} from '../models/userModel.js';
+import userModel from '../models/userModel.js';
 import { userQuerie } from '../queries/userQuerie.js';
 
 
 export async function newUser(req, res) {
-    const { username, password, name, role} = req.body;
+    const { username, password, name, role } = req.body;
 
     if (!username || !password || !name || !role) {
         return res.status(400).json({
             message: 'Usuário, senha, nome completo, regra e CPF são obrigatórios'
         });
     }
-    
+
     let connection;
 
-    console.log({ username: username.toUpperCase(), password, name, role});
+    console.log({ username: username.toUpperCase(), password, name, role });
 
     try {
         connection = await getConnection();
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        try {
-            const checkEmployeeExistence = await connection.execute();
-        } catch {
+        const teste = await userModel.newUser();
+        return;
 
-        }
-        
-        await connection.execute(
+        const r = await connection.execute(
             userQuerie,
             { username, password: hashedPassword, name, role },
             { autoCommit: true }
@@ -80,10 +72,10 @@ export async function alterPassword(req, res) {
 
 export async function inactivateUser(req, res) {
     const { username } = req.params;
-    
+
     try {
-       const inactivatedUser = await inactivateUserModel(username);
-       res.status(200).json(inactivatedUser);
+        const inactivatedUser = await inactivateUserModel(username);
+        res.status(200).json(inactivatedUser);
     } catch (err) {
         res.json(err);
     };
@@ -99,13 +91,13 @@ export async function userAlter(req, res) {
 
     try {
         const alteredUser = await userAlterModel(username, name, role, cpf);
-        res.json({ message: alteredUser});
+        res.json({ message: alteredUser });
     } catch (err) {
         res.json(err);
     }
 };
 
-export default { 
+export default {
     newUser,
     allUsers,
     alterPassword,
