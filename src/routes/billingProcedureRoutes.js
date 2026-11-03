@@ -1,9 +1,16 @@
 import { Router } from 'express';
 import { authorize } from '../middlewares/authorize.js';
-import { importFileController, insertDataController, deleteCompetenceController, deleteLastCompetenceController } from '../controllers/billingProcedureController.js';
+import { importFileController, insertDataController, deleteCompetenceController, deleteLastCompetenceController, getCompetenceController } from '../controllers/billingProcedureController.js';
 import { upload } from '../services/uploadService.js';
 
 const router = Router();
+
+router.get('/return-competence-analytics',
+    (req, res) => getCompetenceController(req, res, 'A')
+);
+router.get('/return-competence-synthetic',
+    (req, res) => getCompetenceController(req, res, 'S')
+);
 
 router.post('/import', upload.single('file'), importFileController);
 router.post('/update', insertDataController);

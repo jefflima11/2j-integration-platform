@@ -243,7 +243,6 @@ export async function deleteCompetence() {
     }
 }
 
-
 export async function deleteCompetenceId(idTable) {
     const connection = await getConnection();
 
@@ -372,4 +371,120 @@ export async function deleteCompetenceIdComp(comp) {
         };
     }
 
+}
+
+export async function getCompetenceAnalModel(idTable, comp) {
+    const connection = await getConnection();
+
+    let sql = `
+        select
+            *
+        from
+            dbamv.val_pro
+        where
+            trunc(dt_vigencia) >= :comp
+    `;
+
+    let binds;
+
+    if (!idTable) {
+        binds = {
+            comp
+        };
+        sql += `and cd_tab_fat in (1, 50)`;
+    } else {
+        binds = {
+            comp,
+            idTable
+        };
+        sql += `and cd_tab_fat = :idTable`;
+    }
+
+
+    try {
+        const r = await connection.execute(
+            sql,
+            binds,
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        if (r.rows.length === 0) {
+            return {
+                code: 409,
+                msg: 'Sem registros a retornar, nos parâmestro informados'
+            }
+        } else {
+            return {
+                code: 200,
+                msg: r.rows
+            }
+        }
+    } catch (err) {
+        return {
+            code: 501,
+            msg: err
+        }
+    };
+};
+
+export async function getCompetenceSyntModel(idTable, comp) {
+    const connection = await getConnection();
+
+    let sql = `
+        select
+            to_char(vp.dt_vigencia, 'dd/mm/yyyy') competencia,
+            count(*) total,
+            vp.cd_tab_fat,
+            tf.ds_tab_fat
+        from
+            dbamv.val_pro vp
+            inner join dbamv.tab_fat tf
+              on vp.cd_tab_fat = tf.cd_tab_fat
+        where
+            trunc(vp.dt_vigencia) >= :comp`;
+
+    const groupBy = `
+        group by
+            to_char(vp.dt_vigencia, 'dd/mm/yyyy'),
+            vp.cd_tab_fat,
+            tf.ds_tab_fat
+    `;
+    let binds;
+
+    if (!idTable) {
+        binds = {
+            comp
+        };
+
+        sql += `
+            and vp.cd_tab_fat in (1, 50)`;
+        sql += groupBy;
+    } else {
+        binds = {
+            comp,
+            idTable
+        };
+
+        sql += `
+            and vp.cd_tab_fat = :idTable`;
+        sql += groupBy;
+    }
+
+    try {
+        const r = await connection.execute(
+            sql,
+            [comp],
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        return {
+            code: 201,
+            msg: r.rows
+        }
+    } catch (err) {
+        return {
+            code: 501,
+            msg: err
+        }
+    }
 }

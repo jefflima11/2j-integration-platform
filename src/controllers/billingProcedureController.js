@@ -1,7 +1,7 @@
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
-import { confirmProcedures, deleteCompetence, deleteCompetenceId, deleteCompetenceIdComp } from '../models/billingProceduresModel.js'
+import { confirmProcedures, deleteCompetence, deleteCompetenceId, deleteCompetenceIdComp, getCompetenceAnalModel, getCompetenceSyntModel } from '../models/billingProceduresModel.js'
 import { importCache } from '../cache/importCache.js';
 import { importMedicamentos, } from '../services/processData.js'
 import { importMateriais } from '../services/importMateriais.js'
@@ -133,3 +133,23 @@ export async function deleteLastCompetenceController(req, res) {
         res.status(500).json({ message: 'Erro: deleteLastCompetenceController' });
     };
 };
+
+export async function getCompetenceController(req, res, type) {
+
+    const idTable = req.body.idTable;
+    const comp = new Date(req.body.competence);
+
+    try {
+
+        let r;
+        if (type === 'A') {
+            r = await getCompetenceAnalModel(idTable, comp);
+        } else {
+            r = await getCompetenceSyntModel(idTable, comp)
+        }
+
+        res.status(r.code).json(r.msg)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
