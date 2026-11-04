@@ -1,16 +1,75 @@
 import oracledb from 'oracledb';
 import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js'
-import {
-    allUsers as allUsersQuerie,
-    checkUserExistence as checkUserExistenceQuerie,
-    updatePasswordQuerie,
-    inactiveFilter,
-    inactiveUser as inactiveUserQuerie
-} from '../queries/userQuerie.js'
+import userQueries from '../queries/userQuerie.js'
 
-async function newUser() {
-    console.log('funcinou')
+async function verifyUser(name) {
+    const connection = await getConnection();
+
+    let sql = `
+        select
+            1
+        from
+            dbamv.funcionario f
+            inner join dbahums.users u
+              on upper(f.nm_func) = upper(u.nm_usuario)
+        where
+            (
+            upper(f.nm_func) like upper('%jairo sousa%') 
+            or f.nm_func like upper('%jairo%')
+            )
+    `;
+
+    let binds {
+
+    }
+    try {
+        console.log(name.toUpperCase());
+
+        const r = await connection.execute(
+            sql,
+            [],
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        console.log(r.rows)
+        return {
+            code: 201,
+            msg: r.rows
+        }
+    } catch (err) {
+        return {
+            code: 501,
+            msg: err
+        }
+    };
+}
+
+async function newUser(username, hashedPassword, name, role) {
+    const connection = getConnection();
+
+    try {
+        const r = await connection.execute(
+            userQueries.insertNewUser,
+            {
+                username,
+                password: hashedPassword,
+                name,
+                role
+            },
+            { autoCommit: true }
+        );
+
+        return res.status(201).json({
+            message: 'Usuário criado com sucesso!'
+        });
+
+    } catch (err) {
+        return {
+            code: 501,
+            msg: err
+        }
+    }
 }
 
 async function allUsers() {
@@ -138,5 +197,6 @@ export default {
     allUsers,
     alterPassword,
     inactivateUser,
-    userAlterModel
+    userAlterModel,
+    verifyUser
 }

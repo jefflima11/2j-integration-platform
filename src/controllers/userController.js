@@ -1,7 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { getConnection } from '../database/connection.js';
 import userModel from '../models/userModel.js';
-import { userQuerie } from '../queries/userQuerie.js';
 
 
 export async function newUser(req, res) {
@@ -15,25 +13,14 @@ export async function newUser(req, res) {
 
     let connection;
 
-    console.log({ username: username.toUpperCase(), password, name, role });
-
     try {
-        connection = await getConnection();
+        const verifyNewUser = await userModel.verifyUser(name);
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const teste = await userModel.newUser();
+        const createNewUser = await userModel.newUser(username, hashedPassword, name, role);
         return;
 
-        const r = await connection.execute(
-            userQuerie,
-            { username, password: hashedPassword, name, role },
-            { autoCommit: true }
-        );
-
-        return res.status(201).json({
-            message: 'Usuário criado com sucesso!'
-        });
 
     } catch (err) {
         if (err?.errorNum === 1) {
