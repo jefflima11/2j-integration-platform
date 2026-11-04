@@ -137,6 +137,12 @@ export async function deleteLastCompetenceController(req, res) {
 export async function getCompetenceController(req, res, type) {
 
     const idTable = req.body.idTable;
+
+    if (!req.body.competence) {
+        res.status(501).json('Competência não informada')
+        return;
+    }
+
     const comp = new Date(req.body.competence);
 
     try {
@@ -144,7 +150,7 @@ export async function getCompetenceController(req, res, type) {
         let r;
         if (type === 'A') {
             r = await getCompetenceAnalModel(idTable, comp);
-        } else {
+        } else if (type === 'S') {
             r = await getCompetenceSyntModel(idTable, comp)
         }
 

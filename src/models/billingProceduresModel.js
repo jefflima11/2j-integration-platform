@@ -457,7 +457,7 @@ export async function getCompetenceSyntModel(idTable, comp) {
         };
 
         sql += `
-            and vp.cd_tab_fat in (1, 50)`;
+        and vp.cd_tab_fat in (1, 50)`;
         sql += groupBy;
     } else {
         binds = {
@@ -466,14 +466,15 @@ export async function getCompetenceSyntModel(idTable, comp) {
         };
 
         sql += `
-            and vp.cd_tab_fat = :idTable`;
+        and vp.cd_tab_fat = :idTable`;
         sql += groupBy;
     }
 
+    // console.log(sql + `${binds.idTable}`)
     try {
         const r = await connection.execute(
             sql,
-            [comp],
+            binds,
             { outFormat: oracledb.OUT_FORMAT_OBJECT }
         );
 
