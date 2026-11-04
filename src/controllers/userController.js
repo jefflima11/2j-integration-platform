@@ -3,37 +3,62 @@ import userModel from '../models/userModel.js';
 
 
 export async function newUser(req, res) {
-    const { username, password, name, role } = req.body;
+    let { username, password, name, role, codFunc, cpf } = req.body;
+
+    name = name.toUpperCase();
 
     if (!username || !password || !name || !role) {
-        return res.status(400).json({
+        res.status(400).json({
             message: 'Usuário, senha, nome completo, regra e CPF são obrigatórios'
         });
     }
 
-    let connection;
+    if (codFunc) {
+        const r = await userModel.validateEmployee(codFunc);
+
+        if (r) {
+            res.status(r.code).json(r.msg)
+        }
+    }
+
+    if (!cpf) {
+        cpf = null;
+    }
+
 
     try {
+        // Verifica se o novo funcionário já existe e cria
+        let employeeData = { name, cpf, user: req.user.user }
+        const verifyNewEmployee = await userModel.verifyEmployee(employeeData);
+
+        // Verifica se o novo usuário já existe
         const verifyNewUser = await userModel.verifyUser(name);
 
+        // Criptografa a senha
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const createNewUser = await userModel.newUser(username, hashedPassword, name, role);
-        return;
+        // Cria novo usuário
+        let userData = { username, hashedPassword, name, role, cpf }
+        await userModel.newUser(userData);
 
+        if (verifyNewEmployee.code === 201 && verifyNewUser.code === 201) {
+            res.status(201).json('Usuário cadastrados e vinculado ao funcionario com sucesso');
+        } else if (verifyNewEmployee.code === 201 && verifyNewUser.code === 409) {
+            res.status(201).json('Usuário já existente, vinculo com funcionario criado com sucesso');
+        } else if (verifyNewEmployee.code === 409 && verifyNewUser.code === 409) {
+            res.status(200).json('Já existe usuário e funcionário cadastrados.');
+        } else if (verifyNewEmployee.code === 409 && verifyNewUser.code === 201) {
+            res.status(200).json('Usuário cadastrado e vinculado a funcionário já existente')
+        } else {
+            res.status(204).json({ msg: 'Algum outro erro', cpf })
+            console.log('Fim')
+        }
 
     } catch (err) {
-        if (err?.errorNum === 1) {
-            return res.status(409).json({ message: 'Usuário já existe!' });
-        }
 
-        console.error(err);
-        return res.status(500).json({ message: 'Erro ao criar usuário' });
+        console.error(err.errorNum);
+        res.status(500).json({ message: 'Erro ao criar usuário' });
 
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
     }
 };
 

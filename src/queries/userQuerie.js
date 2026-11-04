@@ -1,7 +1,19 @@
-const insertNewUser = `INSERT INTO dbahums.USERS 
-    (CD_USUARIO, PASSWORD, NM_USUARIO, CREATED_AT, ROLE)
-    VALUES 
-    (:username, :password, :name, SYSDATE, :role)
+const insertNewUser = `
+    INSERT INTO dbahums.USERS (
+        CD_USUARIO, 
+        PASSWORD, 
+        NM_USUARIO, 
+        CREATED_AT, 
+        ROLE,
+        NR_CPF
+    ) VALUES (
+        :username, 
+        :password, 
+        :name, 
+        SYSDATE, 
+        :role,
+        :cpf
+    )
 `;
 
 const allUsers = `SELECT 
@@ -32,11 +44,32 @@ const inactiveUser = `UPDATE DBAHUMS.USERS
     WHERE CD_USUARIO = :userName
 `;
 
+const insertNewEmployee = `
+    insert into dbamv.funcionario (
+        cd_func,
+        nm_func,
+        sn_ativo,
+        cd_setor,
+        cd_func_integra,
+        nr_cpf,
+        sn_internet
+    ) values (
+        dbamv.seq_func.nextval,
+        :name,
+        'S',
+        :codSetor,
+        :usu,
+        :cpf,
+        'N'
+    )
+`;
+
 export default {
     insertNewUser,
     allUsers,
     checkUserExistence,
     updatePasswordQuerie,
     inactiveFilter,
-    inactiveUser
+    inactiveUser,
+    insertNewEmployee
 }

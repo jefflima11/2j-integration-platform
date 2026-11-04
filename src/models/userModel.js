@@ -3,71 +3,154 @@ import bcrypt from 'bcryptjs';
 import { getConnection } from '../database/connection.js'
 import userQueries from '../queries/userQuerie.js'
 
-async function verifyUser(name) {
+async function verifyEmployee(employeeData) {
     const connection = await getConnection();
 
     let sql = `
         select
-            1
+            cd_func,
+            nm_func,
+            sn_ativo,
+            vl_hora,
+            vl_hora_extra,
+            dt_vigencia
         from
             dbamv.funcionario f
-            inner join dbahums.users u
+            left join dbahums.users u
               on upper(f.nm_func) = upper(u.nm_usuario)
         where
-            (
-            upper(f.nm_func) like upper('%jairo sousa%') 
-            or f.nm_func like upper('%jairo%')
-            )
+            f.nm_func like '%' || :name || '%'
+            
     `;
 
-    let binds {
-
-    }
     try {
-        console.log(name.toUpperCase());
-
         const r = await connection.execute(
             sql,
-            [],
+            { name: employeeData.name },
             { outFormat: oracledb.OUT_FORMAT_OBJECT }
         );
 
-        console.log(r.rows)
-        return {
-            code: 201,
-            msg: r.rows
+        if (r.rows.length > 0) {
+            return {
+                code: 409,
+                msg: `Existem ${r.rows.length} funcionários cadastrados com nome similar`
+            }
+        } else {
+            let binds = {
+                name: employeeData.name,
+                codSetor: 38,
+                cpf: employeeData.cpf,
+                usu: employeeData.user
+            };
+
+            await connection.execute(
+                userQueries.insertNewEmployee,
+                binds,
+                { autoCommit: true }
+            );
+
+            return {
+                code: 201,
+                msg: {
+                    text: 'Funcionário cadastrado com sucesso.',
+                    error: null
+                }
+            }
         }
+
     } catch (err) {
         return {
             code: 501,
             msg: err
         }
+    } finally {
+        if (connection) {
+            await connection.close();
+        }
     };
-}
+};
 
-async function newUser(username, hashedPassword, name, role) {
-    const connection = getConnection();
+async function verifyUser(nome) {
+    const connection = await getConnection();
+
+    let sql = `
+        select
+            cd_usuario,
+            nm_usuario
+        from
+            dbahums.users
+        where
+            nm_usuario like '%' || :nome || '%'
+    `;
 
     try {
         const r = await connection.execute(
+            sql,
+            { nome },
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        if (r.rows.length > 0) {
+            return {
+                code: 409,
+                msg: `Usuário já cadastrado`
+            }
+        }
+
+        return {
+            code: 201,
+            msg: 'Usuário cadastrado com sucesso'
+        }
+    } catch (err) {
+        return {
+            code: 501,
+            msg: {
+                text: "Falha na verificação do novo usuário",
+                error: err.message
+            }
+        }
+    } finally {
+        if (connection) {
+            await connection.close();
+        }
+    }
+};
+
+async function newUser(userData) {
+    const connection = await getConnection();
+
+    try {
+
+        await connection.execute(
             userQueries.insertNewUser,
             {
-                username,
-                password: hashedPassword,
-                name,
-                role
+                username: userData.username,
+                password: userData.hashedPassword,
+                name: userData.name,
+                role: userData.role,
+                cpf: userData.cpf
             },
             { autoCommit: true }
         );
 
-        return res.status(201).json({
-            message: 'Usuário criado com sucesso!'
-        });
-
+        return {
+            code: 201,
+            msg: {
+                text: 'Usuário cadastrado com sucesso',
+                error: null
+            }
+        }
     } catch (err) {
         return {
             code: 501,
-            msg: err
+            msg: {
+                text: `Falha ao tentar criar novo usuário.`,
+                error: err.message
+            }
+        }
+    } finally {
+        if (connection) {
+
         }
     }
 }
@@ -192,11 +275,55 @@ async function userAlterModel(username, name, role, cpf) {
     }
 };
 
+async function validateEmployee(codFunc) {
+    const connection = await getConnection();
+
+    const sql = `
+        select
+            cd_func,
+            nm_func
+        from
+            dbamv.funcionario f
+            inner join dbahums.users u
+              on f.nm_func = upper(u.nm_usuario)
+        where
+            cd_func = :codFunc
+    `;
+
+    try {
+
+        const r = await connection.execute(
+            sql,
+            { codFunc },
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
+
+        if (r.rows > 0) {
+            return {
+                code: 409,
+                msg: 'Já existe usuário vinculado ao código de funcionário informado.'
+            }
+        } else {
+            return
+        }
+
+    } catch (err) {
+        return {
+            code: 501,
+            msg: err
+        }
+    }
+}
+
+
+
 export default {
     newUser,
     allUsers,
     alterPassword,
     inactivateUser,
     userAlterModel,
-    verifyUser
+    verifyEmployee,
+    verifyUser,
+    validateEmployee
 }
