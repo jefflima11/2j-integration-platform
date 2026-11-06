@@ -64,7 +64,7 @@ export async function newUser(req, res) {
 
 export async function allUsers(req, res) {
     try {
-        const users = await allUsersModel();
+        const users = await userModel.allUsers();
         res.json(users);
     } catch (err) {
         res.json(err)

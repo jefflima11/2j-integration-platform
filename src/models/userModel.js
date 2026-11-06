@@ -159,7 +159,11 @@ async function allUsers() {
     const connection = await getConnection();
 
     try {
-        const users = await connection.execute(allUsersQuerie, {}, { outFormat: oracledb.OUT_FORMAT_OBJECT });
+        const users = await connection.execute(
+            userQueries.allUsers,
+            {},
+            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+        );
 
         return users.rows;
     } finally {
@@ -314,8 +318,6 @@ async function validateEmployee(codFunc) {
         }
     }
 }
-
-
 
 export default {
     newUser,
