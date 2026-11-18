@@ -22,7 +22,7 @@ router.use('/login', loginRoute);
 
 router.use('/users', authMiddleware, users);
 
-router.use('/products',authMiddleware, product);
+router.use('/products', authMiddleware, product);
 
 router.use('/hospital-beds', authMiddleware, hospitalBedsRoute);
 
@@ -30,7 +30,7 @@ router.use('/employees', authMiddleware, employeesRoute);
 
 router.use('/satisfaction-survey', authMiddleware, satisfactionSurveyRoute);
 
-router.use('/billing-procedure', billingProcedureRoute);
+router.use('/billing-procedure', authMiddleware, billingProcedureRoute);
 
 router.use('/check-list', authMiddleware, checkListRoute);
 

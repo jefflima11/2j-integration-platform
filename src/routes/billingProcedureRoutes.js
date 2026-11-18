@@ -14,7 +14,7 @@ router.get('/return-competence-synthetic',
     (req, res) => getCompetenceController(req, res, 'S')
 );
 
-router.post('/import', authorize(['A']), upload.single('file'), importFileController);
+router.post('/import', upload.single('file'), authorize(['A']), importFileController);
 router.post('/update', authorize(['A']), insertDataController);
 
 router.delete('/delete', authorize(['A']), deleteCompetenceController)
