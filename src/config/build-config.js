@@ -4,5 +4,5 @@
         folder: "sml",
         port: 4030,
         service: "api-2j-sml",
-        version: "3.0.30"
+        version: "3.0.31"
     };
